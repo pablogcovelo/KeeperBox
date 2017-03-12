@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">KeeperBox</string>
+    <string name="usuario">Usuario</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="tipo_usuario">Tipo de usuario</string>
+    <string name="propietario_buzon">Propietario de un buzón</string>
+    <string name="repartidor">Repartidor</string>
+    <string name="id_buzon">ID del buzón</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="pais">País</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="calle">Calle</string>
+    <string name="num_portal">Número del portal</string>
+    <string name="letra_piso">Letra del piso</string>
+    <string name="cod_postal">Código postal</string>
+    <string name="num_piso">Número del piso</string>
+    <string name="cif_empresa">CIF de la empresa</string>
+    <string name="nombre_empresa">Nombre de la empresa</string>
+    <string name="num_rapartidor">Número de repartidor</string>
+    <string name="registrar">Registrar</string>
+    <string name="vacio">Este campo no puede estar vacío</string>
+    <string name="tamano">Tiene que tener entre 4 y 20 caracteres</string>
+    <string name="tamano1">Máximo 50 caracteres</string>
+    <string name="correo_mal">Correo mal formado (@)</string>
+    <string name="tamano_erroneo">Campo demasiado grande</string>
+    <string name="ser_numeros">Este campo solo puede ser numerico</string>
+
 </resources>

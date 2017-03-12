@@ -1,45 +1,57 @@
 package smartmailbox.keeperbox;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.CallableStatement;
+import static android.content.ContentValues.TAG;
+
+/*import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Statement;*/
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
-    private static final String TAG = "LoginActivity";
+   // private static final String TAG = "LoginActivity";
 
-    private static Connection connection = null;
-    private final static String URL = "jdbc:mysql://localhost:3306/";
+  //  private static Connection connection = null;
+    /*private final static String URL = "jdbc:mysql://localhost:3306/";
     private final static String DBNAME = "KeeperBox";
     private final static String DRIVER = "com.mysql.jdbc.Driver";
     private final static String USERNAME = "root";
-    private final static String PASSWORD = "natacion";
+    private final static String PASSWORD = "natacion";*/
 
-    private Statement statement;
-    private ResultSet rs;
+   // private Statement statement;
+   // private ResultSet rs;
 
-    final Button loginButton = (Button) findViewById(R.id.btn_login);
+   /* final Button loginButton = (Button) findViewById(R.id.btn_login);
     final Button registerButton = (Button) findViewById(R.id.btn_register);
     final EditText emailUser = (EditText) findViewById(R.id.input_email_user);
-    final EditText password = (EditText) findViewById(R.id.input_password);
+    final EditText password = (EditText) findViewById(R.id.input_password);*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Button registerButton = (Button) findViewById(R.id.btn_register);
 
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
+            }
+        });/*
         try {
             Class.forName(DRIVER).newInstance();
 
@@ -63,13 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
+*/
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**Codigo que carge la actividad de registro*/
-            }
-        });
     }
 
     public void login() {
@@ -89,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = false;
 
-        try {
+      /*  try {
             statement = connection.createStatement();
 
             String email_user = emailUser.getText().toString();
@@ -128,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
             return valid;
         } finally {
             return valid;
-        }
+        }*/
+      return true;
     }
 }
