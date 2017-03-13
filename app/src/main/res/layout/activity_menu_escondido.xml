@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:clickable="true"
-    tools:context=".SolicitudesPendActivity"
-    tools:showIn="@layout/activity_solicitudespend">
+    tools:context=".NavDrawActivity"
+    tools:showIn="@layout/activity_navbar">
 
     <!-- Toolbar -->
     <android.support.v7.widget.Toolbar
@@ -23,6 +23,9 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+
 
 </LinearLayout>

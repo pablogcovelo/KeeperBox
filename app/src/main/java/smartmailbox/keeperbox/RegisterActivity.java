@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 //comprobarparametros();
-                Intent intent = new Intent(RegisterActivity.this, SolicitudesPendActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
                 startActivity(intent);
             }
         });
@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                // comprobarparametros();
-                Intent intent = new Intent(RegisterActivity.this, SolicitudesPendActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
                 startActivity(intent);
 
             }

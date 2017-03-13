@@ -1,6 +1,5 @@
 package smartmailbox.keeperbox;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }*/
 
-        Intent intent = new Intent(LoginActivity.this, SolicitudesPendActivity.class);
+        Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
         startActivity(intent);
     }
 

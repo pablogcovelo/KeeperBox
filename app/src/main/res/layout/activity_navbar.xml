@@ -6,10 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:id="@+id/drawerLayout"
-    tools:context=".SolicitudesPendActivity">
+    tools:context=".NavDrawActivity">
 
     <!-- Layout real de la actividad -->
-    <include layout="@layout/content_layout" />
+    <include layout="@layout/activity_menu_escondido" />
 
     <!-- Layout del menú lateral (Navigation View) -->
     <android.support.design.widget.NavigationView

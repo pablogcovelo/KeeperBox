@@ -33,6 +33,8 @@
     <string name="registrar_nuevousuario">Registrar nuevo usuario</string>
     <string name="alertas">Alertas</string>
     <string name="ajustes">Ajustes</string>
+    <string name="accept">Aceptar</string>
+    <string name="reject">Rechazar</string>
     <string name="fragment1">Fragment1</string>
     <string name="fragment2">Fragment2</string>
     <string name="fragment3">Fragment3</string>
