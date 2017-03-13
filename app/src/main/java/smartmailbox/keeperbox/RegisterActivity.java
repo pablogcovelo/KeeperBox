@@ -1,5 +1,6 @@
 package smartmailbox.keeperbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -56,14 +57,19 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         btn_reg_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobarparametros();
+                //comprobarparametros();
+                Intent intent = new Intent(RegisterActivity.this, SolicitudesPendActivity.class);
+                startActivity(intent);
             }
         });
 
         btn_reg_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobarparametros();
+               // comprobarparametros();
+                Intent intent = new Intent(RegisterActivity.this, SolicitudesPendActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -193,12 +199,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 return;
             }
         }
-
-        /**
-         * Falta la comprobación y envío a la base de datos
-         * */
-
-
 
     }
 
