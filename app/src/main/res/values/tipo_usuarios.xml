@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tipo_usuarios">
+        <item>@string/tipo_usuario</item>
+        <item>@string/propietario_buzon</item>
+        <item>@string/repartidor</item>
+    </string-array>
+</resources>
