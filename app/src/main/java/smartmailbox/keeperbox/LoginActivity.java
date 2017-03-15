@@ -140,6 +140,6 @@ public class LoginActivity extends AppCompatActivity {
         } finally {
             return valid;
         }
-
     }
+
 }
