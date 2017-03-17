@@ -10,15 +10,15 @@ import android.view.ViewGroup;
  * Created by regueiro on 13/03/17.
  */
 
-public class Fragment2 extends Fragment {
+public class UsuariosPermitidosActivity extends Fragment {
 
-    public Fragment2(){
+    public UsuariosPermitidosActivity(){
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment2, container, false);
+        return inflater.inflate(R.layout.activity_usuariospermit, container, false);
     }
 }
