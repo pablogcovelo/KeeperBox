@@ -40,4 +40,13 @@
     <string name="fragment3">Fragment3</string>
     <string name="fragment4">Fragment4</string>
     <string name="fragment5">Fragment5</string>
+    <string name="buscar">Buscar</string>
+
+    <string name="nombre_propietario">Nombre del propietario</string>
+    <string name="apellidos_propietario">Apellidos del propietario</string>
+    <string name="localizador_propietario">Localizador del buzón del propietario</string>
+    <string name="buscar">Buscar</string>
+
+
+
 </resources>
