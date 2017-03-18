@@ -56,15 +56,15 @@ public class NavDrawActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.usuariospermitidos:
-                                fragment = new Fragment2();
+                                fragment = new UsuariosPermitidosActivity();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.usuariosregistrados:
-                                fragment = new Fragment3();
+                                fragment = new UsuariosRegistradosActivity();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.historialacceso:
-                                fragment = new Fragment4();
+                                fragment = new HistorialAccesoActivity();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.registrar_nuevousuario:

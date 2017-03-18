@@ -10,15 +10,15 @@ import android.view.ViewGroup;
  * Created by regueiro on 13/03/17.
  */
 
-public class Fragment4 extends Fragment {
+public class HistorialAccesoActivity extends Fragment {
 
-    public Fragment4(){
+    public HistorialAccesoActivity(){
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment4, container, false);
+        return inflater.inflate(R.layout.activity_historialacceso, container, false);
     }
 }
