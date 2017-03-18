@@ -1,5 +1,6 @@
 package smartmailbox.keeperbox;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
      /*   try {
+        try {
             Class.forName(DRIVER).newInstance();
 
             connection = DriverManager.getConnection(URL + DBNAME, USERNAME, PASSWORD);
@@ -69,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                /**Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);*/
             }
         });
     }
@@ -83,6 +87,13 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
         startActivity(intent);
+        if (!validate()) {
+            onLoginFailed();
+            return;
+        }
+
+        /**Intent intent = new Intent(this, Usuario/RepartidorActivity.class);
+        startActivity(intent);*/
     }
 
     public void onLoginFailed() {
