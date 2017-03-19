@@ -10,7 +10,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-<<<<<<< HEAD
         jackOptions {
             enabled true
         }
@@ -22,11 +21,17 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-=======
         jackOptions{
             enabled true
         }
->>>>>>> 28613f18640be75a2bac3d6f56767d1d529594dd
+    }
+    dexOptions {
+        incremental true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
@@ -43,7 +48,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support:design:25.2.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/mysql-connector-java-5.1.41-bin.jar')
-    compile 'org.jetbrains:annotations-java5:15.0'
 }

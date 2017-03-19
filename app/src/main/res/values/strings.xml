@@ -26,5 +26,27 @@
     <string name="correo_mal">Correo mal formado (@)</string>
     <string name="tamano_erroneo">Campo demasiado grande</string>
     <string name="ser_numeros">Este campo solo puede ser numerico</string>
+    <string name="solicitudesPendientes">Soclicitudes pendientes</string>
+    <string name="usuariospermitidos">Usuarios permitidos</string>
+    <string name="usuariosregistrados">Usuarios registrados</string>
+    <string name="historialacceso">Historial de acceso</string>
+    <string name="registrar_nuevousuario">Registrar nuevo usuario</string>
+    <string name="alertas">Alertas</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="accept">Aceptar</string>
+    <string name="reject">Rechazar</string>
+    <string name="fragment1">Fragment1</string>
+    <string name="fragment2">Fragment2</string>
+    <string name="fragment3">Fragment3</string>
+    <string name="fragment4">Fragment4</string>
+    <string name="fragment5">Fragment5</string>
+    <string name="buscar">Buscar</string>
+
+    <string name="nombre_propietario">Nombre del propietario</string>
+    <string name="apellidos_propietario">Apellidos del propietario</string>
+    <string name="localizador_propietario">Localizador del buzón del propietario</string>
+    <string name="buscar">Buscar</string>
+
+
 
 </resources>

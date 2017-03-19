@@ -2,12 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="smartmailbox.keeperbox">
 
-<<<<<<< HEAD
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-=======
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP"></uses-permission>
->>>>>>> 28613f18640be75a2bac3d6f56767d1d529594dd
     <application
         android:launchMode="standard"
         android:allowBackup="true"
@@ -25,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".NavDrawActivity"></activity>
     </application>
 
 </manifest>
