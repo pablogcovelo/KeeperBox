@@ -2,6 +2,12 @@ package smartmailbox.keeperbox;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,13 +35,25 @@ public class LoginActivity extends AppCompatActivity {
 
     private Statement statement;
     private ResultSet rs;
-
+   /* final Button loginButton = (Button) findViewById(R.id.btn_login);
+    final Button registerButton = (Button) findViewById(R.id.btn_register);
+    final EditText emailUser = (EditText) findViewById(R.id.input_email_user);
+    final EditText password = (EditText) findViewById(R.id.input_password);*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
      /*   try {
+        Button registerButton = (Button) findViewById(R.id.btn_register);
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
+            }
+        });/*
         try {
             Class.forName(DRIVER).newInstance();
 
@@ -64,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
+
 
         final Button registerButton = (Button) findViewById(R.id.btn_register);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +137,13 @@ public class LoginActivity extends AppCompatActivity {
         try {
             statement = connection.createStatement();
 
+        String email_user = emailUser.getText().toString();
+        String psswd = password.getText().toString();
+
+        try {
+      /*  try {
+            statement = connection.createStatement();
+
             try {
                 if (!connection.isClosed()) {
                     CallableStatement cstmt = connection.prepareCall("{call comprobarUsuario(?,?)}");
@@ -151,4 +177,5 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
 }
