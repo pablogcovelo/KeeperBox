@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
     private final static String USERNAME = "root";
     private final static String PASSWORD = "natacion";
 
+    ProgressBar progressBar;
+
     private Statement statement;
     private ResultSet rs;
    /* final Button loginButton = (Button) findViewById(R.id.btn_login);
@@ -39,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress);
      /*   try {
         Button registerButton = (Button) findViewById(R.id.btn_register);
 
@@ -93,6 +97,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
     public void login() {
         Log.d(TAG, "Login");
+
+        progressBar.setVisibility(View.VISIBLE);
 
         JSONObject json =  new JSONObject();
         try {
@@ -184,7 +190,10 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
     @Override
     public void onRequestCompleted(JSONObject response) {
-    // Cogemos el campo valido de la respuesta JSON
+        // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
+        progressBar.setVisibility(View.GONE);
+
+        // Cogemos el campo valido de la respuesta JSON
         String valido = null;
         try {
             valido = response.getString("valido");

@@ -28,6 +28,12 @@ public class Peticion extends AsyncTask<String, Object, String> {
         this.requestCompleted = activityContext;
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
+    /*protected void onPreExecute() {
+        // mostramos el círculo de progreso
+        progressBar.setVisibility(View.VISIBLE);
+    }*/
+
     protected String doInBackground(String... params) {
 
         HttpURLConnection urlConnection = null;
