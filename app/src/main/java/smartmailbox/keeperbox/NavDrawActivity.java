@@ -68,7 +68,7 @@ public class NavDrawActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.registrar_nuevousuario:
-                                fragment = new Fragment5();
+                               //fragment = new Fragment5();
                                 fragmentTransaction = true;
                                 break;
                         }

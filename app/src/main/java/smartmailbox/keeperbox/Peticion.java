@@ -21,8 +21,12 @@ import java.nio.charset.StandardCharsets;
  * Created by regueiro on 13/03/17.
  */
 
-public class Peticion extends AsyncTask<String, Void, String> {
+public class Peticion extends AsyncTask<String, Object, String> {
+    private Request requestCompleted;
 
+    public Peticion(Request activityContext){
+        this.requestCompleted = activityContext;
+    }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected String doInBackground(String... params) {
 
@@ -107,13 +111,7 @@ public class Peticion extends AsyncTask<String, Void, String> {
             System.out.println("*********** RESPONSE ***********");
             System.out.println("*********** " + json + " ***********");
 
-            // Cogemos el campo valido de la respuesta JSON
-            String valido = json.getString("valido");
-
-            if (Boolean.parseBoolean(valido))
-                System.out.println("Login correcto");
-            else
-                System.out.println("Login incorrecto");
+            requestCompleted.onRequestCompleted(json);
 
         } catch (JSONException e) {
             e.printStackTrace();

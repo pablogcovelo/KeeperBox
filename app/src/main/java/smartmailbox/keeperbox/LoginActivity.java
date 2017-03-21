@@ -1,28 +1,23 @@
 package smartmailbox.keeperbox;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.CallableStatement;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Request {
 
     private static final String TAG = "LoginActivity";
 
@@ -99,6 +94,17 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         Log.d(TAG, "Login");
 
+        JSONObject json =  new JSONObject();
+        try {
+            json.put("usuario","regueiro");
+            json.put("correo","null");
+            json.put("contrasena","natacion");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Peticion peticion = new Peticion(LoginActivity.this);
+        peticion.execute("192.168.1.43", "comprobarUsuario", json.toString());
+
       /*  if (!validate()) {
             onLoginFailed();
             return;
@@ -137,10 +143,9 @@ public class LoginActivity extends AppCompatActivity {
         try {
             statement = connection.createStatement();
 
-        String email_user = emailUser.getText().toString();
-        String psswd = password.getText().toString();
+        email_user = emailUser.getText().toString();
+        psswd = password.getText().toString();
 
-        try {
       /*  try {
             statement = connection.createStatement();
 
@@ -168,14 +173,28 @@ public class LoginActivity extends AppCompatActivity {
                 return valid;
             } finally {
                 return valid;
-            }
+            }*/
         } catch (SQLException e) {
             Toast.makeText(this, "Sin conexión. Intentelo mas tarde", Toast.LENGTH_SHORT).show();
             return valid;
         } finally {
             return valid;
         }
-
     }
 
+    @Override
+    public void onRequestCompleted(JSONObject response) {
+    // Cogemos el campo valido de la respuesta JSON
+        String valido = null;
+        try {
+            valido = response.getString("valido");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (valido.equalsIgnoreCase("1"))
+            System.out.println("Login correcto");
+        else
+            System.out.println("Login incorrecto");
+    }
 }
