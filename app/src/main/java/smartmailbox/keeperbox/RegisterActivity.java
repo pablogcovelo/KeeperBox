@@ -8,21 +8,26 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * Created by regueiro on 10/03/17.
  */
 
-public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, Request{
 
     Spinner tipo_usuario;
     ScrollView scrollView_register;
     EditText usuario, contrasena, correo_electronico,idbuzon,nombre, apellidos, cif_empresa,nombre_empresa,
             num_repartidor,pais,ciudad,calle,num_portal,piso,letra_piso, cod_postal;
     Button btn_reg_1,btn_reg_2 ;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,27 +54,77 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         btn_reg_1 = (Button)findViewById(R.id.btn_reg_1);
         btn_reg_2 = (Button)findViewById(R.id.btn_reg_2);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress);
 
         this.tipo_usuario = (Spinner) findViewById(R.id.tipo_usuario);
 
         loadSpinnerTipoUsuario();
 
+        // Boton registro propietario
         btn_reg_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //comprobarparametros();
-                Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
-                startActivity(intent);
+                comprobarparametros();
+                progressBar.setVisibility(View.VISIBLE);
+                JSONObject json =  new JSONObject();
+                try {
+                    json.put("usuario",usuario.getText());
+                    json.put("contrasena",contrasena.getText());
+                    json.put("nombre",nombre.getText());
+                    json.put("apellidos",apellidos.getText());
+                    json.put("NFC","123"); // TODO
+                    json.put("tipo_usuario","1");
+                    json.put("cod_buzon",idbuzon.getText());
+                    json.put("pais",pais.getText());
+                    json.put("ciudad",ciudad.getText());
+                    json.put("calle",calle.getText());
+                    json.put("numero",num_portal.getText());
+                    json.put("piso",piso.getText());
+                    json.put("letra",letra_piso.getText());
+                    json.put("CP",cod_postal.getText());
+                    json.put("nombreEmpresa","null");
+                    json.put("CIF","null");
+                    json.put("numeroRepartidor","null");
+                    json.put("localizador","null");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Peticion peticion = new Peticion(RegisterActivity.this);
+                peticion.execute("nuevoUsuario", json.toString());
             }
         });
 
+        // Boton registro repartidor
         btn_reg_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // comprobarparametros();
-                Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
-                startActivity(intent);
-
+                comprobarparametros();
+                progressBar.setVisibility(View.VISIBLE);
+                JSONObject json =  new JSONObject();
+                try {
+                    json.put("usuario",usuario.getText());
+                    json.put("contrasena",contrasena.getText());
+                    json.put("nombre","null");
+                    json.put("apellidos","null");
+                    json.put("NFC","123");
+                    json.put("tipo_usuario","2");
+                    json.put("cod_buzon","null");
+                    json.put("pais","null");
+                    json.put("ciudad","null");
+                    json.put("calle","null");
+                    json.put("numero","null");
+                    json.put("piso","null");
+                    json.put("letra","null");
+                    json.put("CP","null");
+                    json.put("nombreEmpresa",nombre_empresa.getText());
+                    json.put("CIF",cif_empresa.getText());
+                    json.put("numeroRepartidor",num_repartidor.getText());
+                    json.put("localizador","null");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Peticion peticion = new Peticion(RegisterActivity.this);
+                peticion.execute("nuevoUsuario", json.toString());
             }
         });
 
@@ -300,4 +355,24 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
 
+    @Override
+    public void onRequestCompleted(JSONObject response) {
+        // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
+        progressBar.setVisibility(View.GONE);
+
+        // Cogemos el campo valido de la respuesta JSON
+        String valido = null;
+        try {
+            valido = response.getString("valido");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (valido.equalsIgnoreCase("1")) {
+            Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
+            startActivity(intent);
+        }
+        else
+            System.out.println("Login incorrecto");
+    }
 }
