@@ -1,13 +1,19 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SolicitarPermisoActivity">
 
-    <TextView
+    <ScrollView
+        android:id="@+id/scroll_usu_permi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/fragment5" />
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/linear_usu_permi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </FrameLayout>

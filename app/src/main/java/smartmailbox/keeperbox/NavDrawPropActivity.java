@@ -14,7 +14,7 @@ import android.view.MenuItem;
  * Created by regueiro on 13/03/17.
  */
 
-public class NavDrawActivity extends AppCompatActivity {
+public class NavDrawPropActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -24,7 +24,7 @@ public class NavDrawActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navbar);
+        setContentView(R.layout.activity_navbarprop);
 
         appbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(appbar);

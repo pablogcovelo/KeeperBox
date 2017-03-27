@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
             return;
         }*/
 
-        Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
+        Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
         startActivity(intent);
         if (!validate()) {
             onLoginFailed();

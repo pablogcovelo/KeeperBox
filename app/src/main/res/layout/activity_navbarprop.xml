@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:id="@+id/drawerLayout"
-    tools:context=".NavDrawActivity">
+    tools:context=".NavDrawPropActivity">
 
     <!-- Layout real de la actividad -->
     <include layout="@layout/activity_menu_escondido" />
@@ -19,7 +19,7 @@
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
         app:headerLayout="@layout/header_navview"
-        app:menu="@menu/menu_actionbar"/>
+        app:menu="@menu/menu_actionbar_prop"/>
 
 
 </android.support.v4.widget.DrawerLayout>

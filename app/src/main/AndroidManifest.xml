@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".NavDrawActivity"></activity>
+        <activity android:name=".NavDrawPropActivity"></activity>
     </application>
 
 </manifest>
