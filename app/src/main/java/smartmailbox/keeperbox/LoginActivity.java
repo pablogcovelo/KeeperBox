@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -78,13 +79,16 @@ public class LoginActivity extends AppCompatActivity implements Request {
     }
 
     @Override
-    public void onRequestCompleted(JSONObject response) throws JSONException {
+    public void onRequestCompleted(JSONArray response) throws JSONException {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
         //progressBar.setVisibility(View.GONE);
 
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
-        valido = response.getString("valido");
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject row = response.getJSONObject(i);
+            valido = row.getString("valido");
+        }
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");

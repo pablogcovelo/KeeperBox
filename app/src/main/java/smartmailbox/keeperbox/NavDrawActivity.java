@@ -39,7 +39,7 @@ public class NavDrawActivity extends AppCompatActivity {
             inicio = false;
             //Fragment fragment = new SolicitudesPendActivity();SolicitudesPendDinamica
             //Fragment fragment = new SolicitudesPendDinamica();
-            Fragment fragment = new SolicitudesPendActivity(this);
+            Fragment fragment = new SolicitudesPendActivity();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
             getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
         }

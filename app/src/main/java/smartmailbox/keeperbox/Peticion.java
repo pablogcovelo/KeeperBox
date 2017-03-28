@@ -5,8 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -114,10 +114,16 @@ public class Peticion extends AsyncTask<String, Object, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        JSONObject json;
+        JSONArray json = null;
         try {
-            json = new JSONObject(s);
-            System.out.println("*********** RESPONSE ***********");
+            System.out.println("*********** " + s + " ***********");
+
+             if (s!=null) {
+                 if (!s.contains("]"))
+                     s = "[" + s + "]";
+                 json = new JSONArray(s);
+             }
+            System.out.println("*********** RESPONSE ss ***********");
             System.out.println("*********** " + json + " ***********");
 
             requestCompleted.onRequestCompleted(json);

@@ -19,7 +19,6 @@ public class SolicitudesPendDinamica extends Fragment {
     @SuppressLint("ValidFragment")
     public SolicitudesPendDinamica(String nombre){
         this.nombre = nombre;
-        System.out.println("nombre 1 : "+nombre);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,7 +27,6 @@ public class SolicitudesPendDinamica extends Fragment {
         RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dinamica_soli_pend, container, false);
         TextView textView = (TextView) relativeLayout.findViewById(R.id.solpen_text);
         textView.setText(nombre);
-        System.out.println("nombre 2 : "+nombre);
 //layout params
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.topMargin = 15;
