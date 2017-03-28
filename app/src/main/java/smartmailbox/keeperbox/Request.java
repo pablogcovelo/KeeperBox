@@ -1,5 +1,6 @@
 package smartmailbox.keeperbox;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -7,5 +8,5 @@ import org.json.JSONObject;
  */
 
 public interface Request {
-    void onRequestCompleted(JSONObject response);
+    void onRequestCompleted(JSONObject response) throws JSONException;
 }

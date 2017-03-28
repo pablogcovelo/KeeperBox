@@ -356,17 +356,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
 
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(JSONObject response) throws JSONException {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
         progressBar.setVisibility(View.GONE);
 
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
-        try {
-            valido = response.getString("valido");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        valido = response.getString("valido");
 
         if (valido.equalsIgnoreCase("1")) {
             Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
