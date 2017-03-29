@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rel_usu_permi"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:clickable="true">
 
     <TextView
         android:id="@+id/usupermi_textView"
@@ -10,6 +12,8 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textSize="18dp"
         android:layout_toLeftOf="@+id/usupermi_toggleButton"/>
 
     <ToggleButton
@@ -18,5 +22,7 @@
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        style="@style/Widget.Buttom.Toggle"
+        android:background="@drawable/togglebd"/>
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -108,8 +109,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Peticion peticion = new Peticion(LoginActivity.this);
-        peticion.execute("192.168.1.43", "comprobarUsuario", json.toString());
+     //   Peticion peticion = new Peticion(LoginActivity.this);
+       // peticion.execute("192.168.1.43", "comprobarUsuario", json.toString());
 
       /*  if (!validate()) {
             onLoginFailed();
@@ -189,14 +190,14 @@ public class LoginActivity extends AppCompatActivity implements Request {
     }
 
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(JSONArray response) {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
         progressBar.setVisibility(View.GONE);
 
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
         try {
-            valido = response.getString("valido");
+            valido = response.getString(0);
         } catch (JSONException e) {
             e.printStackTrace();
         }

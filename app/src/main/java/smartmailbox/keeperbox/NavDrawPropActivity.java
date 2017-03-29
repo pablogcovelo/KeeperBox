@@ -20,6 +20,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
     NavigationView navView;
     Toolbar appbar;
     boolean inicio = true;
+    String localizador = "abcdefgh";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.usuariospermitidos:
-                                fragment = new UsuariosPermitidosActivity();
+                                fragment = new UsuariosPermitidosActivity(localizador);
                                 fragmentTransaction = true;
                                 break;
                             case R.id.usuariosregistrados:
