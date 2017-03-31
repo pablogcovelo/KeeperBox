@@ -41,7 +41,6 @@ public class UsuariosPermitidosActivity extends Fragment implements Request {
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException{
-        String valido = null;
 
         if (response != null)
             for (int i = 0; i < response.length(); i++) {

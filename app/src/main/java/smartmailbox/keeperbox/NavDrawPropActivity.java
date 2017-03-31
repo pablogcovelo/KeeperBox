@@ -20,7 +20,8 @@ public class NavDrawPropActivity extends AppCompatActivity {
     NavigationView navView;
     Toolbar appbar;
     boolean inicio = true;
-    String localizador = "abcdefgh";
+    String localizador = "cdefghij";
+    MenuItem menu1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.usuariosregistrados:
-                                fragment = new UsuariosRegistradosActivity();
+                                fragment = new UsuariosRegistradosActivity(localizador);
                                 fragmentTransaction = true;
                                 break;
                             case R.id.historialacceso:
@@ -73,8 +74,6 @@ public class NavDrawPropActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                         }
-
-
 
                         if (fragmentTransaction) {
                             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
