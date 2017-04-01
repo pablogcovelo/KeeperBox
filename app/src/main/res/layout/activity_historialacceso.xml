@@ -1,115 +1,61 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HistorialAccesoActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/scroll_historial"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_above="@+id/buttonsLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="80dp"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideInset">
 
-        <EditText
-            android:id="@+id/nombre_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="25dp"
-            android:hint="@string/nombre_propietario"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:id="@+id/linear_historial"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
 
-        <EditText
-            android:id="@+id/apellidos_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/apellidos_propietario"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/locBuzon_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/localizador_propietario"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/pais_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/pais"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/ciudad_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/ciudad"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/calle_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/calle"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/numero_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/num_portal"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/piso_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/num_piso"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/letra_historialAcceso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/letra_piso"
-            android:textSize="14sp" />
+    <RelativeLayout
+        android:id="@+id/rel_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@android:color/white"
+        android:clickable="true">
 
         <Button
-            android:id="@+id/buscar_historialAcceso"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_week"
+            android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/buscar"
-            android:textSize="14sp" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="60dp"
+            android:background="@android:color/holo_orange_light"
+            android:foregroundGravity="left"
+            android:gravity="center"
+            android:text="@string/lastweek"
+            android:textColor="@android:color/background_light"
+            android:textSize="12sp" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btn_month"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="60dp"
+            android:background="@android:color/holo_purple"
+            android:text="@string/lastmonth"
+            android:textColor="@android:color/background_light"
+            android:textSize="12sp" />
 
-</ScrollView>
+    </RelativeLayout>
+</FrameLayout>

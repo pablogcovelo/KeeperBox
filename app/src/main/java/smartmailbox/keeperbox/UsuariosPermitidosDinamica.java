@@ -10,36 +10,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Created by jose on 26/03/2017.
+ * Created by regueiro on 26/03/2017.
  */
 
-public class SolicitudesPendDinamica extends Fragment {
+public class UsuariosPermitidosDinamica extends Fragment {
     String nombre;
 
-    public SolicitudesPendDinamica(String nombre){
+    public UsuariosPermitidosDinamica(String nombre){
         this.nombre = nombre;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dinamica_soli_pend, container, false);
-        TextView textView = (TextView) relativeLayout.findViewById(R.id.solpen_text);
+        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dinamica_usu_permi, container, false);
+        TextView textView = (TextView) relativeLayout.findViewById(R.id.usupermi_textView);
         textView.setText(nombre);
-//layout params
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.topMargin = 15;
         relativeLayout.setPadding(5, 3, 5, 3);
         relativeLayout.setLayoutParams(params);
 
-        /*ScrollView scrollView = (ScrollView)getView().findViewById(R.id.scroll_listPend);
-        scrollView.post(new Runnable() {
-            public void run() {
-                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        });*/
-        ///////
-        // Inflate the layout for this fragment
-        return relativeLayout;//inflater.inflate(R.layout.dinamica_soli_pend, container, false);
+        return relativeLayout;
     }
 }

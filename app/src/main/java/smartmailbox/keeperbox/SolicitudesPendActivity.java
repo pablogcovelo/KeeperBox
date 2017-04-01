@@ -12,8 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Iterator;
-
 /**
  * Created by regueiro on 13/03/17.
  */
@@ -27,8 +25,8 @@ public class SolicitudesPendActivity extends Fragment implements Request {
 
         JSONObject json =  new JSONObject();
         try {
-            json.put("NFCConsulta","dfsdf");
-            json.put("qlocalizador","sdfsdf");
+            json.put("NFCConsulta","0123asdf");
+            json.put("qlocalizador","abcdefgh");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -47,16 +45,14 @@ public class SolicitudesPendActivity extends Fragment implements Request {
         if (response!=null)
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
-                Iterator<?> keys = row.keys();
-                while(keys.hasNext() ){
-                    String nombre = row.getString("nombre");
-                    String apellidos = row.getString("apellidos");
-                    Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos);
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.linear_listPend, fragment);
-                    fragmentTransaction.commit();
-                }
+                String nombre = row.getString("nombre");
+                String apellidos = row.getString("apellidos");
+                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.linear_listPend, fragment);
+                fragmentTransaction.commit();
+
             }
         /*Fragment fragment = new SolicitudesPendDinamica("Ramon Cachondo");
         Fragment fragment2 = new SolicitudesPendDinamica("Pepe Vilas");

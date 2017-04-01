@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rel_hist_acceso"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_gravity="end"
+    android:background="@android:color/white"
+    android:clickable="true">
 
     <TextView
-        android:id="@+id/tv_histAcc_1"
+        android:id="@+id/historial_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,15 +18,15 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/tv_histAcc_2"
+        android:id="@+id/historial_fecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/tv_histAcc_1"
+        android:layout_alignRight="@+id/historial_nombre"
         android:layout_marginStart="21dp"
-        android:layout_toEndOf="@+id/tv_histAcc_1"
+        android:layout_toEndOf="@+id/historial_nombre"
         android:text="TextView" />
 </RelativeLayout>
