@@ -1,5 +1,7 @@
 package smartmailbox.keeperbox;
 
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -70,14 +72,19 @@ public class NavDrawPropActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.registrar_nuevousuario:
-                                fragment = new SolicitarPermisoActivity();
+                                fragment = new SolicitarPermisoActivity(localizador);
                                 fragmentTransaction = true;
                                 break;
                         }
 
                         if (fragmentTransaction) {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-
+                            if(item.getTitle().equals(getResources().getString(R.string.registrar_nuevousuario))){
+                           //     Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                            //    String NFC = tag.toString();
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                            }else {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                            }
                             item.setChecked(true);
                             getSupportActionBar().setTitle(item.getTitle());
                         }

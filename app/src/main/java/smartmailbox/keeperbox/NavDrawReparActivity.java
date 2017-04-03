@@ -20,6 +20,7 @@ public class NavDrawReparActivity extends AppCompatActivity {
     NavigationView navView;
     Toolbar appbar;
     boolean inicio = true;
+    String localizador = "cdefghij";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class NavDrawReparActivity extends AppCompatActivity {
 
                         switch (item.getItemId()) {
                             case R.id.solicitar_permiso:
-                                fragment = new SolicitarPermisoActivity();
+                                fragment = new SolicitarPermisoActivity(localizador);
                                 fragmentTransaction = true;
                                 break;
                             case R.id.listar_solicitudes:

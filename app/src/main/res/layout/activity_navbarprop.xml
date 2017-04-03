@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
-        app:headerLayout="@layout/header_navview"
+        app:headerLayout="@layout/header_navview_prop"
         app:menu="@menu/menu_actionbar_prop"/>
 
 

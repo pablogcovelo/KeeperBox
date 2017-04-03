@@ -12,7 +12,7 @@
             android:title="@string/solicitudes_aceptadas"/>
         <item
             android:id="@+id/solicitudes_pendientes"
-            android:title="@string/solicitudes_rechazadas"/>
+            android:title="@string/solicitudes_pendientes"/>
         <item
             android:id="@+id/solicitudes_rechazadas"
             android:title="@string/solicitudes_rechazadas"/>

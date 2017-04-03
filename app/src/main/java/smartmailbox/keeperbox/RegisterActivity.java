@@ -1,7 +1,10 @@
 package smartmailbox.keeperbox;
 
 import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.tech.NfcA;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                // comprobarparametros();
-                Intent intent = new Intent(RegisterActivity.this, NavDrawPropActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, NavDrawReparActivity.class);
                 startActivity(intent);
 
             }

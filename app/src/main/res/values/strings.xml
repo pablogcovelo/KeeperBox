@@ -45,7 +45,7 @@
     <string name="solicitudes_pendientes">Solicitudes pendientes</string>
     <string name="solicitudes_rechazadas">Solicitudes rechazadas</string>
     <string name="mapa_rutas">Mapa de rutas</string>
-
-
+    <string name="error_registro_local_erroneo">Error a la hora de registrarse. Localizador erróneo</string>
+    <string name="activar_nfc">"Por favor active NFC y presione la tecla atrás para volver a la aplicación"</string>
 
 </resources>

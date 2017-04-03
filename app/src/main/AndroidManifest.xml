@@ -2,10 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="smartmailbox.keeperbox">
 
+    <uses-sdk android:minSdkVersion="9" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP"></uses-permission>
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc"
+        android:required="true"/>
+
     <application
-        android:launchMode="standard"
+        android:launchMode="singleTop"
         android:allowBackup="true"
         android:icon="@drawable/logo_aplicacion"
         android:label="@string/app_name"
@@ -16,12 +23,13 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>¡
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".NavDrawPropActivity"></activity>
+        <activity android:name=".NavDrawReparActivity"></activity>
     </application>
 
 </manifest>
