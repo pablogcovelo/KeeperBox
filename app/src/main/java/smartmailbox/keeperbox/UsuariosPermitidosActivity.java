@@ -17,17 +17,18 @@ import org.json.JSONObject;
  */
 
 public class UsuariosPermitidosActivity extends Fragment implements Request {
-    private String localizador;
+
+    String localizador;
 
     public UsuariosPermitidosActivity(String localizador) {
-        this.localizador = localizador;
+        this.localizador=localizador;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         JSONObject json = new JSONObject();
         try {
-            json.put("localizador", localizador);
+            json.put("localizador",localizador);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -40,19 +41,18 @@ public class UsuariosPermitidosActivity extends Fragment implements Request {
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException{
-        String valido = null;
 
         if (response != null)
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
-                String NFC = row.getString("NFC");
-                String nombre = row.getString("nombre");
-                String apellidos = row.getString("apellidos");
-                Fragment fragment = new UsuariosPermitidosDinamica(NFC + " " + nombre + " " + apellidos);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.linear_usu_permi, fragment);
-                fragmentTransaction.commit();
+                    String NFC = row.getString("NFC");
+                    String nombre = row.getString("nombre");
+                    String apellidos = row.getString("apellidos");
+                    Fragment fragment = new UsuariosPermitidosDinamica(localizador,NFC + " " + nombre + " " + apellidos, NFC);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.linear_usu_permi, fragment);
+                    fragmentTransaction.commit();
             }
 
     }

@@ -17,7 +17,7 @@ import org.json.JSONObject;
  * Created by regueiro on 13/03/17.
  */
 
-public class NavDrawActivity extends AppCompatActivity {
+public class NavDrawReparActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -33,11 +33,10 @@ public class NavDrawActivity extends AppCompatActivity {
     private String nombre;
     private String apellidos;
     private String localizador;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navbar);
+        setContentView(R.layout.activity_navbarrep);
 
         // Parametros
         String datos = getIntent().getExtras().getString("datos");
@@ -47,22 +46,21 @@ public class NavDrawActivity extends AppCompatActivity {
                 id_NFC = parametros.getString("id_NFC");
                 localizador = parametros.getString("localizador");
             }
-            appbar = (Toolbar) findViewById(R.id.appbar);
+
+            appbar = (Toolbar) findViewById(R.id.appbarRep);
             setSupportActionBar(appbar);
 
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_nav_menu);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-            navView = (NavigationView) findViewById(R.id.navview);
+            drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayoutRep);
+            navView = (NavigationView) findViewById(R.id.navviewRep);
 
             if (inicio) {
                 inicio = false;
-                //Fragment fragment = new SolicitudesPendActivity();SolicitudesPendDinamica
-                //Fragment fragment = new SolicitudesPendDinamica();
                 Fragment fragment = new SolicitudesPendActivity(id_NFC, localizador);
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+                //getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
             }
 
             navView.setNavigationItemSelectedListener(
@@ -74,35 +72,35 @@ public class NavDrawActivity extends AppCompatActivity {
                             Fragment fragment = null;
 
                             switch (item.getItemId()) {
-                                case R.id.solicitudesPendientes:
+                                case R.id.solicitar_permiso:
+                                    fragment = new SolicitarPermisoActivity(localizador);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.listar_solicitudes:
+                                    fragment = new ListaSolicitudesActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_aceptadas:
+                                    fragment = new SolicitudesAceptActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_pendientes:
                                     fragment = new SolicitudesPendActivity(id_NFC, localizador);
                                     fragmentTransaction = true;
                                     break;
-                                case R.id.usuariospermitidos:
-                                    fragment = new UsuariosPermitidosActivity(localizador);
+                                case R.id.solicitudes_rechazadas:
+                                    fragment = new SolicitudesRechActivity();
                                     fragmentTransaction = true;
                                     break;
-                                case R.id.usuariosregistrados:
-                                    fragment = new UsuariosRegistradosActivity();
-                                    fragmentTransaction = true;
-                                    break;
-                                case R.id.historialacceso:
-                                    fragment = new HistorialAccesoActivity(localizador);
-                                    fragmentTransaction = true;
-                                    break;
-                                case R.id.registrar_nuevousuario:
-                                    //fragment = new Fragment5();
-                                    fragmentTransaction = true;
-                                    break;
-                                case R.id.alertas:
-                                    fragment = new AlertasActivity(id_NFC, localizador);
+                                case R.id.mapa_rutas:
+                                    fragment = new MapaRutasActivity();
                                     fragmentTransaction = true;
                                     break;
                             }
 
 
                             if (fragmentTransaction) {
-                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
 
                                 item.setChecked(true);
                                 getSupportActionBar().setTitle(item.getTitle());
@@ -115,7 +113,7 @@ public class NavDrawActivity extends AppCompatActivity {
                     }
             );
         } catch (JSONException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -132,8 +130,8 @@ public class NavDrawActivity extends AppCompatActivity {
 
     public void onBackPressed(){
         Fragment fragment = new SolicitudesPendActivity(id_NFC, localizador);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-        getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+       // getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
     }
 
 }

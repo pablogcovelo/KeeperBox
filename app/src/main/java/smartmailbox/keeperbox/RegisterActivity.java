@@ -368,7 +368,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             valido = row.getString("valido");
         }
         if (valido.equalsIgnoreCase("1")) {
-            Intent intent = new Intent(RegisterActivity.this, NavDrawActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, NavDrawPropActivity.class);
             startActivity(intent);
         }
         else

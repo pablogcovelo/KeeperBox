@@ -1,6 +1,5 @@
 package smartmailbox.keeperbox;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,19 +15,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by regueiro on 26/03/2017.
+ * Created by regueiro on 31/03/17.
  */
 
-public class UsuariosPermitidosDinamica extends Fragment implements Request{
+public class UsuariosRegistradosDinamica extends Fragment implements Request{
+
     String localizador;
     String nombre;
     String NFC;
+    String permisos;
     ToggleButton toggleButton;
-    @SuppressLint("ValidFragment")
-    public UsuariosPermitidosDinamica(String localizador, String nombre, String NFC){
+
+    public UsuariosRegistradosDinamica(String localizador, String nombre, String NFC, String permisos) {
         this.localizador = localizador;
         this.nombre = nombre;
         this.NFC = NFC;
+        this.permisos = permisos;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +40,12 @@ public class UsuariosPermitidosDinamica extends Fragment implements Request{
         TextView textView = (TextView) relativeLayout.findViewById(R.id.usupermi_textView);
         toggleButton = (ToggleButton) relativeLayout.findViewById(R.id.usupermi_toggleButton);
         toggleButton.setTag(NFC);
-        toggleButton.setChecked(true);
+        if(permisos.equals("1")){
+            toggleButton.setChecked(true);
+        }else{
+            toggleButton.setChecked(false);
+        }
+
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +59,7 @@ public class UsuariosPermitidosDinamica extends Fragment implements Request{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("AQUI2"+json);
-                    Peticion peticion = new Peticion(UsuariosPermitidosDinamica.this);
+                    Peticion peticion = new Peticion(UsuariosRegistradosDinamica.this);
                     peticion.execute("manejoPermisos", json.toString());
                 }else{
                     JSONObject json = new JSONObject();
@@ -64,8 +70,7 @@ public class UsuariosPermitidosDinamica extends Fragment implements Request{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("AQUI2"+json);
-                    Peticion peticion = new Peticion(UsuariosPermitidosDinamica.this);
+                    Peticion peticion = new Peticion(UsuariosRegistradosDinamica.this);
                     peticion.execute("manejoPermisos", json.toString());
                 }
             }

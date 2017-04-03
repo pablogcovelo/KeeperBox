@@ -28,7 +28,7 @@ import java.util.Enumeration;
  */
 
 public class Peticion extends AsyncTask<String, Object, String> {
-    private static final String ip = "192.168.1.43"; // getIpAddress();
+    private static final String ip = "10.100.134.140";//"192.168.1.43"; // getIpAddress();
 
     private Request requestCompleted;
 
