@@ -73,6 +73,10 @@ public class NavDrawActivity extends AppCompatActivity {
                                //fragment = new Fragment5();
                                 fragmentTransaction = true;
                                 break;
+                            case R.id.alertas:
+                                fragment = new AlertasActivity();
+                                fragmentTransaction = true;
+                                break;
                         }
 
 

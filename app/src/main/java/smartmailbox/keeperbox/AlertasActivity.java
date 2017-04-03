@@ -13,12 +13,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by regueiro on 13/03/17.
+ * Created by jopea on 02/04/2017.
  */
 
-public class SolicitudesPendActivity extends Fragment implements Request {
-
-    public SolicitudesPendActivity(){}
+public class AlertasActivity extends Fragment implements Request {
+    public AlertasActivity(){}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,11 +31,11 @@ public class SolicitudesPendActivity extends Fragment implements Request {
             e.printStackTrace();
         }
 
-        Peticion peticion = new Peticion(SolicitudesPendActivity.this);
+        Peticion peticion = new Peticion(AlertasActivity.this);
         peticion.execute("peticionesPendientes", json.toString());
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_solipen_main, container, false);
+        return inflater.inflate(R.layout.activity_alertas, container, false);
     }
 
     @Override
@@ -47,12 +46,11 @@ public class SolicitudesPendActivity extends Fragment implements Request {
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos);
+                Fragment fragment = new AlertasDinamica(nombre + "" + apellidos);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.linear_listPend, fragment);
+                fragmentTransaction.add(R.id.linear_alertas, fragment);
                 fragmentTransaction.commit();
-
             }
     }
 }

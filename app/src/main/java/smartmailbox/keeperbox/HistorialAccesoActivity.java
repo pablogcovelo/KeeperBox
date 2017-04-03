@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,19 +24,49 @@ public class HistorialAccesoActivity extends Fragment implements Request {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /*Button monthButton = (Button) getActivity().findViewById(R.id.btn_month);
-        Button weekButton = (Button) getActivity().findViewById(R.id.btn_week);
+        View InputFragmentView = inflater.inflate(R.layout.activity_historialacceso, container, false);
+        Button monthButton = (Button) InputFragmentView.findViewById(R.id.btn_month);
+        Button weekButton = (Button) InputFragmentView.findViewById(R.id.btn_week);
 
         monthButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { intervalo = "month"; hacerPeticion(); }
+            public void onClick(View v) { intervalo = "month"; limpiar(); hacerPeticion(); }
         });
         weekButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { intervalo = "week"; hacerPeticion(); }
-        });*/
+            public void onClick(View v) { intervalo = "week"; limpiar(); hacerPeticion(); }
+        });
         hacerPeticion();
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_historialacceso, container, false);
+        return InputFragmentView;
+    }
+
+    public void hacerPeticion() {
+        JSONObject json =  new JSONObject();
+        try {
+            json.put("idbuzon","1"); // TODO: cambiar por localizador ¿?
+            json.put("intervalo",intervalo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Peticion peticion = new Peticion(HistorialAccesoActivity.this);
+        peticion.execute("listaRegistros", json.toString());
+    }
+
+    public void limpiar() {
+        System.out.println("*************Hola aqui");
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = new HistorialAccesoDinamica("", "");
+
+        fragmentTransaction.replace(R.id.linear_historial, new Fragment());
+        fragmentTransaction.commit();
+        ///int id = fragmentManager.getBackStackEntryCount();//getBackStackEntryAt().getId()
+        /*for(int i = 0; i < fragmentManager.getFragments().size(); ++i) {
+            System.out.println("*************Hola 00"+i);
+            fragmentManager. .remo(fragmentManager.getBackStackEntryAt(i).getId(), fragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }*/
     }
 
     @Override
@@ -54,18 +85,5 @@ public class HistorialAccesoActivity extends Fragment implements Request {
                 fragmentTransaction.commit();
 
             }
-    }
-
-    public void hacerPeticion() {
-        JSONObject json =  new JSONObject();
-        try {
-            json.put("idbuzon","1"); // TODO: cambiar por localizador ¿?
-            json.put("intervalo",intervalo);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Peticion peticion = new Peticion(HistorialAccesoActivity.this);
-        peticion.execute("listaRegistros", json.toString());
     }
 }
