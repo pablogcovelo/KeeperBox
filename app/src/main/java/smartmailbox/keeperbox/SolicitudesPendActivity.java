@@ -17,16 +17,21 @@ import org.json.JSONObject;
  */
 
 public class SolicitudesPendActivity extends Fragment implements Request {
+    private String NFC;
+    private String localizador;
 
-    public SolicitudesPendActivity(){}
+    public SolicitudesPendActivity(String NFC, String localizador){
+        this.NFC = NFC;
+        this.localizador = localizador;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         JSONObject json =  new JSONObject();
         try {
-            json.put("NFCConsulta","0123asdf");
-            json.put("qlocalizador","abcdefgh");
+            json.put("NFCConsulta",NFC);
+            json.put("qlocalizador",localizador);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -47,7 +52,7 @@ public class SolicitudesPendActivity extends Fragment implements Request {
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos);
+                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos, NFC, localizador);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_listPend, fragment);

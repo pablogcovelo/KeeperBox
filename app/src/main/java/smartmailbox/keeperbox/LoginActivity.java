@@ -82,18 +82,18 @@ public class LoginActivity extends AppCompatActivity implements Request {
     public void onRequestCompleted(JSONArray response) throws JSONException {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
         //progressBar.setVisibility(View.GONE);
-
+        JSONObject row = null;
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
         for (int i = 0; i < response.length(); i++) {
-            JSONObject row = response.getJSONObject(i);
+            row = response.getJSONObject(i);
             valido = row.getString("valido");
         }
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
             Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
-            //Intent intent = new Intent(this, Usuario/RepartidorActivity.class);
+            intent.putExtra("datos", row.toString());
             startActivity(intent);
         }
         else

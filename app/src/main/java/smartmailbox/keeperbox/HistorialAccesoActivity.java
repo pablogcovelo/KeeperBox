@@ -19,8 +19,11 @@ import org.json.JSONObject;
 
 public class HistorialAccesoActivity extends Fragment implements Request {
     private String intervalo = "week";
+    private String localizador;
 
-    public HistorialAccesoActivity(){}
+    public HistorialAccesoActivity(String localizador){
+        this.localizador = localizador;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class HistorialAccesoActivity extends Fragment implements Request {
     public void hacerPeticion() {
         JSONObject json =  new JSONObject();
         try {
-            json.put("idbuzon","1"); // TODO: cambiar por localizador ¿?
+            json.put("localizador",localizador);
             json.put("intervalo",intervalo);
         } catch (JSONException e) {
             e.printStackTrace();

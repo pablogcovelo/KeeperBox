@@ -20,10 +20,14 @@ import org.json.JSONObject;
  */
 
 public class SolicitudesPendDinamica extends Fragment implements Request{
-    String nombre;
+    private String nombre;
+    private String NFC;
+    private String localizador;
 
-    public SolicitudesPendDinamica(String nombre){
+    public SolicitudesPendDinamica(String nombre, String NFC, String localizador){
         this.nombre = nombre;
+        this.NFC = NFC;
+        this.localizador = localizador;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +82,7 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         System.out.println("*** AQUI 300***");
-        Fragment fragment = new SolicitarPermisoActivity();
+        Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).commit();

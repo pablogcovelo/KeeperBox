@@ -17,16 +17,17 @@ import org.json.JSONObject;
  */
 
 public class UsuariosPermitidosActivity extends Fragment implements Request {
+    private String localizador;
 
-    String cod_buzon = "asdf1234";
-
-    public UsuariosPermitidosActivity() {}
+    public UsuariosPermitidosActivity(String localizador) {
+        this.localizador = localizador;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         JSONObject json = new JSONObject();
         try {
-            json.put("id_buzon", "2");
+            json.put("localizador", localizador);
         } catch (JSONException e) {
             e.printStackTrace();
         }

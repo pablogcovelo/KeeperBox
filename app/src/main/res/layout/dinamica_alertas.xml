@@ -3,7 +3,6 @@
     android:id="@+id/rel_alertas"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="end"
     android:background="@android:color/white"
     android:clickable="true">
 
@@ -11,22 +10,7 @@
         android:id="@+id/alertas_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_marginEnd="109dp" />
 
-    <TextView
-        android:id="@+id/alertas_fecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/historial_nombre"
-        android:layout_marginStart="21dp"
-        android:layout_toEndOf="@+id/historial_nombre"
-        android:text="TextView" />
 </RelativeLayout>
