@@ -35,16 +35,18 @@
     <string name="ajustes">Ajustes</string>
     <string name="accept">Aceptar</string>
     <string name="reject">Rechazar</string>
-    <string name="fragment1">Fragment1</string>
-    <string name="fragment2">Fragment2</string>
-    <string name="fragment3">Fragment3</string>
-    <string name="fragment4">Fragment4</string>
-    <string name="fragment5">Fragment5</string>
     <string name="buscar">Buscar</string>
-
     <string name="nombre_propietario">Nombre del propietario</string>
     <string name="apellidos_propietario">Apellidos del propietario</string>
     <string name="localizador_propietario">Localizador del buzón del propietario</string>
+    <string name="solicitud_acceso">Solicitud de acceso</string>
+    <string name="listar_solicitudes">Lista de solicitudes</string>
+    <string name="solicitudes_aceptadas">Solicitudes aceptadas</string>
+    <string name="solicitudes_pendientes">Solicitudes pendientes</string>
+    <string name="solicitudes_rechazadas">Solicitudes rechazadas</string>
+    <string name="mapa_rutas">Mapa de rutas</string>
+    <string name="error_registro_local_erroneo">Error a la hora de registrarse. Localizador erróneo</string>
+    <string name="activar_nfc">"Por favor active NFC y presione la tecla atrás para volver a la aplicación"</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

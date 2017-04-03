@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/solicitar_permiso"
+            android:title="@string/solicitud_acceso"/>
+        <item
+            android:id="@+id/listar_solicitudes"
+            android:title="@string/listar_solicitudes"/>
+        <item
+            android:id="@+id/solicitudes_aceptadas"
+            android:title="@string/solicitudes_aceptadas"/>
+        <item
+            android:id="@+id/solicitudes_pendientes"
+            android:title="@string/solicitudes_pendientes"/>
+        <item
+            android:id="@+id/solicitudes_rechazadas"
+            android:title="@string/solicitudes_rechazadas"/>
+        <item
+            android:id="@+id/mapa_rutas"
+            android:title="@string/mapa_rutas"/>
+        <item
+            android:id="@+id/alertas"
+            android:title="@string/alertas"/>
+        <item
+            android:id="@+id/ajustes"
+            android:title="@string/ajustes"/>
+
+    </group>
+</menu>
