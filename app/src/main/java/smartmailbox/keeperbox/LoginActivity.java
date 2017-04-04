@@ -1,6 +1,5 @@
 package smartmailbox.keeperbox;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,83 +7,107 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-/*import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;*/
+public class LoginActivity extends AppCompatActivity implements Request {
+    private static final String TAG = "LoginActivity";
 
-public class LoginActivity extends AppCompatActivity{
-
-   // private static final String TAG = "LoginActivity";
-
-  //  private static Connection connection = null;
-    /*private final static String URL = "jdbc:mysql://localhost:3306/";
-    private final static String DBNAME = "KeeperBox";
-    private final static String DRIVER = "com.mysql.jdbc.Driver";
-    private final static String USERNAME = "root";
-    private final static String PASSWORD = "natacion";*/
-
-   // private Statement statement;
-   // private ResultSet rs;
-
-   /* final Button loginButton = (Button) findViewById(R.id.btn_login);
-    final Button registerButton = (Button) findViewById(R.id.btn_register);
-    final EditText emailUser = (EditText) findViewById(R.id.input_email_user);
-    final EditText password = (EditText) findViewById(R.id.input_password);*/
+    private ProgressBar progressBar;
+    private EditText user_email;
+    private EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button registerButton = (Button) findViewById(R.id.btn_register);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
+        user_email = (EditText) findViewById(R.id.input_email_user);
+        password = (EditText) findViewById(R.id.input_password);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(i);
-            }
-        });/*
-        try {
-            Class.forName(DRIVER).newInstance();
-
-            connection = DriverManager.getConnection(URL + DBNAME, USERNAME, PASSWORD);
-            if (!connection.isClosed()) {
-                Log.d(TAG, "Se ha establecido conexion");
-            }
-        } catch (InstantiationException e) {
-            System.exit(0);
-        } catch (IllegalAccessException e) {
-            System.exit(0);
-        } catch (ClassNotFoundException e) {
-            System.exit(0);
-        } catch (SQLException e) {
-            System.exit(0);
-        }
-
+        final Button loginButton = (Button) findViewById(R.id.btn_login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
             }
         });
-*/
 
+        final Button registerButton = (Button) findViewById(R.id.btn_register);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void login() {
         Log.d(TAG, "Login");
 
+        String useremail = user_email.getText().toString();
+        String passwd = password.getText().toString();
+
         if (!validate()) {
+            onLoginFailed();
             return;
         }
+
+       /* Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+        startActivity(intent);*/
+
+        JSONObject json =  new JSONObject();
+        try {
+            json.put("usuario",useremail);
+            json.put("correo",useremail);
+            json.put("contrasena",passwd);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(json);
+        progressBar.setVisibility(View.VISIBLE);
+
+        Peticion peticion = new Peticion(LoginActivity.this);
+        peticion.execute("comprobarUsuario", json.toString());
+    }
+
+    public void onLoginFailed() {
+        Toast.makeText(getBaseContext(), "Fallo en el registro", Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void onRequestCompleted(JSONArray response) throws JSONException {
+        // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
+        //progressBar.setVisibility(View.GONE);
+        JSONObject row = null;
+        // Cogemos el campo valido de la respuesta JSON
+        String valido = null;
+        for (int i = 0; i < response.length(); i++) {
+            row = response.getJSONObject(i);
+            valido = row.getString("valido");
+        }
+
+        if (valido.equalsIgnoreCase("1")) {
+            System.out.println("Login correcto");
+            if(!row.getString("tipo_usuario").equals("2")){
+                Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
+                intent.putExtra("datos", row.toString());
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+                intent.putExtra("datos", row.toString());
+                startActivity(intent);
+            }
+
+        }
+        else
+            System.out.println("Login incorrecto");
     }
 
     /**
@@ -94,48 +117,11 @@ public class LoginActivity extends AppCompatActivity{
      * @return
      */
     public boolean validate() {
-        boolean valid = false;
+        boolean valid = true;
 
-      /*  try {
-            statement = connection.createStatement();
+        String useremail = user_email.getText().toString();
+        String passwd = password.getText().toString();
 
-            String email_user = emailUser.getText().toString();
-            String psswd = password.getText().toString();
-
-            try {
-                if (!connection.isClosed()) {
-                    if (email_user.isEmpty()) {
-                        emailUser.setError("Email o nombre de usuario incorrecto");
-                        valid = false;
-                    } else {
-                        CallableStatement cstmt = connection.prepareCall("{call comprobarUsuario(?,?)}");
-                        cstmt.setString(1,email_user);
-                        cstmt.setString(2,psswd);
-                        cstmt.execute();
-                        rs = cstmt.getResultSet();
-
-                        emailUser.setError(null);
-                    }
-
-                    if (psswd.isEmpty()) {
-                        password.setError("La contraseña introducida no es valida");
-                        valid = false;
-                    } else {
-                        password.setError(null);
-                    }
-                }
-            } catch (SQLException e) {
-                Toast.makeText(this, "Sin conexión. Intentelo mas tarde", Toast.LENGTH_SHORT).show();
-                return valid;
-            } finally {
-                return valid;
-            }
-        } catch (SQLException e) {
-            Toast.makeText(this, "Sin conexión. Intentelo mas tarde", Toast.LENGTH_SHORT).show();
-            return valid;
-        } finally {
-            return valid;
-        }*/
-      return true;
+        return valid;
     }
 }

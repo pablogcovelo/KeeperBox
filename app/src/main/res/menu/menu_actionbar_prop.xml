@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/solicitudesPendientes"
+            android:title="@string/solicitudesPendientes"/>
+        <item
+            android:id="@+id/usuariospermitidos"
+            android:title="@string/usuariospermitidos"/>
+        <item
+            android:id="@+id/usuariosregistrados"
+            android:title="@string/usuariosregistrados"/>
+        <item
+            android:id="@+id/historialacceso"
+            android:title="@string/historialacceso"/>
+        <item
+            android:id="@+id/registrar_nuevousuario"
+            android:title="@string/registrar_nuevousuario"/>
+        <item
+            android:id="@+id/alertas"
+            android:title="@string/alertas"/>
+        <item
+            android:id="@+id/ajustes"
+            android:title="@string/ajustes"/>
+
+    </group>
+</menu>
