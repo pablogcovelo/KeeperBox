@@ -59,7 +59,11 @@ public class LoginActivity extends AppCompatActivity implements Request {
             return;
         }
 
-        JSONObject json =  new JSONObject();
+        Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+        //intent.putExtra("datos", row.toString());
+        startActivity(intent);
+
+       /* JSONObject json =  new JSONObject();
         try {
             json.put("usuario",useremail);
             json.put("correo",useremail);
@@ -71,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
         progressBar.setVisibility(View.VISIBLE);
 
         Peticion peticion = new Peticion(LoginActivity.this);
-        peticion.execute("comprobarUsuario", json.toString());
+        peticion.execute("comprobarUsuario", json.toString());*/
     }
 
     public void onLoginFailed() {

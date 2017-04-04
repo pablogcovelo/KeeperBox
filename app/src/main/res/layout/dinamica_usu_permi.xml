@@ -12,17 +12,20 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="2dp"
+        android:layout_toLeftOf="@+id/usupermi_toggleButton"
         android:gravity="center"
-        android:textSize="18dp"
-        android:layout_toLeftOf="@+id/usupermi_toggleButton"/>
+        android:textSize="18dp" />
 
     <ToggleButton
         android:id="@+id/usupermi_toggleButton"
-        android:layout_width="75dp"
+        style="@style/Widget.Buttom.Toggle"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        style="@style/Widget.Buttom.Toggle"
-        android:background="@drawable/togglebd"/>
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/togglebd" />
 </RelativeLayout>
