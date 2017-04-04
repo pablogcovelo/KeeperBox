@@ -62,4 +62,5 @@
     <string name="continuar">Continuar</string>
     <string name="mensaje_localizador">O localizador do su buzón é: </string>
     <string name="cabecera_localizador">Localizador</string>
+    <string name="solicitar_acceso">Solicitude de acceso</string>
 </resources>

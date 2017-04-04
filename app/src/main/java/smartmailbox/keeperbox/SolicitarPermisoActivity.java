@@ -25,13 +25,11 @@ import org.json.JSONObject;
 
 public class SolicitarPermisoActivity extends Fragment implements Request{
 
-    String localizador;
     TextView informativo;
     String NFC;
     NfcAdapter nfcAdapter;
 
-    public SolicitarPermisoActivity(String localizador){
-        this.localizador = localizador;
+    public SolicitarPermisoActivity(){
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

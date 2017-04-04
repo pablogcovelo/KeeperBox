@@ -86,7 +86,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.registrar_nuevousuario:
-                                    fragment = new SolicitarPermisoActivity(localizador);
+                                    fragment = new SolicitarPermisoActivity();
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:
