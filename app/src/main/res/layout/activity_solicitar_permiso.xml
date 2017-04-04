@@ -1,0 +1,115 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SolicitarPermisoActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nombre_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="25dp"
+            android:hint="@string/nombre_propietario"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/apellidos_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/apellidos_propietario"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/locBuzon_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/localizador_propietario"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/pais_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/pais"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/ciudad_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/ciudad"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/calle_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/calle"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/numero_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/num_portal"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/piso_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/num_piso"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/letra_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/letra_piso"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/buscar_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/buscar"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</ScrollView>

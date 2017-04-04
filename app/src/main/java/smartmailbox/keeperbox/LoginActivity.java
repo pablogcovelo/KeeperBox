@@ -59,11 +59,10 @@ public class LoginActivity extends AppCompatActivity implements Request {
             return;
         }
 
-        Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
-        //intent.putExtra("datos", row.toString());
-        startActivity(intent);
+       /* Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+        startActivity(intent);*/
 
-       /* JSONObject json =  new JSONObject();
+        JSONObject json =  new JSONObject();
         try {
             json.put("usuario",useremail);
             json.put("correo",useremail);
@@ -75,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
         progressBar.setVisibility(View.VISIBLE);
 
         Peticion peticion = new Peticion(LoginActivity.this);
-        peticion.execute("comprobarUsuario", json.toString());*/
+        peticion.execute("comprobarUsuario", json.toString());
     }
 
     public void onLoginFailed() {
@@ -96,9 +95,16 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
-            Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
-            intent.putExtra("datos", row.toString());
-            startActivity(intent);
+            if(!row.getString("tipo_usuario").equals("2")){
+                Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
+                intent.putExtra("datos", row.toString());
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+                intent.putExtra("datos", row.toString());
+                startActivity(intent);
+            }
+
         }
         else
             System.out.println("Login incorrecto");

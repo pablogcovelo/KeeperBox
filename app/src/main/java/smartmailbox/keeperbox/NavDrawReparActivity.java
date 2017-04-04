@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by regueiro on 13/03/17.
  */
@@ -20,88 +23,96 @@ public class NavDrawReparActivity extends AppCompatActivity {
     NavigationView navView;
     Toolbar appbar;
     boolean inicio = true;
-    String localizador = "cdefghij";
+    private JSONObject parametros;
     String NFC = "7890asdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navbarrep);
+        String datos = getIntent().getExtras().getString("datos");
+        try {
+            if (datos != null) {
+                parametros = new JSONObject(datos);
+                // NFC = parametros.getString("id_NFC"); Tiene que ser el NFC no el id
+                //Cambiar comprobarUsuario par que devuelva el NFC en vez del ID no?
+            }
+            appbar = (Toolbar) findViewById(R.id.appbarRep);
+            setSupportActionBar(appbar);
 
-        appbar = (Toolbar) findViewById(R.id.appbarRep);
-        setSupportActionBar(appbar);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_nav_menu);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_nav_menu);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayoutRep);
+            navView = (NavigationView) findViewById(R.id.navviewRep);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayoutRep);
-        navView = (NavigationView) findViewById(R.id.navviewRep);
+            if (inicio) {
+                inicio = false;
+                Fragment fragment = new SolicitarPermisoActivity();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+                getSupportActionBar().setTitle(getResources().getString(R.string.solicitar_acceso));
+            }
 
-        if (inicio) {
-            inicio = false;
-            Fragment fragment = new SolicitarPermisoActivity();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
-            getSupportActionBar().setTitle(getResources().getString(R.string.solicitar_acceso));
-        }
+            navView.setNavigationItemSelectedListener(
+                    new NavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        navView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            boolean fragmentTransaction = false;
+                            Fragment fragment = null;
 
-                        boolean fragmentTransaction = false;
-                        Fragment fragment = null;
+                            switch (item.getItemId()) {
+                                case R.id.solicitar_permiso:
+                                    fragment = new SolicitarPermisoActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.listar_solicitudes:
+                                    fragment = new ListaSolicitudesActivity(NFC);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_aceptadas:
+                                    fragment = new SolicitudesAceptActivity(NFC);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_pendientes:
+                                    fragment = new SolicitudesPendReparActivity(NFC);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_rechazadas:
+                                    fragment = new SolicitudesRechActivity(NFC);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.mapa_rutas:
+                                    fragment = new MapaRutasActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.alertas:
+                                    //fragment = new AlertasActivity(NFC, localizador);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.ajustes:
+                                    fragment = new AjustesReparActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                            }
 
-                        switch (item.getItemId()) {
-                            case R.id.solicitar_permiso:
-                                fragment = new SolicitarPermisoActivity();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.listar_solicitudes:
-                                fragment = new ListaSolicitudesActivity(NFC);
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.solicitudes_aceptadas:
-                                fragment = new SolicitudesAceptActivity(NFC);
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.solicitudes_pendientes:
-                                fragment = new SolicitudesPendReparActivity(NFC);
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.solicitudes_rechazadas:
-                                fragment = new SolicitudesRechActivity(NFC);
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.mapa_rutas:
-                                fragment = new MapaRutasActivity();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.alertas:
-                                //fragment = new AlertasActivity(NFC, localizador);
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.ajustes:
-                                fragment = new AjustesReparActivity();
-                                fragmentTransaction = true;
-                                break;
+                            if (fragmentTransaction) {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+
+                                item.setChecked(true);
+                                getSupportActionBar().setTitle(item.getTitle());
+                            }
+
+                            drawerLayout.closeDrawers();
+                            return true;
                         }
 
-                        if (fragmentTransaction) {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
-
-                            item.setChecked(true);
-                            getSupportActionBar().setTitle(item.getTitle());
-                        }
-
-                        drawerLayout.closeDrawers();
-                        return true;
                     }
+            );
 
-                }
-        );
-
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

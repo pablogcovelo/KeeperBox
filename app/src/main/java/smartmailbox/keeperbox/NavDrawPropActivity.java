@@ -34,13 +34,13 @@ public class NavDrawPropActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navbarprop);
 
         // Parametros
-       // String datos = getIntent().getExtras().getString("datos");
-       /* try {
+        String datos = getIntent().getExtras().getString("datos");
+        try {
             if (datos != null) {
                 parametros = new JSONObject(datos);
-                NFC = parametros.getString("id_NFC");
+               // NFC = parametros.getString("id_NFC"); Tiene que ser el NFC no el id
                 localizador = parametros.getString("localizador");
-            }*/
+            }
 
             appbar = (Toolbar) findViewById(R.id.appbar);
             setSupportActionBar(appbar);
@@ -53,8 +53,6 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
             if (inicio) {
                 inicio = false;
-                //Fragment fragment = new SolicitudesPendActivity();SolicitudesPendDinamica
-                //Fragment fragment = new SolicitudesPendDinamica();
                 Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
@@ -113,9 +111,9 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
                     }
             );
-        /*} catch (JSONException e) {
-        e.printStackTrace();
-        }*/
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
