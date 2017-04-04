@@ -48,7 +48,7 @@ public class UsuariosPermitidosActivity extends Fragment implements Request {
                 String NFC = row.getString("NFC");
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new UsuariosPermitidosDinamica(NFC + " " + nombre + " " + apellidos);
+                Fragment fragment = new UsuariosPermitidosDinamica(localizador, nombre + " " + apellidos, NFC);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_usu_permi, fragment);

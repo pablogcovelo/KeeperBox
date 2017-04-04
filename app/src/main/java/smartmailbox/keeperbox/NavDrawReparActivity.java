@@ -21,6 +21,7 @@ public class NavDrawReparActivity extends AppCompatActivity {
     Toolbar appbar;
     boolean inicio = true;
     String localizador = "cdefghij";
+    String NFC = "1234asdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,64 +37,61 @@ public class NavDrawReparActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayoutRep);
         navView = (NavigationView) findViewById(R.id.navviewRep);
 
-        if(inicio){
+        if (inicio) {
             inicio = false;
-            Fragment fragment = new SolicitudesPendActivity();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
-            //getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
-        }
+            Fragment fragment = new SolicitarPermisoActivity(localizador);
 
-        navView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            navView.setNavigationItemSelectedListener(
+                    new NavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                        boolean fragmentTransaction = false;
-                        Fragment fragment = null;
+                            boolean fragmentTransaction = false;
+                            Fragment fragment = null;
 
-                        switch (item.getItemId()) {
-                            case R.id.solicitar_permiso:
-                                fragment = new SolicitarPermisoActivity(localizador);
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.listar_solicitudes:
-                                fragment = new ListaSolicitudesActivity();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.solicitudes_aceptadas:
-                                fragment = new SolicitudesAceptActivity();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.solicitudes_pendientes:
-                                fragment = new SolicitudesPendActivity();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.solicitudes_rechazadas:
-                                fragment = new SolicitudesRechActivity();
-                                fragmentTransaction = true;
-                                break;
-                            case R.id.mapa_rutas:
-                                fragment = new MapaRutasActivity();
-                                fragmentTransaction = true;
-                                break;
+                            switch (item.getItemId()) {
+                                case R.id.solicitar_permiso:
+                                    fragment = new SolicitarPermisoActivity(localizador);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.listar_solicitudes:
+                                    fragment = new ListaSolicitudesActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_aceptadas:
+                                    fragment = new SolicitudesAceptActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_pendientes:
+                                    fragment = new SolicitudesPendActivity(NFC, localizador);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.solicitudes_rechazadas:
+                                    fragment = new SolicitudesRechActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.mapa_rutas:
+                                    fragment = new MapaRutasActivity();
+                                    fragmentTransaction = true;
+                                    break;
+                            }
+
+
+                            if (fragmentTransaction) {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+
+                                item.setChecked(true);
+                                getSupportActionBar().setTitle(item.getTitle());
+                            }
+
+                            drawerLayout.closeDrawers();
+                            return true;
                         }
 
-
-
-                        if (fragmentTransaction) {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
-
-                            item.setChecked(true);
-                            getSupportActionBar().setTitle(item.getTitle());
-                        }
-
-                        drawerLayout.closeDrawers();
-                        return true;
                     }
+            );
 
-                }
-        );
-
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -108,7 +106,7 @@ public class NavDrawReparActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
-        Fragment fragment = new SolicitudesPendActivity();
+        Fragment fragment = new SolicitarPermisoActivity(localizador);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
        // getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
     }

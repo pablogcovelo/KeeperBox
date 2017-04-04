@@ -17,7 +17,7 @@ import org.json.JSONObject;
  * Created by regueiro on 13/03/17.
  */
 
-public class NavDrawActivity extends AppCompatActivity {
+public class NavDrawPropActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -37,7 +37,7 @@ public class NavDrawActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navbar);
+        setContentView(R.layout.activity_navbarprop);
 
         // Parametros
         String datos = getIntent().getExtras().getString("datos");
@@ -83,7 +83,7 @@ public class NavDrawActivity extends AppCompatActivity {
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.usuariosregistrados:
-                                    fragment = new UsuariosRegistradosActivity();
+                                    fragment = new UsuariosRegistradosActivity(localizador);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.historialacceso:
@@ -96,6 +96,10 @@ public class NavDrawActivity extends AppCompatActivity {
                                     break;
                                 case R.id.alertas:
                                     fragment = new AlertasActivity(id_NFC, localizador);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.ajustes:
+                                    fragment = new AjustesActivity(localizador);
                                     fragmentTransaction = true;
                                     break;
                             }

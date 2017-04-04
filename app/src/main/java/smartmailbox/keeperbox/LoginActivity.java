@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
-            Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
+            Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
             intent.putExtra("datos", row.toString());
             startActivity(intent);
         }
