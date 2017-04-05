@@ -5,6 +5,8 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,23 +25,21 @@ import org.json.JSONObject;
 
 public class SolicitarPermisoActivity extends Fragment implements Request{
 
-    String localizador;
     TextView informativo;
     String NFC;
     NfcAdapter nfcAdapter;
 
-    public SolicitarPermisoActivity(String localizador){
-        this.localizador = localizador;
+    public SolicitarPermisoActivity(){
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_solici_perm, container, false);
+        View v = inflater.inflate(R.layout.activity_solicitar_permiso, container, false);
         nfcAdapter = NfcAdapter.getDefaultAdapter(getContext());
 
-        EditText localizador_solicitado = (EditText) v.findViewById(R.id.editText_solici_perm);
-        informativo = (TextView) v.findViewById(R.id.informativo_solici_perm);
-        Button registrar = (Button) v.findViewById(R.id.button_solici_perm);
+        EditText localizador_solicitado = (EditText) v.findViewById(R.id.locBuzon_solicitarPermiso);
+        //informativo = (TextView) v.findViewById(R.id.informativo_solici_perm);
+        Button registrar = (Button) v.findViewById(R.id.buscar_solicitarPermiso);
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,7 @@ public class SolicitarPermisoActivity extends Fragment implements Request{
         if (response != null) {
             String valido = response.getString(0);
             if (valido.contains("error")) {
-                informativo.setText(getResources().getString(R.string.error_registro_local_erroneo));
+                //informativo.setText(getResources().getString(R.string.error_registro_local_erroneo));
             }
         }
     }

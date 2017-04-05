@@ -59,6 +59,9 @@ public class LoginActivity extends AppCompatActivity implements Request {
             return;
         }
 
+       /* Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+        startActivity(intent);*/
+
         JSONObject json =  new JSONObject();
         try {
             json.put("usuario",useremail);
@@ -85,20 +88,18 @@ public class LoginActivity extends AppCompatActivity implements Request {
         JSONObject row = null;
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
-        String tipousuario = null;
         for (int i = 0; i < response.length(); i++) {
             row = response.getJSONObject(i);
             valido = row.getString("valido");
-            tipousuario = row.getString("tipo_usuario");
         }
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
-            if (valido.equalsIgnoreCase("1")) {
+            if(!row.getString("tipo_usuario").equals("2")){
                 Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
                 intent.putExtra("datos", row.toString());
                 startActivity(intent);
-            } else {
+            }else{
                 Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
                 intent.putExtra("datos", row.toString());
                 startActivity(intent);

@@ -25,28 +25,23 @@ public class NavDrawPropActivity extends AppCompatActivity {
     boolean inicio = true;
 
     private JSONObject parametros;
-    private String valido;
-    private String tipo_usuario;
-    private String id_usuario;
-    private String id_NFC;
-    private String usuario;
-    private String nombre;
-    private String apellidos;
-    private String localizador;
+    String NFC = "6789asdf";
+    String localizador= "abcdefgh";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navbar);
+        setContentView(R.layout.activity_navbarprop);
 
         // Parametros
         String datos = getIntent().getExtras().getString("datos");
         try {
             if (datos != null) {
                 parametros = new JSONObject(datos);
-                id_NFC = parametros.getString("id_NFC");
+               // NFC = parametros.getString("id_NFC"); Tiene que ser el NFC no el id
                 localizador = parametros.getString("localizador");
             }
+
             appbar = (Toolbar) findViewById(R.id.appbar);
             setSupportActionBar(appbar);
 
@@ -58,9 +53,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
             if (inicio) {
                 inicio = false;
-                //Fragment fragment = new SolicitudesPendActivity();SolicitudesPendDinamica
-                //Fragment fragment = new SolicitudesPendDinamica();
-                Fragment fragment = new SolicitudesPendActivity(id_NFC, localizador);
+                Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
             }
@@ -75,7 +68,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
                             switch (item.getItemId()) {
                                 case R.id.solicitudesPendientes:
-                                    fragment = new SolicitudesPendActivity(id_NFC, localizador);
+                                    fragment = new SolicitudesPendActivity(NFC, localizador);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.usuariospermitidos:
@@ -91,11 +84,15 @@ public class NavDrawPropActivity extends AppCompatActivity {
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.registrar_nuevousuario:
-                                    fragment = new SolicitarPermisoActivity(localizador);
+                                    fragment = new SolicitarPermisoActivity();
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:
-                                    fragment = new AlertasActivity(id_NFC, localizador);
+                                    fragment = new AlertasActivity(NFC, localizador);
+                                    fragmentTransaction = true;
+                                    break;
+                                case R.id.ajustes:
+                                    fragment = new AjustesActivity(localizador);
                                     fragmentTransaction = true;
                                     break;
                             }
@@ -114,8 +111,8 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
                     }
             );
-        } catch (JSONException e) {
-        e.printStackTrace();
+        }catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -131,7 +128,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
-        Fragment fragment = new SolicitudesPendActivity(id_NFC, localizador);
+        Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
     }
