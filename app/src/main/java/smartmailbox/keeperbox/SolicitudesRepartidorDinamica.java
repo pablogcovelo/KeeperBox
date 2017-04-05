@@ -32,9 +32,9 @@ public class SolicitudesRepartidorDinamica extends Fragment {
         if(permiso.equals("1")){
             imageview.setImageResource(R.drawable.imagen_verde);
         }else if(permiso.equals("2")){
-            imageview.setImageResource(R.drawable.imagen_gris);
-        }else if(permiso.equals("3")){
             imageview.setImageResource(R.drawable.imagen_roja);
+        }else{
+            imageview.setImageResource(R.drawable.imagen_gris);
         }
 
         textView.setText(nombre_apellidos);

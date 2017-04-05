@@ -25,8 +25,9 @@ public class NavDrawPropActivity extends AppCompatActivity {
     boolean inicio = true;
 
     private JSONObject parametros;
-    String NFC = "6789asdf";
-    String localizador= "abcdefgh";
+    String NFC;
+    String localizador;
+    String id_usuario ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,9 @@ public class NavDrawPropActivity extends AppCompatActivity {
         try {
             if (datos != null) {
                 parametros = new JSONObject(datos);
-               // NFC = parametros.getString("id_NFC"); Tiene que ser el NFC no el id
+                NFC = parametros.getString("NFC");
                 localizador = parametros.getString("localizador");
+                id_usuario = parametros.getString("id_usuario");
             }
 
             appbar = (Toolbar) findViewById(R.id.appbar);
@@ -53,7 +55,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
             if (inicio) {
                 inicio = false;
-                Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
+                Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
             }
@@ -68,7 +70,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
 
                             switch (item.getItemId()) {
                                 case R.id.solicitudesPendientes:
-                                    fragment = new SolicitudesPendActivity(NFC, localizador);
+                                    fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.usuariospermitidos:
@@ -128,7 +130,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
-        Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
+        Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
     }

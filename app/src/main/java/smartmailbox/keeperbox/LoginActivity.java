@@ -53,6 +53,15 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         String useremail = user_email.getText().toString();
         String passwd = password.getText().toString();
+        String email;
+        String usuarios;
+        if(useremail.contains("@")){
+            email = useremail;
+            usuarios = "null";
+        }else{
+            email = "null";
+            usuarios = useremail;
+        }
 
         if (!validate()) {
             onLoginFailed();
@@ -64,9 +73,9 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         JSONObject json =  new JSONObject();
         try {
-            json.put("usuario",useremail);
-            json.put("correo",useremail);
-            json.put("contrasena",passwd);
+            json.put("qusuario",usuarios);
+            json.put("qcorreo_elect",email);
+            json.put("qcontrasena",passwd);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -84,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         JSONObject row = null;
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
