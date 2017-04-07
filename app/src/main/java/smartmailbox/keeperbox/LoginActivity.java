@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +27,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        showGooglePlayServicesStatus();
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
         user_email = (EditText) findViewById(R.id.input_email_user);
@@ -88,6 +92,14 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Fallo en el registro", Toast.LENGTH_LONG);
+    }
+
+    private void showGooglePlayServicesStatus() {
+        GoogleApiAvailability apiAvail = GoogleApiAvailability.getInstance();
+        int errorCode = apiAvail.isGooglePlayServicesAvailable(this);
+        String msg = "Play Services: " + apiAvail.getErrorString(errorCode);
+        Log.d(TAG, msg);
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
