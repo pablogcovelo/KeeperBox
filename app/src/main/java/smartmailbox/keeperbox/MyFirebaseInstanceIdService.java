@@ -11,14 +11,15 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService{
 
-    public static final String TAG = "NOTICIAS";
+    public static final String TAG = "KeeperBox";
 
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
 
-        String token = FirebaseInstanceId.getInstance().getToken();
+        Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
 
-        Log.d(TAG, "Token: " + token);
+        Log.d(TAG, "Token: " + Variable.TOKEN);
+
     }
 }

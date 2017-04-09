@@ -69,9 +69,9 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
     public void resolverSolicitud (String aceptar) {
         JSONObject json =  new JSONObject();
         try {
-            json.put("idusuarioProp",id_usuario);
-            json.put("idbuzonConsultar",localizador);
-            json.put("qNFC",NFCpeticion);
+            json.put("qNFC",NFC);
+            json.put("qlocalizador",localizador);
+            json.put("qNFCPeticion",NFCpeticion);
             json.put("acepRech",aceptar);
         } catch (JSONException e) {
             e.printStackTrace();

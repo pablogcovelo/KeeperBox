@@ -8,8 +8,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,8 +22,9 @@ import org.json.JSONObject;
  * Created by regueiro on 13/03/17.
  */
 
-public class NavDrawPropActivity extends AppCompatActivity {
+public class NavDrawPropActivity extends AppCompatActivity implements Request{
 
+    private static final String TAG = "KeeperBox";
     DrawerLayout drawerLayout;
     NavigationView navView;
     Toolbar appbar;
@@ -28,6 +34,7 @@ public class NavDrawPropActivity extends AppCompatActivity {
     String NFC;
     String localizador;
     String id_usuario ;
+    String token_recibido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +49,23 @@ public class NavDrawPropActivity extends AppCompatActivity {
                 NFC = parametros.getString("NFC");
                 localizador = parametros.getString("localizador");
                 id_usuario = parametros.getString("id_usuario");
-            }
+                token_recibido = parametros.getString("token");
 
+                Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
+                if(!token_recibido.equals(Variable.TOKEN)){
+                    Log.d(TAG, Variable.TOKEN);
+                    JSONObject json =  new JSONObject();
+                    try {
+                        json.put("qNFC",NFC);
+                        json.put("qtoken",Variable.TOKEN);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(json);
+                    Peticion peticion = new Peticion(NavDrawPropActivity.this);
+                    peticion.execute("actualizarToken", json.toString());
+                }
+            }
             appbar = (Toolbar) findViewById(R.id.appbar);
             setSupportActionBar(appbar);
 
@@ -135,4 +157,13 @@ public class NavDrawPropActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
     }
 
+    @Override
+    public void onRequestCompleted(JSONArray response) throws JSONException {
+        if(response !=null){
+            JSONObject row = response.getJSONObject(0);
+            if(row.getString("estado").equals("FALSE")){
+                Log.d(TAG, "error en la actualización del Token");
+            }
+        }
+    }
 }

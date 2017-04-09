@@ -11,13 +11,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements Request {
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "KeeperBox";
 
     private ProgressBar progressBar;
     private EditText user_email;
@@ -59,6 +62,15 @@ public class LoginActivity extends AppCompatActivity implements Request {
         String passwd = password.getText().toString();
         String email;
         String usuarios;
+
+        if(user_email.getText().toString().length() > 50){
+            user_email.setError(getResources().getString(R.string.tamano1));
+            return;
+        }
+        if(password.getText().toString().length() > 50){
+            password.setError(getResources().getString(R.string.tamano1));
+            return;
+        }
         if(useremail.contains("@")){
             email = useremail;
             usuarios = "null";
@@ -116,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
+
             if(!row.getString("tipo_usuario").equals("2")){
                 Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
                 intent.putExtra("datos", row.toString());
@@ -125,7 +138,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
                 intent.putExtra("datos", row.toString());
                 startActivity(intent);
             }
-
         }
         else
             System.out.println("Login incorrecto");
@@ -133,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
     /**
      * Permite validar los datos introducidos por el ususario en los campos
-     * Usuario/Emali y Contraseña.
+     * Usuario/Email y Contraseña.
      *
      * @return
      */

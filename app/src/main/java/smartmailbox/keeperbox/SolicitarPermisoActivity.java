@@ -38,7 +38,7 @@ public class SolicitarPermisoActivity extends Fragment implements Request{
         EditText localizador_solicitado = (EditText) v.findViewById(R.id.locBuzon_solicitarPermiso);
         //informativo = (TextView) v.findViewById(R.id.informativo_solici_perm);
         Button registrar = (Button) v.findViewById(R.id.buscar_solicitarPermiso);
-
+        //TODO arreglar esto. Se ha cambiado de layout y enviar más cosillas
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

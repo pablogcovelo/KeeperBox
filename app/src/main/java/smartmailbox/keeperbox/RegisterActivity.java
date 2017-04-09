@@ -3,6 +3,7 @@ package smartmailbox.keeperbox;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +26,7 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, Request{
 
+    private static final String TAG = "KeeperBox";
     Spinner tipo_usuario;
     ScrollView scrollView_register;
     EditText usuario, contrasena, correo_electronico,idbuzon,nombre, apellidos, cif_empresa,nombre_empresa,
@@ -34,6 +38,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, Variable.TOKEN);
 
         scrollView_register = (ScrollView) findViewById(R.id.scroll_register);
         usuario = (EditText)findViewById(R.id.usuario);
@@ -86,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     json.put("nombreEmpresa","null");
                     json.put("CIF","null");
                     json.put("numeroRepartidor","null");
-                    json.put("localizador","null");
+                    json.put("token",Variable.TOKEN);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -105,8 +112,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 try {
                     json.put("usuario",usuario.getText());
                     json.put("contrasena",contrasena.getText());
-                    json.put("nombre","null");
-                    json.put("apellidos","null");
+                    json.put("nombre",nombre.getText());
+                    json.put("apellidos",apellidos.getText());
                     json.put("NFC","123");
                     json.put("tipo_usuario","2");
                     json.put("cod_buzon","null");
@@ -120,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     json.put("nombreEmpresa",nombre_empresa.getText());
                     json.put("CIF",cif_empresa.getText());
                     json.put("numeroRepartidor",num_repartidor.getText());
-                    json.put("localizador","null");
+                    json.put("token",Variable.TOKEN);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
