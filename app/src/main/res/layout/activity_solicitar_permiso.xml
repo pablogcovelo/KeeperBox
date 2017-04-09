@@ -11,26 +11,6 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/nombre_solicitarPermiso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="25dp"
-            android:hint="@string/nombre_propietario"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/apellidos_solicitarPermiso"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginTop="15dp"
-            android:hint="@string/apellidos_propietario"
-            android:textSize="14sp" />
-
-        <EditText
             android:id="@+id/locBuzon_solicitarPermiso"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -98,6 +78,16 @@
             android:layout_marginRight="37dp"
             android:layout_marginTop="15dp"
             android:hint="@string/letra_piso"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/CP_solicitarPermiso"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/cod_postal"
             android:textSize="14sp" />
 
         <Button

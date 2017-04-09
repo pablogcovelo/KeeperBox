@@ -70,7 +70,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request{
 
             if (inicio) {
                 inicio = false;
-                Fragment fragment = new SolicitarPermisoActivity();
+                Fragment fragment = new SolicitarPermisoActivity(NFC);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitar_acceso));
             }
@@ -85,7 +85,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request{
 
                             switch (item.getItemId()) {
                                 case R.id.solicitar_permiso:
-                                    fragment = new SolicitarPermisoActivity();
+                                    fragment = new SolicitarPermisoActivity(NFC);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.listar_solicitudes:
@@ -149,7 +149,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request{
     }
 
     public void onBackPressed() {
-        Fragment fragment = new SolicitarPermisoActivity();
+        Fragment fragment = new SolicitarPermisoActivity(NFC);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitud_acceso));
     }
