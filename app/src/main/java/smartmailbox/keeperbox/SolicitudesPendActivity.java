@@ -19,10 +19,12 @@ import org.json.JSONObject;
 public class SolicitudesPendActivity extends Fragment implements Request {
     private String NFC;
     private String localizador;
+    private String id_usuario;
 
-    public SolicitudesPendActivity(String NFC, String localizador){
+    public SolicitudesPendActivity(String NFC, String localizador, String id_usuario){
         this.NFC = NFC;
         this.localizador = localizador;
+        this.id_usuario = id_usuario;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +54,8 @@ public class SolicitudesPendActivity extends Fragment implements Request {
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos, NFC, localizador);
+                String NFCpeticion = row.getString("NFC");
+                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos, NFC, NFCpeticion, localizador, id_usuario);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_listPend, fragment);

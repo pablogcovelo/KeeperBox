@@ -22,12 +22,16 @@ import org.json.JSONObject;
 public class SolicitudesPendDinamica extends Fragment implements Request{
     private String nombre;
     private String NFC;
+    private String NFCpeticion;
     private String localizador;
+    private String id_usuario;
 
-    public SolicitudesPendDinamica(String nombre, String NFC, String localizador){
+    public SolicitudesPendDinamica(String nombre, String NFC, String NFCpeticion, String localizador, String id_usuario){
         this.nombre = nombre;
         this.NFC = NFC;
+        this.NFCpeticion = NFCpeticion;
         this.localizador = localizador;
+        this.id_usuario = id_usuario;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,13 +43,13 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
         rejectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Boton rechazar");
-                resolverSolicitud(false);
+                resolverSolicitud("2");
             }
         });
         aceptButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Boton rechazar");
-                resolverSolicitud(true);
+                resolverSolicitud("1");
 
             }
         });
@@ -62,14 +66,12 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
         return InputFragmentView;
     }
 
-    public void resolverSolicitud (Boolean aceptar) {
-
+    public void resolverSolicitud (String aceptar) {
         JSONObject json =  new JSONObject();
         try {
-            //IN idusuarioProp int, IN idbuzonConsultar int, IN qNFC varchar(10), IN acepRech boolean)
-            json.put("idusuarioProp","1"); // TODO: cambiar por localizador ¿?
-            json.put("idbuzonConsultar","1");
-            json.put("qNFC","asd");
+            json.put("qNFC",NFC);
+            json.put("qlocalizador",localizador);
+            json.put("qNFCPeticion",NFCpeticion);
             json.put("acepRech",aceptar);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -82,9 +84,9 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         System.out.println("*** AQUI 300***");
-        Fragment fragment = new SolicitudesPendActivity(NFC, localizador);
+        Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).commit();
-     }
+    }
 }

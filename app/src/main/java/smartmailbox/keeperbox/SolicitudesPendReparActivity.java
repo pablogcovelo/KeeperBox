@@ -50,7 +50,7 @@ public class SolicitudesPendReparActivity extends Fragment implements Request{
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new SolicitudesRepartidorDinamica(nombre + " " + apellidos, "2");
+                Fragment fragment = new SolicitudesRepartidorDinamica(nombre + " " + apellidos, "3");
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_lista_solicitudes, fragment);

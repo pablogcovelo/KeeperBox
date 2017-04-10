@@ -10,12 +10,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements Request {
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "KeeperBox";
 
     private ProgressBar progressBar;
     private EditText user_email;
@@ -25,6 +30,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        showGooglePlayServicesStatus();
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
         user_email = (EditText) findViewById(R.id.input_email_user);
@@ -53,6 +60,24 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         String useremail = user_email.getText().toString();
         String passwd = password.getText().toString();
+        String email;
+        String usuarios;
+
+        if(user_email.getText().toString().length() > 50){
+            user_email.setError(getResources().getString(R.string.tamano1));
+            return;
+        }
+        if(password.getText().toString().length() > 50){
+            password.setError(getResources().getString(R.string.tamano1));
+            return;
+        }
+        if(useremail.contains("@")){
+            email = useremail;
+            usuarios = "null";
+        }else{
+            email = "null";
+            usuarios = useremail;
+        }
 
         if (!validate()) {
             onLoginFailed();
@@ -64,9 +89,9 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         JSONObject json =  new JSONObject();
         try {
-            json.put("usuario",useremail);
-            json.put("correo",useremail);
-            json.put("contrasena",passwd);
+            json.put("qusuario",usuarios);
+            json.put("qcorreo_elect",email);
+            json.put("qcontrasena",passwd);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -81,10 +106,17 @@ public class LoginActivity extends AppCompatActivity implements Request {
         Toast.makeText(getBaseContext(), "Fallo en el registro", Toast.LENGTH_LONG);
     }
 
+    private void showGooglePlayServicesStatus() {
+        GoogleApiAvailability apiAvail = GoogleApiAvailability.getInstance();
+        int errorCode = apiAvail.isGooglePlayServicesAvailable(this);
+        String msg = "Play Services: " + apiAvail.getErrorString(errorCode);
+        Log.d(TAG, msg);
+    }
+
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         JSONObject row = null;
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
@@ -95,6 +127,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
+
             if(!row.getString("tipo_usuario").equals("2")){
                 Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
                 intent.putExtra("datos", row.toString());
@@ -104,7 +137,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
                 intent.putExtra("datos", row.toString());
                 startActivity(intent);
             }
-
         }
         else
             System.out.println("Login incorrecto");
@@ -112,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements Request {
 
     /**
      * Permite validar los datos introducidos por el ususario en los campos
-     * Usuario/Emali y Contraseña.
+     * Usuario/Email y Contraseña.
      *
      * @return
      */

@@ -8,8 +8,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,14 +21,16 @@ import org.json.JSONObject;
  * Created by regueiro on 13/03/17.
  */
 
-public class NavDrawReparActivity extends AppCompatActivity {
+public class NavDrawReparActivity extends AppCompatActivity implements Request {
 
+    private static final String TAG = "KeeperBox";
     DrawerLayout drawerLayout;
     NavigationView navView;
     Toolbar appbar;
     boolean inicio = true;
     private JSONObject parametros;
-    String NFC = "7890asdf";
+    String NFC;
+    String token_recibido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +39,26 @@ public class NavDrawReparActivity extends AppCompatActivity {
         String datos = getIntent().getExtras().getString("datos");
         try {
             if (datos != null) {
+                Variable.tipo_propietario = 2;
                 parametros = new JSONObject(datos);
-                // NFC = parametros.getString("id_NFC"); Tiene que ser el NFC no el id
+                NFC = parametros.getString("NFC");
+                token_recibido = parametros.getString("token");
                 //Cambiar comprobarUsuario par que devuelva el NFC en vez del ID no?
+
+                Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
+                if (!token_recibido.equals(Variable.TOKEN)) {
+                    Log.d(TAG, Variable.TOKEN);
+                    JSONObject json = new JSONObject();
+                    try {
+                        json.put("qNFC", NFC);
+                        json.put("qtoken", Variable.TOKEN);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Peticion peticion = new Peticion(NavDrawReparActivity.this);
+                    peticion.execute("actualizarToken", json.toString());
+                }
             }
             appbar = (Toolbar) findViewById(R.id.appbarRep);
             setSupportActionBar(appbar);
@@ -48,7 +71,7 @@ public class NavDrawReparActivity extends AppCompatActivity {
 
             if (inicio) {
                 inicio = false;
-                Fragment fragment = new SolicitarPermisoActivity();
+                Fragment fragment = new SolicitarPermisoActivity(NFC);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitar_acceso));
             }
@@ -63,7 +86,7 @@ public class NavDrawReparActivity extends AppCompatActivity {
 
                             switch (item.getItemId()) {
                                 case R.id.solicitar_permiso:
-                                    fragment = new SolicitarPermisoActivity();
+                                    fragment = new SolicitarPermisoActivity(NFC);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.listar_solicitudes:
@@ -127,9 +150,18 @@ public class NavDrawReparActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Fragment fragment = new SolicitarPermisoActivity();
+        Fragment fragment = new SolicitarPermisoActivity(NFC);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitud_acceso));
     }
 
+    @Override
+    public void onRequestCompleted(JSONArray response) throws JSONException {
+        if (response != null) {
+            JSONObject row = response.getJSONObject(0);
+            if (row.getString("correcto").equals("FALSE")) {
+                Log.d(TAG, "error en la actualización del Token");
+            }
+        }
+    }
 }

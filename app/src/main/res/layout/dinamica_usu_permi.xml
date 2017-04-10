@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
+    android:background="@android:color/transparent"
     android:clickable="true">
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_marginTop="2dp"
         android:layout_toLeftOf="@+id/usupermi_toggleButton"
         android:gravity="center"
+        android:background="@android:color/transparent"
         android:textSize="18dp" />
 
     <ToggleButton
