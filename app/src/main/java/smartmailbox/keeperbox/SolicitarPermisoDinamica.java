@@ -56,6 +56,7 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
                     e.printStackTrace();
                 }
 
+
                 Peticion peticion = new Peticion(SolicitarPermisoDinamica.this);
                 peticion.execute("nuevaPeticion", json.toString());
             }
