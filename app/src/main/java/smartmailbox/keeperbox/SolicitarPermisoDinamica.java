@@ -39,9 +39,9 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
         TextView informacion_buzon = (TextView) v.findViewById(R.id.textview_solicitar_permiso);
         Button boton_buzon = (Button) v.findViewById(R.id.button_solicitar_permiso);
         String info_buzon = "Localizador: " + localizador_solicitado +
-                "\nPais: " + pais + "Ciudad: " + ciudad +
+                "\nPais: " + pais + " Ciudad: " + ciudad +
                 "\nCalle: " + calle +
-                "\nNumero: " + numero + "Piso: " + piso + "Letra: " + letra + "CP: " + CP;
+                "\nNumero: " + numero + " Piso: " + piso + " Letra: " + letra + " CP: " + CP;
         informacion_buzon.setText(info_buzon);
 
         boton_buzon.setOnClickListener(new View.OnClickListener() {

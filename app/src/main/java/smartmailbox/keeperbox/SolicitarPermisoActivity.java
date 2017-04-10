@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class SolicitarPermisoActivity extends Fragment implements Request {
 
     TextView informativo;
-    String NFC, localizador_solicitado, pais, ciudad, calle, numero, piso, letra, CP;
+    String NFC;
     NfcAdapter nfcAdapter;
     EditText localizador_edittext, pais_edittext, ciudad_edittext, calle_edittext, numero_edittext, piso_edittext, letra_edittext, CP_edittext;
     JSONObject json_primero;
@@ -47,8 +47,6 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
         piso_edittext = (EditText) v.findViewById(R.id.piso_solicitarPermiso);
         letra_edittext = (EditText) v.findViewById(R.id.letra_solicitarPermiso);
         CP_edittext = (EditText) v.findViewById(R.id.CP_solicitarPermiso);
-
-
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(getContext());
 
@@ -95,11 +93,15 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
                 String piso_respuesta = row.getString("piso");
                 String letra_respuesta = row.getString("letra");
                 String CP_respuesta = row.getString("CP");
-                Fragment fragment = new SolicitarPermisoDinamica(NFC, localizador_respuesta, pais_respuesta, ciudad_respuesta,
+                Fragment fragment = new SolicitarPemisoIntermedia(NFC, localizador_respuesta, pais_respuesta, ciudad_respuesta,
                         calle_respuesta, numero_respuesta, piso_respuesta, letra_respuesta, CP_respuesta);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content_frameRep, fragment);
+                if(Variable.tipo_propietario == 1){
+                    fragmentTransaction.replace(R.id.content_frame, fragment);
+                }else if(Variable.tipo_propietario == 2){
+                    fragmentTransaction.replace(R.id.content_frameRep, fragment);
+                }
                 fragmentTransaction.commit();
 
             }

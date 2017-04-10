@@ -21,7 +21,7 @@ import org.json.JSONObject;
  * Created by regueiro on 13/03/17.
  */
 
-public class NavDrawReparActivity extends AppCompatActivity implements Request{
+public class NavDrawReparActivity extends AppCompatActivity implements Request {
 
     private static final String TAG = "KeeperBox";
     DrawerLayout drawerLayout;
@@ -39,18 +39,19 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request{
         String datos = getIntent().getExtras().getString("datos");
         try {
             if (datos != null) {
+                Variable.tipo_propietario = 2;
                 parametros = new JSONObject(datos);
-                 NFC = parametros.getString("id_NFC");
-                 token_recibido = parametros.getString("token");
+                NFC = parametros.getString("id_NFC");
+                token_recibido = parametros.getString("token");
                 //Cambiar comprobarUsuario par que devuelva el NFC en vez del ID no?
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
-                if(!token_recibido.equals(Variable.TOKEN)){
+                if (!token_recibido.equals(Variable.TOKEN)) {
                     Log.d(TAG, Variable.TOKEN);
-                    JSONObject json =  new JSONObject();
+                    JSONObject json = new JSONObject();
                     try {
-                        json.put("qNFC",NFC);
-                        json.put("qtoken",Variable.TOKEN);
+                        json.put("qNFC", NFC);
+                        json.put("qtoken", Variable.TOKEN);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -156,9 +157,9 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request{
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        if(response !=null){
+        if (response != null) {
             JSONObject row = response.getJSONObject(0);
-            if(row.getString("correcto").equals("FALSE")){
+            if (row.getString("correcto").equals("FALSE")) {
                 Log.d(TAG, "error en la actualización del Token");
             }
         }

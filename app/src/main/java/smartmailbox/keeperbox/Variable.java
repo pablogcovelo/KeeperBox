@@ -7,4 +7,5 @@ package smartmailbox.keeperbox;
 public class Variable {
 
     public static String TOKEN = "";
+    public static int tipo_propietario;
 }

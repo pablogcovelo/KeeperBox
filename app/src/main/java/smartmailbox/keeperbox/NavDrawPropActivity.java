@@ -45,6 +45,7 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
         String datos = getIntent().getExtras().getString("datos");
         try {
             if (datos != null) {
+                Variable.tipo_propietario = 1;
                 parametros = new JSONObject(datos);
                 NFC = parametros.getString("NFC");
                 localizador = parametros.getString("localizador");
