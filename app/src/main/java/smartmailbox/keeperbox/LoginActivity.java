@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
         int errorCode = apiAvail.isGooglePlayServicesAvailable(this);
         String msg = "Play Services: " + apiAvail.getErrorString(errorCode);
         Log.d(TAG, msg);
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override

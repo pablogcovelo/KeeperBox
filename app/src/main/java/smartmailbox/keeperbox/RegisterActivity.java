@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     EditText usuario, contrasena, correo_electronico,idbuzon,nombre, apellidos, cif_empresa,nombre_empresa,
             num_repartidor,pais,ciudad,calle,num_portal,piso,letra_piso, cod_postal;
     Button btn_reg_1,btn_reg_2 ;
-    private ProgressBar progressBar;
+   // private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         btn_reg_1 = (Button)findViewById(R.id.btn_reg_1);
         btn_reg_2 = (Button)findViewById(R.id.btn_reg_2);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress);
+        //progressBar = (ProgressBar) findViewById(R.id.progress);
 
         this.tipo_usuario = (Spinner) findViewById(R.id.tipo_usuario);
 
@@ -73,30 +73,32 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 comprobarparametros();
-                progressBar.setVisibility(View.VISIBLE);
+               // progressBar.setVisibility(View.VISIBLE);
                 JSONObject json =  new JSONObject();
                 try {
-                    json.put("usuario",usuario.getText());
-                    json.put("contrasena",contrasena.getText());
-                    json.put("nombre",nombre.getText());
-                    json.put("apellidos",apellidos.getText());
-                    json.put("NFC","123"); // TODO
-                    json.put("tipo_usuario","1");
-                    json.put("cod_buzon",idbuzon.getText());
-                    json.put("pais",pais.getText());
-                    json.put("ciudad",ciudad.getText());
-                    json.put("calle",calle.getText());
-                    json.put("numero",num_portal.getText());
-                    json.put("piso",piso.getText());
-                    json.put("letra",letra_piso.getText());
-                    json.put("CP",cod_postal.getText());
-                    json.put("nombreEmpresa","null");
-                    json.put("CIF","null");
-                    json.put("numeroRepartidor","null");
-                    json.put("token",Variable.TOKEN);
+                    json.put("qusuario",usuario.getText());
+                    json.put("qcorreo_elect",correo_electronico.getText());
+                    json.put("qcontrasena",contrasena.getText());
+                    json.put("qnombre",nombre.getText());
+                    json.put("qapellidos",apellidos.getText());
+                    json.put("qNFC","3452asdf"); // TODO
+                    json.put("qtipo_usuario","1");
+                    json.put("qcod_buzon",idbuzon.getText());
+                    json.put("qpais",pais.getText());
+                    json.put("qciudad",ciudad.getText());
+                    json.put("qcalle",calle.getText());
+                    json.put("qnumero",num_portal.getText());
+                    json.put("qpiso",piso.getText());
+                    json.put("qletra",letra_piso.getText());
+                    json.put("qCP",cod_postal.getText());
+                    json.put("qnombreEmpresa",JSONObject.NULL);
+                    json.put("qCIF",JSONObject.NULL);
+                    json.put("qnumeroRepartidor",JSONObject.NULL);
+                    json.put("qtoken",Variable.TOKEN);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                System.out.println("Registro " + json);
                 Peticion peticion = new Peticion(RegisterActivity.this);
                 peticion.execute("nuevoUsuario", json.toString());
             }
@@ -107,23 +109,24 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 comprobarparametros();
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
                 JSONObject json =  new JSONObject();
                 try {
                     json.put("usuario",usuario.getText());
+                    json.put("correo_elect",correo_electronico.getText());
                     json.put("contrasena",contrasena.getText());
                     json.put("nombre",nombre.getText());
                     json.put("apellidos",apellidos.getText());
                     json.put("NFC","123");
                     json.put("tipo_usuario","2");
-                    json.put("cod_buzon","null");
-                    json.put("pais","null");
-                    json.put("ciudad","null");
-                    json.put("calle","null");
-                    json.put("numero","null");
-                    json.put("piso","null");
-                    json.put("letra","null");
-                    json.put("CP","null");
+                    json.put("cod_buzon",JSONObject.NULL);
+                    json.put("pais",JSONObject.NULL);
+                    json.put("ciudad",JSONObject.NULL);
+                    json.put("calle",JSONObject.NULL);
+                    json.put("numero",JSONObject.NULL);
+                    json.put("piso",JSONObject.NULL);
+                    json.put("letra",JSONObject.NULL);
+                    json.put("CP",JSONObject.NULL);
                     json.put("nombreEmpresa",nombre_empresa.getText());
                     json.put("CIF",cif_empresa.getText());
                     json.put("numeroRepartidor",num_repartidor.getText());
@@ -131,6 +134,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                System.out.println("Registro " + json);
                 Peticion peticion = new Peticion(RegisterActivity.this);
                 peticion.execute("nuevoUsuario", json.toString());
             }
@@ -217,6 +221,21 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 calle.setError(getResources().getString(R.string.tamano_erroneo));
                 return;
             }
+            if(num_portal.getText().toString().isEmpty()){
+                num_portal.setError(getResources().getString(R.string.vacio));
+                return;
+            }
+            if(num_portal.getText().toString().length() > 3){
+                try {
+                    int nume = Integer.parseInt(num_portal.getText().toString());
+                    if(nume > 1000 || nume < 0){
+                        num_portal.setError(getResources().getString(R.string.ser_numeros));
+                    }
+                }catch (Exception e){
+                    num_portal.setError(getResources().getString(R.string.ser_numeros));
+                    return;
+                }
+            }
             if(cod_postal.getText().toString().isEmpty()){
                 cod_postal.setError(getResources().getString(R.string.vacio));
                 return;
@@ -291,11 +310,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             piso.setVisibility(View.VISIBLE);
             letra_piso.setVisibility(View.VISIBLE);
             cod_postal.setVisibility(View.VISIBLE);
-            btn_reg_2.setVisibility(View.VISIBLE);
+            btn_reg_1.setVisibility(View.VISIBLE);
             num_portal.setVisibility(View.VISIBLE);
             nombre_empresa.setVisibility(View.INVISIBLE);
             num_repartidor.setVisibility(View.INVISIBLE);
-            btn_reg_1.setVisibility(View.INVISIBLE);
+            btn_reg_2.setVisibility(View.INVISIBLE);
 
             scrollView_register.setOnTouchListener(null);
 
@@ -310,22 +329,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             piso.setVisibility(View.INVISIBLE);
             letra_piso.setVisibility(View.INVISIBLE);
             cod_postal.setVisibility(View.INVISIBLE);
-            btn_reg_2.setVisibility(View.INVISIBLE);
+            btn_reg_1.setVisibility(View.INVISIBLE);
             num_portal.setVisibility(View.INVISIBLE);
             cif_empresa.setVisibility(View.VISIBLE);
             nombre_empresa.setVisibility(View.VISIBLE);
             num_repartidor.setVisibility(View.VISIBLE);
-            btn_reg_1.setVisibility(View.VISIBLE);
-            btn_reg_1.setWillNotDraw(true);
-            /*int height = scrollView_register.getChildAt(0).getHeight();
-            scrollView_register.setScrollX(height);
-
-            scrollView_register.setOnTouchListener( new View.OnTouchListener(){
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });*/
+            btn_reg_2.setVisibility(View.VISIBLE);
+            btn_reg_2.setWillNotDraw(true);
         }else{
 
             idbuzon.setVisibility(View.INVISIBLE);
@@ -341,15 +351,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             cif_empresa.setVisibility(View.INVISIBLE);
             nombre_empresa.setVisibility(View.INVISIBLE);
             num_repartidor.setVisibility(View.INVISIBLE);
-            btn_reg_1.setVisibility(View.INVISIBLE);
             btn_reg_2.setVisibility(View.INVISIBLE);
-
-            /*scrollView_register.setOnTouchListener( new View.OnTouchListener(){
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });*/
+            btn_reg_1.setVisibility(View.INVISIBLE);
 
         }
 
@@ -366,19 +369,26 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         // la tarea en segundo plano ya ha terminado. Ocultamos el progreso.
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
 
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
+        JSONObject row = null;
         for (int i = 0; i < response.length(); i++) {
-            JSONObject row = response.getJSONObject(i);
+            row = response.getJSONObject(i);
             valido = row.getString("valido");
         }
         if (valido.equalsIgnoreCase("1")) {
-            Intent intent = new Intent(RegisterActivity.this, NavDrawPropActivity.class);
-            startActivity(intent);
-        }
-        else
+            if(!row.getString("tipo_usuario").equals("2")){
+                Intent intent = new Intent(RegisterActivity.this, NavDrawPropActivity.class);
+                intent.putExtra("datos", row.toString());
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(RegisterActivity.this, NavDrawReparActivity.class);
+                intent.putExtra("datos", row.toString());
+                startActivity(intent);
+            }
+        }else
             System.out.println("Login incorrecto");
     }
 }

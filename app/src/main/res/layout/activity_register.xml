@@ -64,7 +64,8 @@
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="15dp"
                 android:hint="@string/contrasena"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="textPassword"/>
 
             <Spinner
                 android:id="@+id/tipo_usuario"
@@ -90,6 +91,7 @@
                     android:layout_marginTop="15dp"
                     android:hint="@string/id_buzon"
                     android:textSize="14sp"
+                    android:inputType="textPassword"
                     android:visibility="invisible" />
 
                 <EditText
@@ -183,7 +185,7 @@
                     android:visibility="invisible" />
 
                 <Button
-                    android:id="@+id/btn_reg_1"
+                    android:id="@+id/btn_reg_2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
@@ -263,7 +265,7 @@
                 android:visibility="invisible" />
 
             <Button
-                android:id="@+id/btn_reg_2"
+                android:id="@+id/btn_reg_1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="37dp"

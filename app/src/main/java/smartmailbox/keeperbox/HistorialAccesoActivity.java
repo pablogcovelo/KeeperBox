@@ -57,7 +57,6 @@ public class HistorialAccesoActivity extends Fragment implements Request {
     }
 
     public void limpiar() {
-        System.out.println("*************Hola aqui");
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -65,16 +64,10 @@ public class HistorialAccesoActivity extends Fragment implements Request {
 
         fragmentTransaction.replace(R.id.linear_historial, new Fragment());
         fragmentTransaction.commit();
-        ///int id = fragmentManager.getBackStackEntryCount();//getBackStackEntryAt().getId()
-        /*for(int i = 0; i < fragmentManager.getFragments().size(); ++i) {
-            System.out.println("*************Hola 00"+i);
-            fragmentManager. .remo(fragmentManager.getBackStackEntryAt(i).getId(), fragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }*/
     }
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        System.out.println("*** AQUI 300***");
         if (response!=null)
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);

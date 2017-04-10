@@ -19,6 +19,7 @@ import org.json.JSONObject;
 class SolicitarPermisoDinamica extends Fragment implements Request{
 
     String NFC, localizador_solicitado, pais, ciudad, calle, numero, piso, letra, CP;
+    Button boton_buzon;
 
     public SolicitarPermisoDinamica(String NFC, String localizador_respuesta, String pais_respuesta, String ciudad_respuesta, String calle_respuesta, String numero_respuesta, String piso_respuesta, String letra_respuesta, String cp_respuesta) {
 
@@ -37,7 +38,7 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dinamica_solicitar_permiso, container, false);
         TextView informacion_buzon = (TextView) v.findViewById(R.id.textview_solicitar_permiso);
-        Button boton_buzon = (Button) v.findViewById(R.id.button_solicitar_permiso);
+        boton_buzon = (Button) v.findViewById(R.id.button_solicitar_permiso);
         String info_buzon = "Localizador: " + localizador_solicitado +
                 "\nPais: " + pais + " Ciudad: " + ciudad +
                 "\nCalle: " + calle +
@@ -46,6 +47,8 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
 
         boton_buzon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                boton_buzon.setText(getResources().getText(R.string.enviando));
+                boton_buzon.setEnabled(false);
                 System.out.println("Enviar solicitud");
                 JSONObject json = new JSONObject();
                 try {
@@ -55,7 +58,6 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
                 Peticion peticion = new Peticion(SolicitarPermisoDinamica.this);
                 peticion.execute("nuevaPeticion", json.toString());
@@ -68,6 +70,10 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
+        if(response != null){
+            boton_buzon.setText(getResources().getText(R.string.enviado));
+            boton_buzon.setEnabled(false);
+        }
 
     }
 }

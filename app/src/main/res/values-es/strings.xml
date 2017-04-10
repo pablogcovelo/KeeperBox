@@ -65,4 +65,6 @@
     <string name="cabecera_localizador">Localizador</string>
     <string name="solicitar_acceso">Solicitud de acceso</string>
     <string name="but_solicitar_acceso">Solicitar acceso</string>
+    <string name="enviando">Enviando...</string>
+    <string name="enviado">Enviado</string>
 </resources>
