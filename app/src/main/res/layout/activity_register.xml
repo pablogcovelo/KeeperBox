@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="500dp"
         android:layout_height="80dp"
-        app:srcCompat="@drawable/keeperbox"
+        android:layout_alignParentStart="true"
         android:contentDescription=""
-        tools:ignore="ContentDescription"
-        android:layout_alignParentStart="true" />
+        app:srcCompat="@drawable/keeperbox"
+        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:id="@+id/scroll_register"
@@ -64,8 +65,8 @@
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="15dp"
                 android:hint="@string/contrasena"
-                android:textSize="14sp"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/tipo_usuario"
@@ -76,6 +77,31 @@
                 android:layout_marginTop="15dp"
                 android:prompt="@string/tipo_usuario"
                 android:spinnerMode="dropdown" />
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="37dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="15dp"
+                android:hint="@string/nombre"
+                android:textSize="14sp"
+                android:visibility="invisible" />
+
+
+            <EditText
+                android:id="@+id/apellidos"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="37dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="15dp"
+                android:hint="@string/apellidos"
+                android:textSize="14sp"
+                android:visibility="invisible" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -90,8 +116,8 @@
                     android:layout_marginRight="37dp"
                     android:layout_marginTop="15dp"
                     android:hint="@string/id_buzon"
-                    android:textSize="14sp"
                     android:inputType="textPassword"
+                    android:textSize="14sp"
                     android:visibility="invisible" />
 
                 <EditText
@@ -113,14 +139,14 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/nombre"
+                    android:id="@+id/pais"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="37dp"
                     android:layout_marginRight="37dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/nombre"
+                    android:hint="@string/pais"
                     android:textSize="14sp"
                     android:visibility="invisible" />
 
@@ -138,19 +164,19 @@
 
             </RelativeLayout>
 
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/apellidos"
+                    android:id="@+id/ciudad"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="37dp"
                     android:layout_marginRight="37dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/apellidos"
+                    android:hint="@string/ciudad"
                     android:textSize="14sp"
                     android:visibility="invisible" />
 
@@ -165,7 +191,6 @@
                     android:hint="@string/num_rapartidor"
                     android:textSize="14sp"
                     android:visibility="invisible" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -173,14 +198,13 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/pais"
+                    android:id="@+id/calle"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="37dp"
                     android:layout_marginRight="37dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/pais"
+                    android:hint="@string/calle"
                     android:textSize="14sp"
                     android:visibility="invisible" />
 
@@ -197,28 +221,6 @@
                     android:visibility="invisible" />
 
             </RelativeLayout>
-
-            <EditText
-                android:id="@+id/ciudad"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="37dp"
-                android:layout_marginRight="37dp"
-                android:layout_marginTop="15dp"
-                android:hint="@string/ciudad"
-                android:textSize="14sp"
-                android:visibility="invisible" />
-
-            <EditText
-                android:id="@+id/calle"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="37dp"
-                android:layout_marginRight="37dp"
-                android:layout_marginTop="15dp"
-                android:hint="@string/calle"
-                android:textSize="14sp"
-                android:visibility="invisible" />
 
             <EditText
                 android:id="@+id/num_portal"
@@ -268,10 +270,10 @@
                 android:id="@+id/btn_reg_1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="37dp"
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
                 android:hint="@string/registrar"
                 android:textSize="14sp"
                 android:visibility="invisible" />

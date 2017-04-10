@@ -41,7 +41,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
             if (datos != null) {
                 Variable.tipo_propietario = 2;
                 parametros = new JSONObject(datos);
-                NFC = parametros.getString("id_NFC");
+                NFC = parametros.getString("NFC");
                 token_recibido = parametros.getString("token");
                 //Cambiar comprobarUsuario par que devuelva el NFC en vez del ID no?
 

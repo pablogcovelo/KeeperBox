@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     json.put("contrasena",contrasena.getText());
                     json.put("nombre",nombre.getText());
                     json.put("apellidos",apellidos.getText());
-                    json.put("NFC","123");
+                    json.put("NFC","1234");
                     json.put("tipo_usuario","2");
                     json.put("cod_buzon",JSONObject.NULL);
                     json.put("pais",JSONObject.NULL);
@@ -321,8 +321,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         }else if (pos==2){
 
             idbuzon.setVisibility(View.INVISIBLE);
-            nombre.setVisibility(View.INVISIBLE);
-            apellidos.setVisibility(View.INVISIBLE);
+            nombre.setVisibility(View.VISIBLE);
+            apellidos.setVisibility(View.VISIBLE);
             pais.setVisibility(View.INVISIBLE);
             ciudad.setVisibility(View.INVISIBLE);
             calle.setVisibility(View.INVISIBLE);
