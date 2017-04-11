@@ -24,13 +24,24 @@ public class UsuariosRegistradosDinamica extends Fragment implements Request{
     String nombre;
     String NFC;
     String permisos;
+    String NFCPropietario;
+    String tipo_usuario;
+    String nombre_empresa;
+    String CIF;
+    String num_repartidor;
     ToggleButton toggleButton;
 
-    public UsuariosRegistradosDinamica(String localizador, String nombre, String NFC, String permisos) {
+    public UsuariosRegistradosDinamica(String localizador, String nombre, String NFC, String permisos, String NFCPropietario,
+                                       String tipo_usuario, String nombre_empresa, String CIF, String num_repartidor) {
         this.localizador = localizador;
         this.nombre = nombre;
         this.NFC = NFC;
         this.permisos = permisos;
+        this.NFCPropietario = NFCPropietario;
+        this.tipo_usuario = tipo_usuario;
+        this.nombre_empresa = nombre_empresa;
+        this.CIF = CIF;
+        this.num_repartidor = num_repartidor;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,36 +57,53 @@ public class UsuariosRegistradosDinamica extends Fragment implements Request{
             toggleButton.setChecked(false);
         }
 
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleButton.setEnabled(false);
-                if(toggleButton.isChecked()){
-                    JSONObject json = new JSONObject();
-                    try {
-                        json.put("qlocalizador", localizador);
-                        json.put("qNFC", NFC);
-                        json.put("qpermiso", 1);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        if(Variable.tipo_propietario < Integer.parseInt(tipo_usuario)){
+            toggleButton.setEnabled(true);
+            toggleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toggleButton.setEnabled(false);
+                    if(toggleButton.isChecked()){
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("qlocalizador", localizador);
+                            json.put("qNFC", NFC);
+                            json.put("qNFCPropietario", NFCPropietario);
+                            json.put("qpermiso", 1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Peticion peticion = new Peticion(UsuariosRegistradosDinamica.this);
+                        peticion.execute("manejoPermisos", json.toString());
+                    }else{
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("qlocalizador", localizador);
+                            json.put("qNFC", NFC);
+                            json.put("qNFCPropietario", NFCPropietario);
+                            json.put("qpermiso", 0);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Peticion peticion = new Peticion(UsuariosRegistradosDinamica.this);
+                        peticion.execute("manejoPermisos", json.toString());
                     }
-                    Peticion peticion = new Peticion(UsuariosRegistradosDinamica.this);
-                    peticion.execute("manejoPermisos", json.toString());
-                }else{
-                    JSONObject json = new JSONObject();
-                    try {
-                        json.put("qlocalizador", localizador);
-                        json.put("qNFC", NFC);
-                        json.put("qpermiso", 0);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Peticion peticion = new Peticion(UsuariosRegistradosDinamica.this);
-                    peticion.execute("manejoPermisos", json.toString());
                 }
-            }
-        });
-        textView.setText(nombre);
+            });
+
+        }else{
+            toggleButton.setEnabled(false);
+        }
+
+        if(nombre_empresa.isEmpty() || CIF.isEmpty() || num_repartidor.isEmpty()){
+            textView.setText(nombre);
+        }else{
+            textView.setText(nombre + "\n" + getResources().getString(R.string.nombre_empresa) + ": " + nombre_empresa +
+                    " " + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor)+
+                    ": " + num_repartidor);
+        }
+
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.topMargin = 15;
         relativeLayout.setLayoutParams(params);
@@ -86,9 +114,9 @@ public class UsuariosRegistradosDinamica extends Fragment implements Request{
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         toggleButton.setEnabled(true);
-        String valido = response.getString(0);
-        if(valido.contains("error")){
-            String NFCerroneo = valido.split(":")[1];
+        JSONObject row = response.getJSONObject(0);
+        String NFCerroneo = row.getString("error");
+        if (!NFCerroneo.contains("correcto")) {
 
             System.out.println("Ha ocurrido un error con el NFC: " + NFCerroneo);
         }

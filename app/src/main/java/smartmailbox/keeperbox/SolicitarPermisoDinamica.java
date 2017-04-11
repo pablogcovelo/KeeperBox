@@ -39,6 +39,7 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
         View v = inflater.inflate(R.layout.dinamica_solicitar_permiso, container, false);
         TextView informacion_buzon = (TextView) v.findViewById(R.id.textview_solicitar_permiso);
         boton_buzon = (Button) v.findViewById(R.id.button_solicitar_permiso);
+        //TODO cambiar por Resources para los idiomas
         String info_buzon = "Localizador: " + localizador_solicitado +
                 "\nPais: " + pais + " Ciudad: " + ciudad +
                 "\nCalle: " + calle +
@@ -49,7 +50,6 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
             public void onClick(View v) {
                 boton_buzon.setText(getResources().getText(R.string.enviando));
                 boton_buzon.setEnabled(false);
-                System.out.println("Enviar solicitud");
                 JSONObject json = new JSONObject();
                 try {
                     json.put("qNFC", NFC);

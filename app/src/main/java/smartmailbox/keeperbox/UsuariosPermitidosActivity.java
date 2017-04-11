@@ -18,8 +18,10 @@ import org.json.JSONObject;
 
 public class UsuariosPermitidosActivity extends Fragment implements Request {
     private String localizador;
+    private String NFCpropietario;
 
-    public UsuariosPermitidosActivity(String localizador) {
+    public UsuariosPermitidosActivity(String NFC,String localizador) {
+        this.NFCpropietario = NFC;
         this.localizador = localizador;
     }
 
@@ -48,7 +50,8 @@ public class UsuariosPermitidosActivity extends Fragment implements Request {
                 String NFC = row.getString("NFC");
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new UsuariosPermitidosDinamica(localizador, nombre + " " + apellidos, NFC);
+                String tipo_usuario = row.getString("tipo_usuario");
+                Fragment fragment = new UsuariosPermitidosDinamica(localizador, nombre + " " + apellidos, NFC, NFCpropietario, tipo_usuario);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_usu_permi, fragment);

@@ -128,11 +128,11 @@ public class LoginActivity extends AppCompatActivity implements Request {
         if (valido.equalsIgnoreCase("1")) {
             System.out.println("Login correcto");
 
-            if(!row.getString("tipo_usuario").equals("2")){
+            if(row.getString("tipo_usuario").equals("0") || row.getString("tipo_usuario").equals("1")){
                 Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
                 intent.putExtra("datos", row.toString());
                 startActivity(intent);
-            }else{
+            }else if (row.getString("tipo_usuario").equals("2")){
                 Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
                 intent.putExtra("datos", row.toString());
                 startActivity(intent);

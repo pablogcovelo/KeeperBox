@@ -20,9 +20,11 @@ public class AlertasActivity extends Fragment implements Request {
     private String NFC;
     private String localizador;
 
+
     public AlertasActivity(String NFC, String localizador){
         this.NFC = NFC;
         this.localizador = localizador;
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,13 +48,15 @@ public class AlertasActivity extends Fragment implements Request {
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        System.out.println("*** AQUI 1***");
         if (response!=null)
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
-                Fragment fragment = new AlertasDinamica(nombre + " " + apellidos);
+                String nombre_empresa = row.getString("nombre_empresa");
+                String CIF = row.getString("CIF");
+                String num_repartidor = row.getString("num_repartidor");
+                Fragment fragment = new AlertasDinamica(nombre + " " + apellidos, nombre_empresa, CIF, num_repartidor);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_alertas, fragment);
