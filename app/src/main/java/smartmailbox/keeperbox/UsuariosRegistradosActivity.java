@@ -19,9 +19,11 @@ import org.json.JSONObject;
 public class UsuariosRegistradosActivity extends Fragment implements Request{
 
     String localizador;
+    String NFCPropietario;
 
-    public UsuariosRegistradosActivity(String localizador){
+    public UsuariosRegistradosActivity(String NFC, String localizador){
         this.localizador = localizador;
+        this.NFCPropietario = NFC;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +51,12 @@ public class UsuariosRegistradosActivity extends Fragment implements Request{
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
                 String permisos = row.getString("permiso");
-                Fragment fragment = new UsuariosRegistradosDinamica(localizador,nombre + " " + apellidos, NFC, permisos);
+                String tipo_usuario = row.getString("tipo_usuario");
+                String nombre_empresa = row.getString("nombre_empresa");
+                String CIF = row.getString("CIF");
+                String num_repartidor = row.getString("num_repartidor");
+                Fragment fragment = new UsuariosRegistradosDinamica(localizador,nombre + " " + apellidos, NFC, permisos,
+                        NFCPropietario, tipo_usuario, nombre_empresa, CIF, num_repartidor);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_usu_registrados, fragment);

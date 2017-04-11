@@ -39,17 +39,19 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
         View v = inflater.inflate(R.layout.dinamica_solicitar_permiso, container, false);
         TextView informacion_buzon = (TextView) v.findViewById(R.id.textview_solicitar_permiso);
         boton_buzon = (Button) v.findViewById(R.id.button_solicitar_permiso);
-        String info_buzon = "Localizador: " + localizador_solicitado +
-                "\nPais: " + pais + " Ciudad: " + ciudad +
-                "\nCalle: " + calle +
-                "\nNumero: " + numero + " Piso: " + piso + " Letra: " + letra + " CP: " + CP;
+        String info_buzon = getResources().getString(R.string.localizador) + ": " +
+                localizador_solicitado + "\n" + getResources().getString(R.string.pais) + ": " + pais
+                + " " + getResources().getString(R.string.ciudad)+ ": " + ciudad + "\n" +
+                getResources().getString(R.string.calle) +": " + calle + "\n" +
+                getResources().getString(R.string.num_portal)+ ": " + numero + " " + getResources().getString(R.string.letra_piso)
+                +": " + piso + " " + getResources().getString(R.string.letra_piso) + ": " + letra +
+                getResources().getString(R.string.cod_postal) + ": " + CP;
         informacion_buzon.setText(info_buzon);
 
         boton_buzon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boton_buzon.setText(getResources().getText(R.string.enviando));
                 boton_buzon.setEnabled(false);
-                System.out.println("Enviar solicitud");
                 JSONObject json = new JSONObject();
                 try {
                     json.put("qNFC", NFC);

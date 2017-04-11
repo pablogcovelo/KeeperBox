@@ -1,5 +1,7 @@
 package smartmailbox.keeperbox;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -52,7 +54,6 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
 
         //informativo = (TextView) v.findViewById(R.id.informativo_solici_perm);
         Button registrar = (Button) v.findViewById(R.id.buscar_solicitarPermiso);
-        //TODO arreglar esto. Se ha cambiado de layout y enviar más cosillas
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +70,6 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
                 obtenerdatos("qletra",letra_edittext.getText().toString());
                 obtenerdatos("qCP",CP_edittext.getText().toString());
 
-                System.out.println("BuscarBuzon "+ json_primero);
 
                 Peticion peticion = new Peticion(SolicitarPermisoActivity.this);
                 peticion.execute("buscarBuzon", json_primero.toString());
@@ -81,8 +81,7 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        if (response!=null)
-            //TODO arreglar esto
+        if (response!=null) {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
                 String localizador_respuesta = row.getString("localizador");
@@ -97,14 +96,28 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
                         calle_respuesta, numero_respuesta, piso_respuesta, letra_respuesta, CP_respuesta);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                if(Variable.tipo_propietario == 1){
+                if (Variable.tipo_propietario == 0 || Variable.tipo_propietario == 1) {
                     fragmentTransaction.replace(R.id.content_frame, fragment);
-                }else if(Variable.tipo_propietario == 2){
+                } else if (Variable.tipo_propietario == 2) {
                     fragmentTransaction.replace(R.id.content_frameRep, fragment);
                 }
                 fragmentTransaction.commit();
 
             }
+        }else{
+            AlertDialog.Builder no_hay_buzon = new AlertDialog.Builder(getContext());
+            no_hay_buzon.setMessage(getString(R.string.no_existe_buzon))
+                    .setTitle(getString(R.string.advertencia))
+                    .setCancelable(false)
+                    .setNeutralButton(getString(R.string.accept),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert_no_hay_buzon = no_hay_buzon.create();
+            alert_no_hay_buzon.show();
+        }
     }
 
     public void obtenerdatos(String nombre, String valor) {

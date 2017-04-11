@@ -2,6 +2,7 @@ package smartmailbox.keeperbox;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +20,21 @@ import org.json.JSONObject;
  * Created by regueiro on 26/03/2017.
  */
 
-public class UsuariosPermitidosDinamica extends Fragment implements Request{
+public class UsuariosPermitidosDinamica extends Fragment implements Request {
     String localizador;
     String nombre;
     String NFC;
+    private String NFCPropietario;
+    private String tipo_usuario;
     ToggleButton toggleButton;
+
     @SuppressLint("ValidFragment")
-    public UsuariosPermitidosDinamica(String localizador, String nombre, String NFC){
+    public UsuariosPermitidosDinamica(String localizador, String nombre, String NFC, String NFCPropietario, String tipo_usuario) {
         this.localizador = localizador;
         this.nombre = nombre;
         this.NFC = NFC;
+        this.NFCPropietario = NFCPropietario;
+        this.tipo_usuario = tipo_usuario;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,38 +44,44 @@ public class UsuariosPermitidosDinamica extends Fragment implements Request{
         TextView textView = (TextView) relativeLayout.findViewById(R.id.usupermi_textView);
         toggleButton = (ToggleButton) relativeLayout.findViewById(R.id.usupermi_toggleButton);
         toggleButton.setTag(NFC);
-        toggleButton.setChecked(true);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleButton.setEnabled(false);
-                if(toggleButton.isChecked()){
-                    JSONObject json = new JSONObject();
-                    try {
-                        json.put("qlocalizador", localizador);
-                        json.put("qNFC", NFC);
-                        json.put("qpermiso", 1);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        if (Variable.tipo_propietario < Integer.parseInt(tipo_usuario)) {
+            toggleButton.setEnabled(true);
+            toggleButton.setChecked(true);
+            toggleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toggleButton.setEnabled(false);
+                    if (toggleButton.isChecked()) {
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("qlocalizador", localizador);
+                            json.put("qNFC", NFC);
+                            json.put("qNFCPropietario", NFCPropietario);
+                            json.put("qpermiso", 1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Peticion peticion = new Peticion(UsuariosPermitidosDinamica.this);
+                        peticion.execute("manejoPermisos", json.toString());
+                    } else {
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("qlocalizador", localizador);
+                            json.put("qNFC", NFC);
+                            json.put("qNFCPropietario", NFCPropietario);
+                            json.put("qpermiso", 0);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Peticion peticion = new Peticion(UsuariosPermitidosDinamica.this);
+                        peticion.execute("manejoPermisos", json.toString());
                     }
-                    System.out.println("AQUI2"+json);
-                    Peticion peticion = new Peticion(UsuariosPermitidosDinamica.this);
-                    peticion.execute("manejoPermisos", json.toString());
-                }else{
-                    JSONObject json = new JSONObject();
-                    try {
-                        json.put("qlocalizador", localizador);
-                        json.put("qNFC", NFC);
-                        json.put("qpermiso", 0);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("AQUI2"+json);
-                    Peticion peticion = new Peticion(UsuariosPermitidosDinamica.this);
-                    peticion.execute("manejoPermisos", json.toString());
                 }
-            }
-        });
+            });
+        } else {
+            toggleButton.setChecked(true);
+            toggleButton.setEnabled(false);
+        }
         textView.setText(nombre);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.topMargin = 15;
@@ -81,9 +93,9 @@ public class UsuariosPermitidosDinamica extends Fragment implements Request{
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         toggleButton.setEnabled(true);
-        String valido = response.getString(0);
-        if(valido.contains("error")){
-            String NFCerroneo = valido.split(":")[1];
+        JSONObject row = response.getJSONObject(0);
+        String NFCerroneo = row.getString("error");
+        if (!NFCerroneo.contains("correcto")) {
 
             System.out.println("Ha ocurrido un error con el NFC: " + NFCerroneo);
         }

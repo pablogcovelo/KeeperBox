@@ -25,13 +25,19 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
     private String NFCpeticion;
     private String localizador;
     private String id_usuario;
+    private String nombre_empresa;
+    private String CIF;
+    private String num_repartidor;
 
-    public SolicitudesPendDinamica(String nombre, String NFC, String NFCpeticion, String localizador, String id_usuario){
+    public SolicitudesPendDinamica(String nombre, String NFC, String NFCpeticion, String localizador, String id_usuario, String nombre_empresa, String CIF, String num_repartidor){
         this.nombre = nombre;
         this.NFC = NFC;
         this.NFCpeticion = NFCpeticion;
         this.localizador = localizador;
         this.id_usuario = id_usuario;
+        this.nombre_empresa = nombre_empresa;
+        this.CIF = CIF;
+        this.num_repartidor = num_repartidor;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,19 +48,24 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
 
         rejectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                System.out.println("Boton rechazar");
                 resolverSolicitud("2");
             }
         });
         aceptButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                System.out.println("Boton rechazar");
                 resolverSolicitud("1");
 
             }
         });
         TextView textView = (TextView) InputFragmentView.findViewById(R.id.solpen_text);
-        textView.setText(nombre);
+        if(nombre_empresa.isEmpty() || CIF.isEmpty() || num_repartidor.isEmpty()){
+            textView.setText(nombre);
+        }else{
+            textView.setText(nombre + "\n" + getResources().getString(R.string.nombre_empresa) + ": " + nombre_empresa +
+            " " + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor)+
+            ": " + num_repartidor);
+        }
+
 
         //layout params
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -83,7 +94,6 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        System.out.println("*** AQUI 300***");
         Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

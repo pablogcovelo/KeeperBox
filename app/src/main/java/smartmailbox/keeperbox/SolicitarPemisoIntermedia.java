@@ -50,7 +50,7 @@ public class SolicitarPemisoIntermedia extends Fragment {
         Fragment fragment = new SolicitarPermisoActivity(NFC);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if(Variable.tipo_propietario == 1){
+        if(Variable.tipo_propietario == 1 || Variable.tipo_propietario == 0){
             fragmentTransaction.replace(R.id.content_frame, fragment);
         }else if(Variable.tipo_propietario == 2){
             fragmentTransaction.replace(R.id.content_frameRep, fragment);

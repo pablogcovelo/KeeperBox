@@ -31,10 +31,10 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
     boolean inicio = true;
 
     private JSONObject parametros;
-    String NFC;
-    String localizador;
-    String id_usuario ;
-    String token_recibido;
+    private String NFC;
+    private String localizador;
+    private String id_usuario ;
+    private String token_recibido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,13 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
         String datos = getIntent().getExtras().getString("datos");
         try {
             if (datos != null) {
-                Variable.tipo_propietario = 1;
+
                 parametros = new JSONObject(datos);
                 NFC = parametros.getString("NFC");
                 localizador = parametros.getString("localizador");
                 id_usuario = parametros.getString("id_usuario");
                 token_recibido = parametros.getString("token");
+                Variable.tipo_propietario = Integer.parseInt(parametros.getString("tipo_usuario"));
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
                 if(!token_recibido.equals(Variable.TOKEN)){
@@ -97,11 +98,11 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.usuariospermitidos:
-                                    fragment = new UsuariosPermitidosActivity(localizador);
+                                    fragment = new UsuariosPermitidosActivity(NFC, localizador);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.usuariosregistrados:
-                                    fragment = new UsuariosRegistradosActivity(localizador);
+                                    fragment = new UsuariosRegistradosActivity(NFC, localizador);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.historialacceso:

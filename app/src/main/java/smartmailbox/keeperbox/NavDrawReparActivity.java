@@ -39,11 +39,11 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
         String datos = getIntent().getExtras().getString("datos");
         try {
             if (datos != null) {
-                Variable.tipo_propietario = 2;
+
                 parametros = new JSONObject(datos);
                 NFC = parametros.getString("NFC");
                 token_recibido = parametros.getString("token");
-                //Cambiar comprobarUsuario par que devuelva el NFC en vez del ID no?
+                Variable.tipo_propietario = Integer.parseInt(parametros.getString("tipo_usuario"));
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
                 if (!token_recibido.equals(Variable.TOKEN)) {

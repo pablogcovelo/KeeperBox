@@ -48,14 +48,17 @@ public class SolicitudesPendActivity extends Fragment implements Request {
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        System.out.println("*** AQUI 1***");
         if (response!=null)
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
                 String NFCpeticion = row.getString("NFC");
-                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos, NFC, NFCpeticion, localizador, id_usuario);
+                String nombre_empresa = row.getString("nombre_empresa");
+                String CIF = row.getString("CIF");
+                String num_repartidor = row.getString("num_repartidor");
+                Fragment fragment = new SolicitudesPendDinamica(nombre + " " + apellidos, NFC, NFCpeticion, localizador,
+                        id_usuario, nombre_empresa, CIF, num_repartidor);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_listPend, fragment);
