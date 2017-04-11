@@ -82,7 +82,6 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         if (response!=null) {
-            //TODO arreglar esto
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
                 String localizador_respuesta = row.getString("localizador");
