@@ -25,7 +25,7 @@
     <string name="tamano1">Máximo 50 caracteres</string>
     <string name="correo_mal">Correo mal formado (@)</string>
     <string name="tamano_erroneo">Campo demasiado grande</string>
-    <string name="ser_numeros">Este campo solo puede ser numérico</string>
+    <string name="ser_numeros">Este campo solo puede ser numerico</string>
     <string name="solicitudesPendientes">Soclicitudes pendientes</string>
     <string name="usuariospermitidos">Usuarios permitidos</string>
     <string name="usuariosregistrados">Usuarios registrados</string>
@@ -68,4 +68,5 @@
     <string name="enviando">Enviando...</string>
     <string name="enviado">Enviado</string>
     <string name="no_existe_buzon">No existe ningún buzón con esa especificación.</string>
+    <string name="google_maps_key">AIzaSyAXyisVJOOorrztQAOpNSVJSwbc7XSM3cs</string>
 </resources>

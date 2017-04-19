@@ -9,6 +9,7 @@ package="smartmailbox.keeperbox">
     <uses-permission android:name="android.permission.SET_DEBUG_APP"></uses-permission>
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
 <uses-feature android:name="android.hardware.nfc"
@@ -33,6 +34,10 @@ package="smartmailbox.keeperbox">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait">
