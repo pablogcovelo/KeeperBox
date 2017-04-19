@@ -110,7 +110,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:
-                                    //fragment = new AlertasActivity(NFC, localizador);
+                                    fragment = new MapsActivity();
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.ajustes:

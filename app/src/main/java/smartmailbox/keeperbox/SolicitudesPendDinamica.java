@@ -62,7 +62,7 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
             textView.setText(nombre);
         }else{
             textView.setText(nombre + "\n" + getResources().getString(R.string.nombre_empresa) + ": " + nombre_empresa +
-            " " + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor)+
+            "\n" + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor)+
             ": " + num_repartidor);
         }
 

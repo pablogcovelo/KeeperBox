@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "572777106164",
-    "firebase_url": "https://keeperbox-35149.firebaseio.com",
-    "project_id": "keeperbox-35149",
-    "storage_bucket": "keeperbox-35149.appspot.com"
+    "project_number": "917674122126",
+    "firebase_url": "https://keeperbox-c50f1.firebaseio.com",
+    "project_id": "keeperbox-c50f1",
+    "storage_bucket": "keeperbox-c50f1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:572777106164:android:f69fb3e990b9aa5b",
+        "mobilesdk_app_id": "1:917674122126:android:f69fb3e990b9aa5b",
         "android_client_info": {
           "package_name": "smartmailbox.keeperbox"
         }
       },
       "oauth_client": [
         {
-          "client_id": "572777106164-jtcuiqi3kjhh91imaknhg7pnq1s448fq.apps.googleusercontent.com",
+          "client_id": "917674122126-cps4sbhhjkv9bq37nphgujkg1r4fvpjr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfCEnn_y1W5a-xN4i4eiiOlXZAFP49Mx0"
+          "current_key": "AIzaSyB4MJWCJ5jhxaxWMs26m5LwChXV-LvEeQI"
         }
       ],
       "services": {

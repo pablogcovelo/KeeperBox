@@ -43,9 +43,14 @@ class SolicitarPermisoDinamica extends Fragment implements Request{
                 localizador_solicitado + "\n" + getResources().getString(R.string.pais) + ": " + pais
                 + " " + getResources().getString(R.string.ciudad)+ ": " + ciudad + "\n" +
                 getResources().getString(R.string.calle) +": " + calle + "\n" +
-                getResources().getString(R.string.num_portal)+ ": " + numero + " " + getResources().getString(R.string.letra_piso)
-                +": " + piso + " " + getResources().getString(R.string.letra_piso) + ": " + letra +
-                getResources().getString(R.string.cod_postal) + ": " + CP;
+                getResources().getString(R.string.numero)+ ": " + numero + ", ";
+        if(!piso.isEmpty() || !piso.contains("null") || !piso.equals(" ")){
+            info_buzon = info_buzon + piso;
+        }
+        if(!letra.isEmpty() || !letra.contains("null") || !letra.equals(" ")){
+            info_buzon = info_buzon + " " + letra;
+        }
+        info_buzon = info_buzon + ", " + CP;
         informacion_buzon.setText(info_buzon);
 
         boton_buzon.setOnClickListener(new View.OnClickListener() {
