@@ -1,9 +1,9 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +51,7 @@ public class SolicitudesPendReparActivity extends Fragment implements Request{
                 String nombre = row.getString("nombre");
                 String apellidos = row.getString("apellidos");
                 Fragment fragment = new SolicitudesRepartidorDinamica(nombre + " " + apellidos, "3");
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_lista_solicitudes, fragment);
                 fragmentTransaction.commit();

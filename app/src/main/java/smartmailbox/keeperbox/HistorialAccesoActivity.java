@@ -1,9 +1,9 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +60,7 @@ public class HistorialAccesoActivity extends Fragment implements Request {
 
     public void limpiar() {
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment = new HistorialAccesoDinamica("", "");
 
@@ -77,7 +77,7 @@ public class HistorialAccesoActivity extends Fragment implements Request {
                 String apellidos = row.getString("apellidos");
                 String fecha = row.getString("fecha");
                 Fragment fragment = new HistorialAccesoDinamica(nombre + " " + apellidos, fecha);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_historial, fragment);
                 fragmentTransaction.commit();

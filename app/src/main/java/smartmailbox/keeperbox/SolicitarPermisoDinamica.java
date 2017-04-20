@@ -1,7 +1,7 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import org.json.JSONObject;
  * Created by regueiro on 9/04/17.
  */
 
-class SolicitarPermisoDinamica extends Fragment implements Request{
+public class SolicitarPermisoDinamica extends Fragment implements Request{
 
     String NFC, localizador_solicitado, pais, ciudad, calle, numero, piso, letra, CP;
     Button boton_buzon;

@@ -1,9 +1,10 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +88,7 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        Log.d("KeeperBox", json.toString());
         Peticion peticion = new Peticion(SolicitudesPendDinamica.this);
         peticion.execute("resolverPetPend", json.toString());
     }
@@ -95,7 +96,7 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).commit();
     }

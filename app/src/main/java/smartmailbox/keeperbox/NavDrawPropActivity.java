@@ -1,16 +1,24 @@
 package smartmailbox.keeperbox;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -35,6 +43,8 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
     private String localizador;
     private String id_usuario ;
     private String token_recibido;
+    private String nombre;
+    private String apellidos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,8 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
                 localizador = parametros.getString("localizador");
                 id_usuario = parametros.getString("id_usuario");
                 token_recibido = parametros.getString("token");
+                nombre = parametros.getString("nombre");
+                apellidos = parametros.getString("apellidos");
                 Variable.tipo_propietario = Integer.parseInt(parametros.getString("tipo_usuario"));
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
@@ -63,11 +75,12 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(json);
+
                     Peticion peticion = new Peticion(NavDrawPropActivity.this);
                     peticion.execute("actualizarToken", json.toString());
                 }
             }
+
             appbar = (Toolbar) findViewById(R.id.appbar);
             setSupportActionBar(appbar);
 
@@ -77,10 +90,12 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
             drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
             navView = (NavigationView) findViewById(R.id.navview);
 
+            consultarAlertas();
+
             if (inicio) {
                 inicio = false;
                 Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
             }
 
@@ -88,7 +103,9 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
                     new NavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                            TextView textView = (TextView) findViewById(R.id.nombre_propietario_header);
+                            textView.setText(nombre + " " + apellidos);
+                            consultarAlertas();
                             boolean fragmentTransaction = false;
                             Fragment fragment = null;
 
@@ -123,9 +140,8 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
                                     break;
                             }
 
-
                             if (fragmentTransaction) {
-                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                                getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 
                                 item.setChecked(true);
                                 getSupportActionBar().setTitle(item.getTitle());
@@ -155,17 +171,51 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
 
     public void onBackPressed(){
         Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitudesPendientes));
+    }
+
+    public void consultarAlertas(){
+        JSONObject json =  new JSONObject();
+        try {
+            json.put("NFCConsulta", NFC);
+            json.put("qlocalizador", localizador);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Peticion peticion = new Peticion(NavDrawPropActivity.this);
+        peticion.execute("peticionesPendientes", json.toString());
     }
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        if(response !=null){
-            JSONObject row = response.getJSONObject(0);
-            if(row.getString("estado").equals("FALSE")){
-                Log.d(TAG, "error en la actualización del Token");
+        boolean esavisos = false;
+        if (response!=null) {
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject row = response.getJSONObject(i);
+                String nombre = row.getString("nombre");
+                String apellidos = row.getString("apellidos");
+                esavisos = true;
+                break;
             }
+            if (esavisos) {
+                setMenuCounter(R.id.alertas, response.length());
+            }
+        }else{
+            setMenuCounter(R.id.alertas, 0);
         }
+    }
+
+    private void setMenuCounter(@IdRes int itemId, int count) {
+        TextView view = (TextView) navView.getMenu().findItem(itemId).getActionView();
+        if(count == 0){
+            view.setVisibility(View.INVISIBLE);
+            view.setText("");
+        }else{
+            view.setVisibility(View.VISIBLE);
+            view.setText(Integer.toString(count));
+        }
+
     }
 }

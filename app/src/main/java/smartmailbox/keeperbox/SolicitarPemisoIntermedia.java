@@ -1,9 +1,9 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +40,7 @@ public class SolicitarPemisoIntermedia extends Fragment {
     public void rellenar(){
         Fragment fragment = new SolicitarPermisoDinamica(NFC,localizador_respuesta, pais_respuesta, ciudad_respuesta,
                 calle_respuesta,numero_respuesta,piso_respuesta, letra_respuesta,cp_respuesta);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.linear_listPend, fragment);
         fragmentTransaction.commit();
@@ -48,7 +48,7 @@ public class SolicitarPemisoIntermedia extends Fragment {
 
     public void onBackPressed(){
         Fragment fragment = new SolicitarPermisoActivity(NFC);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if(Variable.tipo_propietario == 1 || Variable.tipo_propietario == 0){
             fragmentTransaction.replace(R.id.content_frame, fragment);

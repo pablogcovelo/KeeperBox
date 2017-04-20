@@ -30,7 +30,7 @@
     <string name="usuariospermitidos">Usuarios permitidos</string>
     <string name="usuariosregistrados">Usuarios registrados</string>
     <string name="historialacceso">Historial de acceso</string>
-    <string name="registrar_nuevousuario">Registrar nuevo usuario</string>
+    <string name="registrar_nuevousuario">Solicitar nuevo acceso</string>
     <string name="alertas">Alertas</string>
     <string name="ajustes">Ajustes</string>
     <string name="accept">Aceptar</string>
@@ -70,4 +70,7 @@
     <string name="no_existe_buzon">No existe ningún buzón con esa especificación.</string>
     <string name="google_maps_key">AIzaSyAXyisVJOOorrztQAOpNSVJSwbc7XSM3cs</string>
     <string name="numero">Nº</string>
+    <string name="empresa">Empresa</string>
+    <string name="cif">CIF</string>
+    <string name="num_repartidor">Repartidor</string>
 </resources>

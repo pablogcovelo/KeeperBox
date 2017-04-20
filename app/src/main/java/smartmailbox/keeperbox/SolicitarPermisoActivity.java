@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +94,7 @@ public class SolicitarPermisoActivity extends Fragment implements Request {
                 String CP_respuesta = row.getString("CP");
                 Fragment fragment = new SolicitarPemisoIntermedia(NFC, localizador_respuesta, pais_respuesta, ciudad_respuesta,
                         calle_respuesta, numero_respuesta, piso_respuesta, letra_respuesta, CP_respuesta);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 if (Variable.tipo_propietario == 0 || Variable.tipo_propietario == 1) {
                     fragmentTransaction.replace(R.id.content_frame, fragment);
