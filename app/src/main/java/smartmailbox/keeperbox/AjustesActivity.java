@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,11 +83,6 @@ public class AjustesActivity extends Fragment{
                                         break;
                                 }
                                 res.updateConfiguration(conf, dm);
-                               /* Locale.setDefault(idioma);
-                                Configuration config = new Configuration();
-                                config.locale = idioma;
-                                getActivity().getBaseContext().getResources().updateConfiguration(config,
-                                        getActivity().getBaseContext().getResources().getDisplayMetrics());*/
                                 dialog.cancel();
                             }
                         });

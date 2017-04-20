@@ -1,14 +1,15 @@
 package smartmailbox.keeperbox;
 
-import android.Manifest;
+
+import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +23,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -46,8 +47,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     private static final String TAG = "MapsActivity Debugging";
 
     private static final LatLng ORIGIN = new LatLng(42.170178, -8.687878);
-    //private static final LatLng DESTINATION = new LatLng(42.170178, -8.687878);
-    private static final LatLng DESTINATION = new LatLng(43.362353, -8.411542);
+    private static final LatLng DESTINATION = new LatLng(42.170178, -8.687878);
+    //private static final LatLng DESTINATION = new LatLng(43.362353, -8.411542);
 
     Polyline polyline;
     private List<LatLng> polyLinePoints = new ArrayList<>();
@@ -58,11 +59,17 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       // super.onCreate(savedInstanceState);
-        View v = inflater.inflate(R.layout.activity_maps, container, false);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        // inflat and return the layout
+        View v = inflater.inflate(R.layout.fragment_location, container, false);
+
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        MapFragment mapFragment = (MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         /**
@@ -77,8 +84,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         /**
          * Añadimos una "Search ToolBar" al mapa para realizar busquedas
          */
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+       /* PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -93,8 +100,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             public void onError(Status status) {
                 // TODO: Handle the error.
             }
-        });
-        return v;
+        });*/
     }
 
     /**
@@ -193,7 +199,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
@@ -209,10 +215,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         Log.d("Location: ", String.valueOf(location));
         LatLng originPoint = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint,15));*/
-        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        /*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));*/
 
         try {
             TraceRoute(ORIGIN.latitude, ORIGIN.longitude);
@@ -222,5 +228,4 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
     }
-
 }

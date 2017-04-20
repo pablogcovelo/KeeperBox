@@ -17,7 +17,7 @@
         android:layout_toLeftOf="@+id/usupermi_toggleButton"
         android:gravity="center"
         android:background="@android:color/transparent"
-        android:textSize="18dp" />
+        android:textSize="14dp" />
 
     <ToggleButton
         android:id="@+id/usupermi_toggleButton"

@@ -1,9 +1,9 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +52,7 @@ public class UsuariosPermitidosActivity extends Fragment implements Request {
                 String apellidos = row.getString("apellidos");
                 String tipo_usuario = row.getString("tipo_usuario");
                 Fragment fragment = new UsuariosPermitidosDinamica(localizador, nombre + " " + apellidos, NFC, NFCpropietario, tipo_usuario);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.linear_usu_permi, fragment);
                 fragmentTransaction.commit();

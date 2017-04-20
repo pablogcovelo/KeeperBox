@@ -1,15 +1,16 @@
 package smartmailbox.keeperbox;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -31,6 +32,8 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
     private JSONObject parametros;
     String NFC;
     String token_recibido;
+    private String nombre;
+    private String apellidos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                 parametros = new JSONObject(datos);
                 NFC = parametros.getString("NFC");
                 token_recibido = parametros.getString("token");
+                nombre = parametros.getString("nombre");
+                apellidos = parametros.getString("apellidos");
                 Variable.tipo_propietario = Integer.parseInt(parametros.getString("tipo_usuario"));
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
@@ -60,6 +65,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                     peticion.execute("actualizarToken", json.toString());
                 }
             }
+
             appbar = (Toolbar) findViewById(R.id.appbarRep);
             setSupportActionBar(appbar);
 
@@ -72,7 +78,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
             if (inicio) {
                 inicio = false;
                 Fragment fragment = new SolicitarPermisoActivity(NFC);
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.solicitar_acceso));
             }
 
@@ -80,7 +86,8 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                     new NavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                            TextView textView = (TextView) findViewById(R.id.nombre_repartidor_header);
+                            textView.setText(nombre + " " + apellidos);
                             boolean fragmentTransaction = false;
                             Fragment fragment = null;
 
@@ -106,11 +113,13 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.mapa_rutas:
-                                    fragment = new MapaRutasActivity();
+                                    fragment = new MapsActivity();
+                                   /* Intent intent = new Intent(NavDrawReparActivity.this, MapsActivity.class);
+                                    startActivity(intent);*/
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:
-                                    fragment = new MapsActivity();
+                                    //fragment = new MapsActivity();TODO
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.ajustes:
@@ -120,7 +129,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                             }
 
                             if (fragmentTransaction) {
-                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+                                getFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
 
                                 item.setChecked(true);
                                 getSupportActionBar().setTitle(item.getTitle());
@@ -150,8 +159,8 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
     }
 
     public void onBackPressed() {
-        Fragment fragment = new SolicitarPermisoActivity(NFC);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
+        Fragment fragment= new SolicitarPermisoActivity(NFC);
+        getFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitud_acceso));
     }
 

@@ -1,7 +1,7 @@
 package smartmailbox.keeperbox;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,8 +98,8 @@ public class UsuariosRegistradosDinamica extends Fragment implements Request{
         if(nombre_empresa.isEmpty() || CIF.isEmpty() || num_repartidor.isEmpty()){
             textView.setText(nombre);
         }else{
-            textView.setText(nombre + "\n" + getResources().getString(R.string.nombre_empresa) + ": " + nombre_empresa +
-                    " " + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor)+
+            textView.setText(nombre + "\n" + getResources().getString(R.string.empresa) + ": " + nombre_empresa +
+                    " " + getResources().getString(R.string.cif) + ": " + CIF + "\n" + getResources().getString(R.string.num_repartidor)+
                     ": " + num_repartidor);
         }
 

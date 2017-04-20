@@ -50,6 +50,9 @@ package="smartmailbox.keeperbox">
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".NavDrawPropActivity"></activity>
         <activity android:name=".NavDrawReparActivity"></activity>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
     <service
         android:name=".MyFirebaseMessagingService" android:exported="false" >
