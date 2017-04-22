@@ -1,15 +1,18 @@
 package smartmailbox.keeperbox;
 
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -46,9 +45,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = "MapsActivity Debugging";
 
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
+
     private static final LatLng ORIGIN = new LatLng(42.170178, -8.687878);
     private static final LatLng DESTINATION = new LatLng(42.170178, -8.687878);
-    //private static final LatLng DESTINATION = new LatLng(43.362353, -8.411542);
 
     Polyline polyline;
     private List<LatLng> polyLinePoints = new ArrayList<>();
@@ -84,8 +84,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         /**
          * Añadimos una "Search ToolBar" al mapa para realizar busquedas
          */
-       /* PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        /*PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -209,13 +209,43 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         /**
          * Obtenemos la posicion actual del usuario  e iniciamos el mapa en dicha posicion
          */
-        /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this.getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+
+// Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(MapsActivity.this.getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this.getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(MapsActivity.this.getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
         Log.d("Location: ", String.valueOf(location));
         LatLng originPoint = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint,15));*/
-        /*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint,15));
+        /*LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));*/
@@ -226,6 +256,31 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 }

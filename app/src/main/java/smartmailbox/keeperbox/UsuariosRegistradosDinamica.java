@@ -113,12 +113,14 @@ public class UsuariosRegistradosDinamica extends Fragment implements Request{
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        toggleButton.setEnabled(true);
-        JSONObject row = response.getJSONObject(0);
-        String NFCerroneo = row.getString("error");
-        if (!NFCerroneo.contains("correcto")) {
+        if(response != null) {
+            toggleButton.setEnabled(true);
+            JSONObject row = response.getJSONObject(0);
+            String NFCerroneo = row.getString("error");
+            if (!NFCerroneo.contains("correcto")) {
 
-            System.out.println("Ha ocurrido un error con el NFC: " + NFCerroneo);
+                System.out.println("Ha ocurrido un error con el NFC: " + NFCerroneo);
+            }
         }
     }
 }

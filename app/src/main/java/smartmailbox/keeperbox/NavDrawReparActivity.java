@@ -114,12 +114,10 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                                     break;
                                 case R.id.mapa_rutas:
                                     fragment = new MapsActivity();
-                                   /* Intent intent = new Intent(NavDrawReparActivity.this, MapsActivity.class);
-                                    startActivity(intent);*/
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:
-                                    //fragment = new MapsActivity();TODO
+                                    fragment = new AlertasActivity(NFC, null, null);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.ajustes:
@@ -130,7 +128,6 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
 
                             if (fragmentTransaction) {
                                 getFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
-
                                 item.setChecked(true);
                                 getSupportActionBar().setTitle(item.getTitle());
                             }
@@ -159,7 +156,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
     }
 
     public void onBackPressed() {
-        Fragment fragment= new SolicitarPermisoActivity(NFC);
+        Fragment fragment = new SolicitarPermisoActivity(NFC);
         getFragmentManager().beginTransaction().replace(R.id.content_frameRep, fragment).commit();
         getSupportActionBar().setTitle(getResources().getString(R.string.solicitud_acceso));
     }
