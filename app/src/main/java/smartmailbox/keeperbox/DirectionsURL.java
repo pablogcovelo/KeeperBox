@@ -1,7 +1,5 @@
 package smartmailbox.keeperbox;
 
-import android.util.Log;
-
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -9,25 +7,8 @@ import com.google.android.gms.maps.model.LatLng;
  */
 
 public class DirectionsURL {
-    /**
-     * Waypoints de prueba
-     */
-    private static final String STREET1 = "Rua+Urzaiz";
-    private static final String NUMBER1 = "8";
-    private static final String CITY1 = "Vigo";
 
-    private static final String STREET2 = "Rua+da+Travesia+de+Vigo";
-    private static final String NUMBER2 = "51";
-    private static final String CITY2 = "Vigo";
-
-    private static final String STREET3 = "Avenia+de+Castrelos";
-    private static final String NUMBER3 = "22";
-    private static final String CITY3 = "Vigo";
-    /**
-     * Final Waypoints de prueba
-     */
-    String waypoints = STREET1+",+"+NUMBER1+",+"+CITY1+"|"+STREET2+",+"+NUMBER2+",+"+CITY2+"|"+STREET3+",+"+NUMBER3+",+"+CITY3;
-    public String getURL(LatLng originPoint, LatLng destPoint) {
+    public String getURL(LatLng originPoint, LatLng destPoint, String waypoints) {
         // Origin route
         String str_origin = "origin=" + originPoint.latitude + "," + originPoint.longitude;
 
