@@ -131,7 +131,7 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:
-                                    fragment = new AlertasActivity(NFC, localizador);
+                                    fragment = new AlertasActivity(NFC, localizador, id_usuario);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.ajustes:
@@ -179,13 +179,13 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
         JSONObject json =  new JSONObject();
         try {
             json.put("NFCConsulta", NFC);
-            json.put("qlocalizador", localizador);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         Peticion peticion = new Peticion(NavDrawPropActivity.this);
-        peticion.execute("peticionesPendientes", json.toString());
+        peticion.execute("listaAlertas", json.toString());
     }
 
     @Override
@@ -194,9 +194,10 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
         if (response!=null) {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
-                String nombre = row.getString("nombre");
-                String apellidos = row.getString("apellidos");
-                esavisos = true;
+                String mensaje_alerta = row.getString("mensaje_alerta");
+                if(!mensaje_alerta.isEmpty() || !mensaje_alerta.equals("null")){
+                    esavisos = true;
+                }
                 break;
             }
             if (esavisos) {

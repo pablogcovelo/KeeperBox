@@ -12,7 +12,7 @@
     <string name="pais">País</string>
     <string name="ciudad">Ciudad</string>
     <string name="calle">Calle</string>
-    <string name="num_portal">Número del portal</string>
+    <string name="num_portal">Número</string>
     <string name="letra_piso">Letra del piso</string>
     <string name="cod_postal">Código postal</string>
     <string name="num_piso">Número del piso</string>
@@ -73,5 +73,17 @@
     <string name="empresa">Empresa</string>
     <string name="cif">CIF</string>
     <string name="num_repartidor">Repartidor</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="usuario_abre_buzon">"Un usuario acaba de abrir su buzón."</string>
+    <string name="solicitud_pen_acep">"Una solicitud pendiente ha sido aprobada."</string>
+    <string name="solicitud_pen_dene">"Una solicitud pendiente ha sido denegada."</string>
+    <string name="nueva_sol_buzon">"Nueva solicitud de acceso al buzón."</string>
+    <string name="devuelto_permiso">"Se le ha devuelto el permiso para acceder a un buzón"</string>
+    <string name="denegado_permiso">"Se le ha denegado el permiso para acceder a un buzón"</string>
+    <string name="registrado_nuevo_usuario">"Se ha registrado un nuevo usuario en el buzón."</string>
+    <string name="error_datos">"Alguno de los datos introducidos no es correcto."</string>
+    <string name="error_login">"Error en la autentificación."</string>
+    <string name="error_red">"Error en la conexión."</string>
+    <string name="error_conexion">"Problemas para conectarse al servidor. Cierre la aplicación y vuelva a
+        intentarlo. Disculpe las molestias."</string>
 </resources>

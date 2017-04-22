@@ -1,5 +1,7 @@
 package smartmailbox.keeperbox;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -120,26 +122,52 @@ public class LoginActivity extends AppCompatActivity implements Request {
         JSONObject row = null;
         // Cogemos el campo valido de la respuesta JSON
         String valido = null;
-        for (int i = 0; i < response.length(); i++) {
-            row = response.getJSONObject(i);
-            valido = row.getString("valido");
-        }
-
-        if (valido.equalsIgnoreCase("1")) {
-            System.out.println("Login correcto");
-
-            if(row.getString("tipo_usuario").equals("0") || row.getString("tipo_usuario").equals("1")){
-                Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
-                intent.putExtra("datos", row.toString());
-                startActivity(intent);
-            }else if (row.getString("tipo_usuario").equals("2")){
-                Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
-                intent.putExtra("datos", row.toString());
-                startActivity(intent);
+        if(response != null) {
+            for (int i = 0; i < response.length(); i++) {
+                row = response.getJSONObject(i);
+                valido = row.getString("valido");
             }
+
+            if (valido.equalsIgnoreCase("1")) {
+                System.out.println("Login correcto");
+
+                if (row.getString("tipo_usuario").equals("0") || row.getString("tipo_usuario").equals("1")) {
+                    Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
+                    intent.putExtra("datos", row.toString());
+                    startActivity(intent);
+                } else if (row.getString("tipo_usuario").equals("2")) {
+                    Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
+                    intent.putExtra("datos", row.toString());
+                    startActivity(intent);
+                }
+            } else{
+                AlertDialog.Builder builder_localizador = new AlertDialog.Builder(this);
+                builder_localizador.setMessage(getString(R.string.error_datos))
+                        .setTitle(getString(R.string.error_login))
+                        .setCancelable(false)
+                        .setNeutralButton(getString(R.string.accept),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert_localizador = builder_localizador.create();
+                alert_localizador.show();
+            }
+        }else{
+            AlertDialog.Builder builder_localizador = new AlertDialog.Builder(this);
+            builder_localizador.setMessage(getString(R.string.error_red))
+                    .setTitle(getString(R.string.error_conexion))
+                    .setCancelable(false)
+                    .setNeutralButton(getString(R.string.accept),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert_localizador = builder_localizador.create();
+            alert_localizador.show();
         }
-        else
-            System.out.println("Login incorrecto");
     }
 
     /**

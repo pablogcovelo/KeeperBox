@@ -20,7 +20,7 @@ import org.json.JSONObject;
  * Created by jose on 26/03/2017.
  */
 
-public class SolicitudesPendDinamica extends Fragment implements Request{
+public class SolicitudesPendDinamica extends Fragment implements Request {
     private String nombre;
     private String NFC;
     private String NFCpeticion;
@@ -30,7 +30,7 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
     private String CIF;
     private String num_repartidor;
 
-    public SolicitudesPendDinamica(String nombre, String NFC, String NFCpeticion, String localizador, String id_usuario, String nombre_empresa, String CIF, String num_repartidor){
+    public SolicitudesPendDinamica(String nombre, String NFC, String NFCpeticion, String localizador, String id_usuario, String nombre_empresa, String CIF, String num_repartidor) {
         this.nombre = nombre;
         this.NFC = NFC;
         this.NFCpeticion = NFCpeticion;
@@ -59,12 +59,12 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
             }
         });
         TextView textView = (TextView) InputFragmentView.findViewById(R.id.solpen_text);
-        if(nombre_empresa.isEmpty() || CIF.isEmpty() || num_repartidor.isEmpty()){
+        if (nombre_empresa.isEmpty() || CIF.isEmpty() || num_repartidor.isEmpty()) {
             textView.setText(nombre);
-        }else{
+        } else {
             textView.setText(nombre + "\n" + getResources().getString(R.string.nombre_empresa) + ": " + nombre_empresa +
-            "\n" + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor)+
-            ": " + num_repartidor);
+                    "\n" + getResources().getString(R.string.cif_empresa) + ": " + CIF + "\n" + getResources().getString(R.string.num_rapartidor) +
+                    ": " + num_repartidor);
         }
 
 
@@ -78,13 +78,13 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
         return InputFragmentView;
     }
 
-    public void resolverSolicitud (String aceptar) {
-        JSONObject json =  new JSONObject();
+    public void resolverSolicitud(String aceptar) {
+        JSONObject json = new JSONObject();
         try {
-            json.put("qNFC",NFC);
-            json.put("qlocalizador",localizador);
-            json.put("qNFCPeticion",NFCpeticion);
-            json.put("acepRech",aceptar);
+            json.put("qNFC", NFC);
+            json.put("qlocalizador", localizador);
+            json.put("qNFCPeticion", NFCpeticion);
+            json.put("acepRech", aceptar);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -95,9 +95,11 @@ public class SolicitudesPendDinamica extends Fragment implements Request{
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
-        FragmentManager fragmentManager = getActivity().getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame, fragment).commit();
+        if (response != null) {
+            Fragment fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
+            FragmentManager fragmentManager = getActivity().getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, fragment).commit();
+        }
     }
 }
