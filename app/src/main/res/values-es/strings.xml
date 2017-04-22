@@ -19,13 +19,13 @@
     <string name="cif_empresa">CIF de la empresa</string>
     <string name="nombre_empresa">Nombre de la empresa</string>
     <string name="num_rapartidor">Número de repartidor</string>
-    <string name="registrar">Registrar</string>
+    <string name="registrar">Registrarse</string>
     <string name="vacio">Este campo no puede estar vacío</string>
-    <string name="tamano">Tiene que tener entre 4 y 20 caracteres</string>
+    <string name="tamano">Debe tener entre 4 y 20 caracteres</string>
     <string name="tamano1">Máximo 50 caracteres</string>
     <string name="correo_mal">Correo mal formado (@)</string>
     <string name="tamano_erroneo">Campo demasiado grande</string>
-    <string name="ser_numeros">Este campo solo puede ser numerico</string>
+    <string name="ser_numeros">Este campo solo puede ser numérico</string>
     <string name="solicitudesPendientes">Solicitudes pendientes</string>
     <string name="usuariospermitidos">Usuarios permitidos</string>
     <string name="usuariosregistrados">Usuarios registrados</string>
@@ -47,7 +47,7 @@
     <string name="solicitudes_rechazadas">Solicitudes rechazadas</string>
     <string name="mapa_rutas">Mapa de rutas</string>
     <string name="error_registro_local_erroneo">Error a la hora de registrarse. Localizador erróneo</string>
-    <string name="activar_nfc">"Por favor active NFC y presione la tecla atrás para volver a la aplicación"</string>
+    <string name="activar_nfc">"Por favor, active NFC y presione la tecla atrás para volver a la aplicación"</string>
     <string name="lastweek">Ult. Semana</string>
     <string name="lastmonth">Ult. Mes</string>
     <string name="idioma">Idioma</string>
@@ -56,7 +56,7 @@
     <string name="ingles">Inglés</string>
     <string name="gallego">Gallego</string>
     <string name="castellano">Castellano</string>
-    <string name="elige_idioma">Elige el idioma de la aplicación</string>
+    <string name="elige_idioma">Elija el idioma de la aplicación</string>
     <string name="advertencia">Advertencia</string>
     <string name="mensaje_cierre_sesion">¿Seguro que desea cerrar su sesión?</string>
     <string name="cancelar">Cancelar</string>

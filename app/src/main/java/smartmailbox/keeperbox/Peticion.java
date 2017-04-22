@@ -28,7 +28,7 @@ import java.util.Enumeration;
  */
 
 public class Peticion extends AsyncTask<String, Object, String> {
-    private static final String ip = "172.17.1.95"; // getIpAddress();
+    private static final String ip = "keeperbox.ga"; // getIpAddress();
 
     private Request requestCompleted;
 
@@ -53,7 +53,7 @@ public class Peticion extends AsyncTask<String, Object, String> {
         String json = params[1];
 
         try {
-            URL url = new URL("http://" + ip + "/html/api.php/" + procedure);
+            URL url = new URL("http://" + ip + "/api.php/" + procedure);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

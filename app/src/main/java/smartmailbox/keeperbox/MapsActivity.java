@@ -29,6 +29,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,26 +45,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class MapsActivity extends Fragment implements OnMapReadyCallback {
+public class MapsActivity extends Fragment implements OnMapReadyCallback, Request {
+
+    String NFC;
 
     private static final String TAG = "MapsActivity Debugging";
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
 
+    private static String waypoints = null;
+    private static ArrayList<String> streets = new ArrayList<>();
     private static final LatLng ORIGIN = new LatLng(42.170178, -8.687878);
     private static final LatLng DESTINATION = new LatLng(42.170178, -8.687878);
 
     Polyline polyline;
     private List<LatLng> polyLinePoints = new ArrayList<>();
+    private ArrayList<LatLng> MapMarkers = new ArrayList<>();
 
+    private GeocodingAPI geocodingAPI = new GeocodingAPI();
     private DirectionsURL directionsurl = new DirectionsURL();
     private GoogleMap mMap;
+
+    public MapsActivity(String NFC) {this.NFC = NFC;}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // inflat and return the layout
         View v = inflater.inflate(R.layout.fragment_location, container, false);
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("qNFC", NFC);
+        } catch (JSONException e) {
+            Log.d(TAG,e.getMessage());
+        }
+
+        Peticion peticion = new Peticion(MapsActivity.this);
+        peticion.execute("obtenerRutas", json.toString());
 
         return v;
     }
@@ -104,18 +126,102 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     }
 
     /**
+     * Capturamos los parametros necesarios de nuestra base de datos
+     *
+     * @param response
+     * @throws JSONException
+     */
+    @Override
+    public void onRequestCompleted(JSONArray response) throws JSONException {
+        if (response != null)
+            Log.d(TAG, String.valueOf(response.length()));
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject row = response.getJSONObject(i);
+            String calle = row.getString("calle");
+            String numero = row.getString("numero");
+            String ciudad = row.getString("ciudad");
+
+            /**
+             * Construimos la cadena sin espacios correspondiente a las calles
+             */
+            String[] cadCalle = calle.split(" ");
+            for(int x = 0; x < cadCalle.length; x++) {
+                if (x == 0) {
+                    calle = cadCalle[x];
+                } else {
+                    if (x == cadCalle.length - 1) {
+                        calle = calle + "+" + cadCalle[x];
+                    } else {
+                        if (x < cadCalle.length - 1) {
+                            calle = calle + "+" + cadCalle[x];
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Construimos la cadena sin espacios correspondiente a las ciudades
+             */
+            String[] cadCiudad = ciudad.split(" ");
+            for(int j = 0; j < cadCiudad.length; j++) {
+                if (j == 0) {
+                    ciudad = cadCiudad[j];
+                } else {
+                    if (j == cadCiudad.length - 1) {
+                        ciudad = ciudad + "+" + cadCiudad[j];
+                    } else {
+                        if (j < cadCiudad.length - 1) {
+                            ciudad = ciudad + "+" + cadCiudad[j];
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Construimos la cadena completa para poder realizar las consultas a los servidreso de Google usando las URL
+             */
+            if(i == 0) {
+                waypoints = calle + "," + numero + ",+" + ciudad;
+            } else {
+                if (i == response.length() - 1) {
+                    waypoints = waypoints + "|" + calle + ",+" + numero + ",+" + ciudad;
+                } else {
+                    if (i < response.length() - 1) {
+                        waypoints = waypoints + "|" + calle + ",+" + numero + ",+" + ciudad;
+                    }
+                }
+            }
+            /**
+             * Almacenamos las direcciones en un array para obtener su geolocalizacion en formato LatLong
+             */
+            streets.add(calle + ",+" + numero + ",+" + ciudad);
+        }
+
+        try {
+            MapMarkers = geocodingAPI.getLatLong(streets);
+            Log.d("Markers", String.valueOf(MapMarkers.size()));
+            for(int h = 0; h < MapMarkers.size(); h++) {
+                Log.d("Markers", String.valueOf(MapMarkers.get(h)));
+            }
+
+            TraceRoute();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG,waypoints);
+    }
+
+    /**
      * Trazamos por el mapa la ruta que debe seguir el repartidor para realizar la entrega de los paquetes
      * y añadimos un marcador en cada uno de los puntos en los que tiene que dejar un paquete
      *
-     * @param lat
-     * @param lng
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public void TraceRoute(double lat, double lng) throws ExecutionException, InterruptedException {
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15));
-
-        String urlResponse = directionsurl.getURL(ORIGIN, DESTINATION);
+    public void TraceRoute() throws ExecutionException, InterruptedException {
+        String urlResponse = directionsurl.getURL(ORIGIN, DESTINATION,waypoints);
         Log.d(TAG, urlResponse);
         // Trigger Async Task (onPreExecute method)
         String jsonContent = (new DownloadJSON().execute(urlResponse)).get();
@@ -139,10 +245,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
             polyline = mMap.addPolyline(polylineOptions);
 
-            //Put new marker on destination point
-            mMap.addMarker(new MarkerOptions().position(new LatLng(42.235587, -8.719975)));
-            mMap.addMarker(new MarkerOptions().position(new LatLng(42.234845, -8.705945)));
-            mMap.addMarker(new MarkerOptions().position(new LatLng(42.219278, -8.732695)));
+            //Add markers on destination points
+            for(int i = 0; i < MapMarkers.size(); i++) {
+                mMap.addMarker(new MarkerOptions().position(MapMarkers.get(i)));
+            }
         }
     }
 
@@ -242,21 +348,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
-        Log.d("Location: ", String.valueOf(location));
         LatLng originPoint = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint,15));
+        Log.d(TAG, String.valueOf(originPoint));
         /*LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));*/
-
-        try {
-            TraceRoute(ORIGIN.latitude, ORIGIN.longitude);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -283,4 +381,5 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             // permissions this app might request
         }
     }
+
 }

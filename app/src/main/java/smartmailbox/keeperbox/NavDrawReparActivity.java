@@ -113,7 +113,7 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.mapa_rutas:
-                                    fragment = new MapsActivity();
+                                    fragment = new MapsActivity(NFC);
                                     fragmentTransaction = true;
                                     break;
                                 case R.id.alertas:

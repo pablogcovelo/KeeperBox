@@ -18,9 +18,9 @@
     <string name="num_piso">Número do piso</string>
     <string name="cif_empresa">CIF da empresa</string>
     <string name="nombre_empresa">Nome da empresa</string>
-    <string name="num_rapartidor">Número de repartidor</string>
-    <string name="registrar">Rexistrar</string>
-    <string name="vacio">Este campo non pode estar baleiro</string>
+    <string name="num_rapartidor">Número do repartidor</string>
+    <string name="registrar">Rexistrarse</string>
+    <string name="vacio">Este campo non pode quedar baleiro</string>
     <string name="tamano">Ten que ter entre 4 e 20 caracteres</string>
     <string name="tamano1">Máximo 50 caracteres</string>
     <string name="correo_mal">Correo mal formado (@)</string>
@@ -46,7 +46,7 @@
     <string name="solicitudes_pendientes">Solicitudes pendentes</string>
     <string name="solicitudes_rechazadas">Solicitudes rexeitadas</string>
     <string name="mapa_rutas">Mapa de rutas</string>
-    <string name="error_registro_local_erroneo">Error a hora de rexistrarse. Localizador erróneo</string>
+    <string name="error_registro_local_erroneo">Error á hora de rexistrarse. Localizador erróneo</string>
     <string name="activar_nfc">"Por favor active o NFC e presione a tecla atrás para voltar á aplicación"</string>
     <string name="lastweek">Ult. Semana</string>
     <string name="lastmonth">Ult. Mes</string>
@@ -56,7 +56,7 @@
     <string name="ingles">Inglés</string>
     <string name="gallego">Galego</string>
     <string name="castellano">Castelán</string>
-    <string name="elige_idioma">Elixe o idioma da aplicación</string>
+    <string name="elige_idioma">Elixa o idioma da aplicación</string>
     <string name="advertencia">Advertencia</string>
     <string name="mensaje_cierre_sesion">¿Seguro que desexa pechar a sesión?</string>
     <string name="cancelar">Cancelar</string>
@@ -74,16 +74,16 @@
     <string name="cif">CIF</string>
     <string name="num_repartidor">Repartidor</string>
     <string name="title_activity_maps">Mapa</string>
-    <string name="usuario_abre_buzon">"Un usuario acaba de abrirla súa caixa de correo."</string>
+    <string name="usuario_abre_buzon">"Un usuario acaba de abrir a súa caixa de correo."</string>
     <string name="solicitud_pen_acep">"Unha solicitude pendiente foi aprobada."</string>
-    <string name="solicitud_pen_dene">"Unha solicitude pendiente foi denegada."</string>
+    <string name="solicitud_pen_dene">"Unha solicitude pendiente foi rexeitada."</string>
     <string name="nueva_sol_buzon">"Nova solicitude de acceso a súa caixa de correo."</string>
-    <string name="devuelto_permiso">"Devolveuselle o permiso para acceder a unha caixa de correo"</string>
-    <string name="denegado_permiso">"Denegouselle o permiso para acceder a unha caixa de correo"</string>
-    <string name="registrado_nuevo_usuario">"Foi rexistrado un novo usuario na caixa de correo."</string>
+    <string name="devuelto_permiso">"Volver a ter permiso para acceder a unha caixa de correo"</string>
+    <string name="denegado_permiso">"Denegóuselle o permiso para acceder a unha caixa de correo"</string>
+    <string name="registrado_nuevo_usuario">"Rexistrouse un novo usuario na caixa de correo."</string>
     <string name="error_datos">"Algún dos datos introducidos non é correcto."</string>
     <string name="error_login">"Erro na autentificación"</string>
     <string name="error_red">"Erro na conexión."</string>
-    <string name="error_conexion">"Problemas para conectarse ao servidor. Peche a aplicación e volvao a
-        intentar. Disculpe as molestias."</string>
+    <string name="error_conexion">"Problemas para conectarse ao servidor. Peche a aplicación e volva a
+        intentalo. Desculpe as molestias."</string>
 </resources>
