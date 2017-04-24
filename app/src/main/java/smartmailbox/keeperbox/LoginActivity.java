@@ -156,8 +156,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
             }
         }else{
             AlertDialog.Builder builder_localizador = new AlertDialog.Builder(this);
-            builder_localizador.setMessage(getString(R.string.error_red))
-                    .setTitle(getString(R.string.error_conexion))
+            builder_localizador.setMessage(getString(R.string.error_conexion))
+                    .setTitle(getString(R.string.error_red))
                     .setCancelable(false)
                     .setNeutralButton(getString(R.string.accept),
                             new DialogInterface.OnClickListener() {

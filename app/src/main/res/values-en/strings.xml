@@ -30,7 +30,7 @@
     <string name="usuariospermitidos">Allowed users</string>
     <string name="usuariosregistrados">Registered users</string>
     <string name="historialacceso">Access history</string>
-    <string name="registrar_nuevousuario">Request a need access</string>f
+    <string name="registrar_nuevousuario">Request access</string>f
     <string name="alertas">Alerts</string>
     <string name="ajustes">Settings</string>
     <string name="accept">Accept</string>
@@ -39,7 +39,7 @@
     <string name="buscar_buzon">Mailbox search</string>
     <string name="nombre_propietario">Owner\'s name</string>
     <string name="apellidos_propietario">Owner\'s surname</string>
-    <string name="localizador_propietario">Code for the owner\'s mailbox</string>
+    <string name="localizador_propietario">Owner\'s mailbox code</string>
     <string name="solicitud_acceso">Access request</string>
     <string name="listar_solicitudes">Requests list</string>
     <string name="solicitudes_aceptadas">Accepted requests</string>
@@ -85,4 +85,10 @@
     <string name="error_login">"Authentification error"</string>
     <string name="error_red">"Connection error."</string>
     <string name="error_conexion">"It is not possible to connect to the server. Close this application and try again. Sorry for the inconvenience."</string>
+    <string name="usuario_email">User o email</string>
+    <string name="iniciar_sesion">Login</string>
+    <string name="fecha">Date</string>
+    <string name="service_name">KeeperBox</string>
+    <string name="card_title">KeeperBox</string>
+    <string name="account_number">Account Number</string>
 </resources>

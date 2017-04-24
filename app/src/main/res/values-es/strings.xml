@@ -86,4 +86,10 @@
     <string name="error_red">"Error en la conexión."</string>
     <string name="error_conexion">"Problemas para conectarse al servidor. Cierre la aplicación y vuelva a
         intentarlo. Disculpe las molestias."</string>
+    <string name="usuario_email">Usuario o correo electrónico</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="fecha">Fecha</string>
+    <string name="service_name">KeeperBox</string>
+    <string name="card_title">KeeperBox</string>
+    <string name="account_number">Número de cuenta</string>
 </resources>

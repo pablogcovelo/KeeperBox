@@ -51,8 +51,8 @@ public class AjustesReparActivity extends Fragment {
                         android.content.res.Configuration conf = res.getConfiguration();
                         builder.setSingleChoiceItems(items, 1, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                Locale idioma = new Locale("es", "ES");
-                                switch (item) {
+                                Locale idioma = new Locale("es","ES");
+                                switch (item){
                                     case 0:
                                         conf.setLocale(new Locale("en"));
                                         break;
@@ -65,6 +65,7 @@ public class AjustesReparActivity extends Fragment {
                                 }
                                 res.updateConfiguration(conf, dm);
                                 dialog.cancel();
+                                getActivity().finish();
                             }
                         });
                         AlertDialog alert = builder.create();

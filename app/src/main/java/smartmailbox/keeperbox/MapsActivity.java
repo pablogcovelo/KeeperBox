@@ -347,10 +347,17 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
-        LatLng originPoint = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint,15));
-        Log.d(TAG, String.valueOf(originPoint));
+        if(locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
+            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
+            if(location != null){
+                LatLng originPoint = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint, 15));
+                Log.d(TAG, String.valueOf(originPoint));
+            }else{
+                System.out.println("******location es null *****");
+            }
+
+        }
         /*LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
