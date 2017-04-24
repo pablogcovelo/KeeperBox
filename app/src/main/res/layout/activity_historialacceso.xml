@@ -67,7 +67,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="80dp"
             android:layout_marginTop="60dp"
-            android:text="Nombre"
+            android:text="@string/nombre"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -84,7 +84,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginTop="60dp"
             android:layout_toEndOf="@+id/historial_nombre"
-            android:text="Fecha"
+            android:text="@string/fecha"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
     </RelativeLayout>

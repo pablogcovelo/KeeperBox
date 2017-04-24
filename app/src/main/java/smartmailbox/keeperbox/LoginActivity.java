@@ -58,8 +58,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
     }
 
     public void login() {
-        Log.d(TAG, "Login");
-
         String useremail = user_email.getText().toString();
         String passwd = password.getText().toString();
         String email;
@@ -86,8 +84,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
             return;
         }
 
-       /* Intent intent = new Intent(LoginActivity.this, NavDrawReparActivity.class);
-        startActivity(intent);*/
 
         JSONObject json =  new JSONObject();
         try {
@@ -97,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(json);
         progressBar.setVisibility(View.VISIBLE);
 
         Peticion peticion = new Peticion(LoginActivity.this);
@@ -112,7 +107,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
         GoogleApiAvailability apiAvail = GoogleApiAvailability.getInstance();
         int errorCode = apiAvail.isGooglePlayServicesAvailable(this);
         String msg = "Play Services: " + apiAvail.getErrorString(errorCode);
-        Log.d(TAG, msg);
     }
 
     @Override
@@ -129,8 +123,6 @@ public class LoginActivity extends AppCompatActivity implements Request {
             }
 
             if (valido.equalsIgnoreCase("1")) {
-                System.out.println("Login correcto");
-
                 if (row.getString("tipo_usuario").equals("0") || row.getString("tipo_usuario").equals("1")) {
                     Intent intent = new Intent(LoginActivity.this, NavDrawPropActivity.class);
                     intent.putExtra("datos", row.toString());
@@ -156,8 +148,8 @@ public class LoginActivity extends AppCompatActivity implements Request {
             }
         }else{
             AlertDialog.Builder builder_localizador = new AlertDialog.Builder(this);
-            builder_localizador.setMessage(getString(R.string.error_red))
-                    .setTitle(getString(R.string.error_conexion))
+            builder_localizador.setMessage(getString(R.string.error_conexion))
+                    .setTitle(getString(R.string.error_red))
                     .setCancelable(false)
                     .setNeutralButton(getString(R.string.accept),
                             new DialogInterface.OnClickListener() {

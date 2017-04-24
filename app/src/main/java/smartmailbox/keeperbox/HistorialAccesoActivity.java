@@ -52,7 +52,6 @@ public class HistorialAccesoActivity extends Fragment implements Request {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("Keeperbox", json.toString());
 
         Peticion peticion = new Peticion(HistorialAccesoActivity.this);
         peticion.execute("listaRegistros", json.toString());

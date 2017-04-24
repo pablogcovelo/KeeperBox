@@ -2,6 +2,7 @@ package smartmailbox.keeperbox;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_register);
 
         Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, Variable.TOKEN);
 
         scrollView_register = (ScrollView) findViewById(R.id.scroll_register);
         usuario = (EditText) findViewById(R.id.usuario);
@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     json.put("qcontrasena", contrasena.getText());
                     json.put("qnombre", nombre.getText());
                     json.put("qapellidos", apellidos.getText());
-                    json.put("qNFC", "3452asdf"); // TODO
+                    json.put("qNFC", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID).getBytes());
                     json.put("qtipo_usuario", "1");
                     json.put("qcod_buzon", idbuzon.getText());
                     json.put("qpais", pais.getText());
@@ -98,7 +98,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Registro " + json);
                 Peticion peticion = new Peticion(RegisterActivity.this);
                 peticion.execute("nuevoUsuario", json.toString());
             }
@@ -117,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     json.put("contrasena", contrasena.getText());
                     json.put("nombre", nombre.getText());
                     json.put("apellidos", apellidos.getText());
-                    json.put("NFC", "1234");
+                    json.put("NFC", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                     json.put("tipo_usuario", "2");
                     json.put("cod_buzon", JSONObject.NULL);
                     json.put("pais", JSONObject.NULL);
@@ -134,7 +133,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Registro " + json);
                 Peticion peticion = new Peticion(RegisterActivity.this);
                 peticion.execute("nuevoUsuario", json.toString());
             }
@@ -159,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             correo_electronico.setError(getResources().getString(R.string.tamano1));
             return;
         }
-        if (correo_electronico.getText().toString().contains("@")) {
+        if (!correo_electronico.getText().toString().contains("@")) {
             correo_electronico.setError(getResources().getString(R.string.correo_mal));
             return;
         }
@@ -389,8 +387,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     intent.putExtra("datos", row.toString());
                     startActivity(intent);
                 }
-            } else
-                System.out.println("Login incorrecto");
+            }
         }
     }
 }

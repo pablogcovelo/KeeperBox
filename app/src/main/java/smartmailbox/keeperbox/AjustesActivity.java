@@ -84,6 +84,7 @@ public class AjustesActivity extends Fragment{
                                 }
                                 res.updateConfiguration(conf, dm);
                                 dialog.cancel();
+                                getActivity().finish();
                             }
                         });
                         AlertDialog alert = builder.create();

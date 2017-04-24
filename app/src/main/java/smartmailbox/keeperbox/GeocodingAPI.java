@@ -32,10 +32,8 @@ public class GeocodingAPI {
 
         urls = setURLs(waypoints);
         for(int i = 0; i < urls.size(); i++) {
-            Log.d(TAG,urls.get(i));
             String jsonContent = (new DownloadJSON().execute(urls.get(i))).get();
             if (!jsonContent.isEmpty()) {
-                Log.d(TAG,jsonContent);
                 List<GeocodingGSONFormat.ResultsBean> resultsBean;
 
                 //Create Gson object and get the values from JSON url body (for this using DirectionsGSONFormat class)
@@ -47,8 +45,6 @@ public class GeocodingAPI {
                     double lat = responseObj.getResults().get(x).getGeometry().getLocation().getLat();
                     double lng = responseObj.getResults().get(x).getGeometry().getLocation().getLng();
                     latlng.add(new LatLng(lat, lng));
-                    Log.d(TAG, String.valueOf(lat));
-                    Log.d(TAG, String.valueOf(lng));
                 }
             }
         }
@@ -112,7 +108,6 @@ public class GeocodingAPI {
             } finally {
                 urlConnection.disconnect();
             }
-            Log.d(TAG, jsonResult.toString());
             return null;
         }
     }

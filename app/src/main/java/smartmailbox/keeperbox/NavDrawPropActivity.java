@@ -67,7 +67,6 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
                 if(!token_recibido.equals(Variable.TOKEN)){
-                    Log.d(TAG, Variable.TOKEN);
                     JSONObject json =  new JSONObject();
                     try {
                         json.put("qNFC",NFC);
