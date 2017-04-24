@@ -71,7 +71,7 @@ public class AlertasDinamica extends Fragment implements Request {
             case "Nueva solicitud de acceso al buzón.":
                 textViewNombre.setText(R.string.nueva_sol_buzon);
                 textViewNombre.setOnClickListener(new View.OnClickListener() {
-                    @Override//TODO tipo 3
+                    @Override
                     public void onClick(View v) {
                         fragment = new SolicitudesPendActivity(NFC, localizador, id_usuario);
                         realizar_consulta("3");

@@ -115,12 +115,6 @@ public class UsuariosRegistradosDinamica extends Fragment implements Request{
     public void onRequestCompleted(JSONArray response) throws JSONException {
         if(response != null) {
             toggleButton.setEnabled(true);
-            JSONObject row = response.getJSONObject(0);
-            String NFCerroneo = row.getString("error");
-            if (!NFCerroneo.contains("correcto")) {
-
-                System.out.println("Ha ocurrido un error con el NFC: " + NFCerroneo);
-            }
         }
     }
 }

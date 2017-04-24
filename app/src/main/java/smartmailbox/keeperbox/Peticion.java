@@ -73,7 +73,6 @@ public class Peticion extends AsyncTask<String, Object, String> {
 
             // Podemos comprobar el codigo de la respuesta HTTP
             ////if(connection.getResponseCode() == HttpURLConnection.HTTP_OK)
-            System.out.println("CODIGO: " + urlConnection.getResponseCode());
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
@@ -116,16 +115,11 @@ public class Peticion extends AsyncTask<String, Object, String> {
         super.onPostExecute(s);
         JSONArray json = null;
         try {
-            System.out.println("*********** " + s + " ***********");
-
              if (s!=null) {
                  if (!s.contains("]"))
                      s = "[" + s + "]";
                  json = new JSONArray(s);
              }
-            System.out.println("*********** RESPONSE ss ***********");
-            System.out.println("*********** " + json + " ***********");
-
             requestCompleted.onRequestCompleted(json);
 
         } catch (JSONException e) {
@@ -141,7 +135,6 @@ public class Peticion extends AsyncTask<String, Object, String> {
                     InetAddress inetAddress = (InetAddress) enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()&&inetAddress instanceof Inet4Address) {
                         String ipAddress=inetAddress.getHostAddress().toString();
-                        Log.e("IP address",""+ipAddress);
                         return ipAddress;
                     }
                 }

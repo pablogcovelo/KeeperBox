@@ -83,17 +83,13 @@ public class CardService extends HostApduService {
     // BEGIN_INCLUDE(processCommandApdu)
     @Override
     public byte[] processCommandApdu(byte[] commandApdu, Bundle extras) {
-        System.out.println("*******NFC**********");
         // If the APDU matches the SELECT AID command for this service,
         // send the loyalty card account number, followed by a SELECT_OK status trailer (0x9000).
 
         //if (Arrays.equals(SELECT_APDU, commandApdu)) {
-            System.out.println("APDU: " +commandApdu);
             String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        System.out.println("ID (string): " + id);
 
         byte[] accountBytes = id.getBytes();
-        System.out.println("ID (byte[]): " + ConcatArrays(accountBytes, SELECT_OK_SW));
 
         return accountBytes;
         //return ConcatArrays(accountBytes, SELECT_OK_SW);
@@ -172,7 +168,6 @@ public class CardService extends HostApduService {
         byte[] result = Arrays.copyOf(first, totalLength);
         int offset = first.length;
         for (byte[] array : rest) {
-            System.arraycopy(array, 0, result, offset, array.length);
             offset += array.length;
         }
         return result;

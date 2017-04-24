@@ -6,8 +6,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class MapsActivity extends Fragment implements OnMapReadyCallback, Request {
+public class MapsActivity extends Fragment implements OnMapReadyCallback, Request, LocationListener {
 
     String NFC;
 
@@ -66,7 +66,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
     private DirectionsURL directionsurl = new DirectionsURL();
     private GoogleMap mMap;
 
-    public MapsActivity(String NFC) {this.NFC = NFC;}
+    public MapsActivity(String NFC) {
+        this.NFC = NFC;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +80,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
         try {
             json.put("qNFC", NFC);
         } catch (JSONException e) {
-            Log.d(TAG,e.getMessage());
+            Log.d(TAG, e.getMessage());
         }
 
         Peticion peticion = new Peticion(MapsActivity.this);
@@ -133,76 +135,72 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
      */
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        if (response != null)
-            Log.d(TAG, String.valueOf(response.length()));
-        for (int i = 0; i < response.length(); i++) {
-            JSONObject row = response.getJSONObject(i);
-            String calle = row.getString("calle");
-            String numero = row.getString("numero");
-            String ciudad = row.getString("ciudad");
+        if(response != null) {
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject row = response.getJSONObject(i);
+                String calle = row.getString("calle");
+                String numero = row.getString("numero");
+                String ciudad = row.getString("ciudad");
 
-            /**
-             * Construimos la cadena sin espacios correspondiente a las calles
-             */
-            String[] cadCalle = calle.split(" ");
-            for(int x = 0; x < cadCalle.length; x++) {
-                if (x == 0) {
-                    calle = cadCalle[x];
-                } else {
-                    if (x == cadCalle.length - 1) {
-                        calle = calle + "+" + cadCalle[x];
+                /**
+                 * Construimos la cadena sin espacios correspondiente a las calles
+                 */
+                String[] cadCalle = calle.split(" ");
+                for (int x = 0; x < cadCalle.length; x++) {
+                    if (x == 0) {
+                        calle = cadCalle[x];
                     } else {
-                        if (x < cadCalle.length - 1) {
+                        if (x == cadCalle.length - 1) {
                             calle = calle + "+" + cadCalle[x];
+                        } else {
+                            if (x < cadCalle.length - 1) {
+                                calle = calle + "+" + cadCalle[x];
+                            }
                         }
                     }
                 }
-            }
 
-            /**
-             * Construimos la cadena sin espacios correspondiente a las ciudades
-             */
-            String[] cadCiudad = ciudad.split(" ");
-            for(int j = 0; j < cadCiudad.length; j++) {
-                if (j == 0) {
-                    ciudad = cadCiudad[j];
-                } else {
-                    if (j == cadCiudad.length - 1) {
-                        ciudad = ciudad + "+" + cadCiudad[j];
+                /**
+                 * Construimos la cadena sin espacios correspondiente a las ciudades
+                 */
+                String[] cadCiudad = ciudad.split(" ");
+                for (int j = 0; j < cadCiudad.length; j++) {
+                    if (j == 0) {
+                        ciudad = cadCiudad[j];
                     } else {
-                        if (j < cadCiudad.length - 1) {
+                        if (j == cadCiudad.length - 1) {
                             ciudad = ciudad + "+" + cadCiudad[j];
+                        } else {
+                            if (j < cadCiudad.length - 1) {
+                                ciudad = ciudad + "+" + cadCiudad[j];
+                            }
                         }
                     }
                 }
-            }
 
-            /**
-             * Construimos la cadena completa para poder realizar las consultas a los servidreso de Google usando las URL
-             */
-            if(i == 0) {
-                waypoints = calle + "," + numero + ",+" + ciudad;
-            } else {
-                if (i == response.length() - 1) {
-                    waypoints = waypoints + "|" + calle + ",+" + numero + ",+" + ciudad;
+                /**
+                 * Construimos la cadena completa para poder realizar las consultas a los servidreso de Google usando las URL
+                 */
+                if (i == 0) {
+                    waypoints = calle + "," + numero + ",+" + ciudad;
                 } else {
-                    if (i < response.length() - 1) {
+                    if (i == response.length() - 1) {
                         waypoints = waypoints + "|" + calle + ",+" + numero + ",+" + ciudad;
+                    } else {
+                        if (i < response.length() - 1) {
+                            waypoints = waypoints + "|" + calle + ",+" + numero + ",+" + ciudad;
+                        }
                     }
                 }
+                /**
+                 * Almacenamos las direcciones en un array para obtener su geolocalizacion en formato LatLong
+                 */
+                streets.add(calle + ",+" + numero + ",+" + ciudad);
             }
-            /**
-             * Almacenamos las direcciones en un array para obtener su geolocalizacion en formato LatLong
-             */
-            streets.add(calle + ",+" + numero + ",+" + ciudad);
         }
 
         try {
             MapMarkers = geocodingAPI.getLatLong(streets);
-            Log.d("Markers", String.valueOf(MapMarkers.size()));
-            for(int h = 0; h < MapMarkers.size(); h++) {
-                Log.d("Markers", String.valueOf(MapMarkers.get(h)));
-            }
 
             TraceRoute();
         } catch (ExecutionException e) {
@@ -210,7 +208,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.d(TAG,waypoints);
     }
 
     /**
@@ -221,8 +218,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
      * @throws InterruptedException
      */
     public void TraceRoute() throws ExecutionException, InterruptedException {
-        String urlResponse = directionsurl.getURL(ORIGIN, DESTINATION,waypoints);
-        Log.d(TAG, urlResponse);
+        String urlResponse = directionsurl.getURL(ORIGIN, DESTINATION, waypoints);
         // Trigger Async Task (onPreExecute method)
         String jsonContent = (new DownloadJSON().execute(urlResponse)).get();
         if (!jsonContent.isEmpty()) {
@@ -246,10 +242,31 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
             polyline = mMap.addPolyline(polylineOptions);
 
             //Add markers on destination points
-            for(int i = 0; i < MapMarkers.size(); i++) {
+            for (int i = 0; i < MapMarkers.size(); i++) {
                 mMap.addMarker(new MarkerOptions().position(MapMarkers.get(i)));
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        LatLng originPoint = new LatLng(location.getLatitude(),location.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint,15));
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 
     /**
@@ -286,7 +303,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
             } finally {
                 urlConnection.disconnect();
             }
-            Log.d(TAG, jsonResult.toString());
             return null;
         }
     }
@@ -344,24 +360,16 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Reques
                 // result of the request.
             }
         }
-
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        if(locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
-            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
-            if(location != null){
+        if (locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
+            Location location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+            if (location != null) {
                 LatLng originPoint = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(originPoint, 15));
-                Log.d(TAG, String.valueOf(originPoint));
-            }else{
-                System.out.println("******location es null *****");
+            } else {
+                locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 1000, 0, MapsActivity.this);
             }
-
         }
-        /*LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));*/
     }
 
     @Override

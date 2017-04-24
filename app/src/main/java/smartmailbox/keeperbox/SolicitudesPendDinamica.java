@@ -88,7 +88,6 @@ public class SolicitudesPendDinamica extends Fragment implements Request {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("KeeperBox", json.toString());
         Peticion peticion = new Peticion(SolicitudesPendDinamica.this);
         peticion.execute("resolverPetPend", json.toString());
     }
