@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/solicitar_permiso"
@@ -21,7 +22,8 @@
             android:title="@string/mapa_rutas"/>
         <item
             android:id="@+id/alertas"
-            android:title="@string/alertas"/>
+            android:title="@string/alertas"
+            app:actionLayout="@layout/menu_counter"/>
         <item
             android:id="@+id/ajustes"
             android:title="@string/ajustes"/>

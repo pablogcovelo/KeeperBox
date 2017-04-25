@@ -33,10 +33,10 @@ public class HistorialAccesoActivity extends Fragment implements Request {
         Button weekButton = (Button) InputFragmentView.findViewById(R.id.btn_week);
 
         monthButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { intervalo = "month"; limpiar(); hacerPeticion(); }
+            public void onClick(View v) { intervalo = "month"; hacerPeticion(); }
         });
         weekButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { intervalo = "week"; limpiar(); hacerPeticion(); }
+            public void onClick(View v) { intervalo = "week"; hacerPeticion(); }
         });
         hacerPeticion();
 
@@ -70,6 +70,7 @@ public class HistorialAccesoActivity extends Fragment implements Request {
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
         if (response!=null)
+            limpiar();
             for (int i = 0; i < response.length(); i++) {
                 JSONObject row = response.getJSONObject(i);
                 String nombre = row.getString("nombre");

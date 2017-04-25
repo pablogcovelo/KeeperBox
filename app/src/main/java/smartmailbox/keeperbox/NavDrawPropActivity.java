@@ -67,6 +67,7 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
 
                 Variable.TOKEN = FirebaseInstanceId.getInstance().getToken();
                 if(!token_recibido.equals(Variable.TOKEN)){
+                    Log.d(TAG, Variable.TOKEN);
                     JSONObject json =  new JSONObject();
                     try {
                         json.put("qNFC",NFC);
@@ -192,12 +193,16 @@ public class NavDrawPropActivity extends AppCompatActivity implements Request{
         boolean esavisos = false;
         if (response!=null) {
             for (int i = 0; i < response.length(); i++) {
-                JSONObject row = response.getJSONObject(i);
-                String mensaje_alerta = row.getString("mensaje_alerta");
-                if(!mensaje_alerta.isEmpty() || !mensaje_alerta.equals("null")){
-                    esavisos = true;
+
+                try{
+                    JSONObject row = response.getJSONObject(i);
+                    String mensaje_alerta = row.getString("mensaje_alerta");
+                    if(!mensaje_alerta.isEmpty() || !mensaje_alerta.equals("null")){
+                        esavisos = true;
+                    }
+                    break;
+                }catch (JSONException e){
                 }
-                break;
             }
             if (esavisos) {
                 setMenuCounter(R.id.alertas, response.length());
