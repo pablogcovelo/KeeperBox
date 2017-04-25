@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     json.put("qcontrasena", contrasena.getText());
                     json.put("qnombre", nombre.getText());
                     json.put("qapellidos", apellidos.getText());
-                    json.put("qNFC", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID).getBytes());
+                    json.put("qNFC", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                     json.put("qtipo_usuario", "1");
                     json.put("qcod_buzon", idbuzon.getText());
                     json.put("qpais", pais.getText());

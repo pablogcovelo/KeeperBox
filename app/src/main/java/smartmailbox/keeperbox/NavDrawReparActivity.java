@@ -2,6 +2,7 @@ package smartmailbox.keeperbox;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -178,8 +180,37 @@ public class NavDrawReparActivity extends AppCompatActivity implements Request {
 
     @Override
     public void onRequestCompleted(JSONArray response) throws JSONException {
-        if (response != null) {
-            JSONObject row = response.getJSONObject(0);
+        boolean esavisos = false;
+        if (response!=null) {
+            for (int i = 0; i < response.length(); i++) {
+
+                try{
+                    JSONObject row = response.getJSONObject(i);
+                    String mensaje_alerta = row.getString("mensaje_alerta");
+                    if(!mensaje_alerta.isEmpty() || !mensaje_alerta.equals("null")){
+                        esavisos = true;
+                    }
+                    break;
+                }catch (JSONException e){
+                }
+            }
+            if (esavisos) {
+                setMenuCounter(R.id.alertas, response.length());
+            }
+        }else{
+            setMenuCounter(R.id.alertas, 0);
         }
+    }
+
+    private void setMenuCounter(@IdRes int itemId, int count) {
+        TextView view = (TextView) navView.getMenu().findItem(itemId).getActionView();
+        if(count == 0){
+            view.setVisibility(View.INVISIBLE);
+            view.setText("");
+        }else{
+            view.setVisibility(View.VISIBLE);
+            view.setText(Integer.toString(count));
+        }
+
     }
 }
